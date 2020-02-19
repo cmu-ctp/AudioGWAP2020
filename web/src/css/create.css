@@ -1,0 +1,374 @@
+
+
+.Brief {
+    width: 85%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.Brief span {
+    color: #4F4F84;
+    font-size: 85%;
+    margin: 0 auto;
+    float: left;
+}
+
+.Category div.body {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    height: 82.86%;
+}
+
+.Category {
+    border-radius: 25px;
+    background: white;
+    position: relative;
+    width: 100%;
+    height: 44.06%;
+    margin-top: 3%;
+    overflow: hidden;
+}
+
+.Category div.frame {
+    overflow: hidden;
+    width: 100%;
+    height: 17.14%;
+}
+
+.Category div.background {
+    border-radius: 25px;
+    width: 100%;
+    height: 180%;
+    background: linear-gradient(to right ,#D179C3, #6F8AE5);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.Category div.frame span {
+    color: white !important;
+    position: relative;
+    margin-left: 3%;
+    margin-top: 1.8%;
+    font-size: 115%;
+}
+
+.CheckboxHead label {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.CheckboxHead span {
+    margin-left: 6%;
+    font-size: 80%;
+    color: #7577FF;
+    font-family: adobe-heiti-std, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.Checkbox span {
+    font-size: 70%;
+}
+
+
+.Circle {
+    width: 50px;
+    height: 50px;
+    background: white;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.CircleEmpty {
+    width: 50px;
+    height: 50px;
+    background: #D179C3;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    margin: 10px;
+}
+
+.CircleSelected {
+    width: 50px;
+    height: 50px;
+    background: url("/img/circle_selected.png") no-repeat center center;
+    background-size: contain;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Create {
+    height: 100%;
+    width: 100%;
+}
+
+.CreateBody {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.Description {
+    border-radius: 25px;
+    background: white;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.Description div.frame {
+    overflow: hidden;
+    width: 100%;
+    height: 10%;
+}
+
+.Description div.background {
+    border-radius: 25px;
+    width: 100%;
+    height: 180%;
+    background: linear-gradient(to right ,#6F8AE5, #3B3865);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.Description div.body {
+    position: relative;
+    width: 100%;
+    height: 90.98%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.Description div.frame span {
+    color: white;
+    position: relative;
+    margin-left: 7.5%;
+    margin-top: 4.9%;
+    font-size: 115%;
+}
+
+.FirstPanel {
+    position: relative;
+    width: 66%;
+    height: 100%;
+    margin-left: 5.06%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.HorizLine {
+    width:100%;
+    height:1px;
+    margin:5px auto;
+    padding:0;
+    background-color:#7576FE;
+    overflow:hidden;
+}
+
+.Item {
+    overflow: scroll;
+    flex: 1;
+}
+
+.ObjectOption {
+    position: relative;
+    height: 68.12%;
+    width: 100%;
+    display: flex;
+}
+
+.ObjectOption img {
+    max-height: 100%;
+    max-width: 100%;
+    display: block;
+    margin: auto;
+    width: 70%;
+}
+
+.Row {
+    margin: auto;
+    position: relative;
+    height: 100%;
+    width: 13%;
+    display: flex;
+    flex-direction: column;
+}
+
+.Row p {
+    position: relative;
+    margin-top: 1%;
+    text-align: center;
+    color: black;
+    font-size: 12px;
+}
+
+.SecondPanel {
+    position: relative;
+    width: 22%;
+    height: 100%;
+    margin-left: 4%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1.9%;
+    padding-bottom: 3.5%;
+}
+
+.Submit {
+    border-radius: 15px;
+    background: linear-gradient(to right ,#E196B7, #A64BB5);
+    width: 100%;
+    flex: 0.08;
+    margin-top: 10%;
+}
+
+.Submit span {
+    color: white;
+}
+
+.Theme div.body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 79.74%;
+}
+
+.Theme {
+    border-radius: 25px;
+    background: white;
+    width: 100%;
+    height: 37.27%;
+
+    margin-top: 10%;
+}
+
+.Theme div.frame {
+    overflow: hidden;
+    width: 100%;
+    height: 20.26%;
+}
+
+.Theme div.background {
+    border-radius: 25px;
+    width: 100%;
+    height: 180%;
+    background: linear-gradient(to right ,#D179C3, #6F8AE5);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.Theme span {
+    color: white;
+
+    margin-left: 3%;
+    margin-top: 1.8%;
+    font-size: 115%;
+}
+
+.ThemeBody {
+
+    height: 80%;
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+}
+
+.ThemeBody img {
+    width:auto;
+    max-height:100%;
+}
+
+
+.ThemeBody img {
+    width: 100%;
+    height: 100%;
+}
+
+.ThemeImageBlock {
+
+    width: 90%;
+    height: 90%;
+    border-radius: 15px;
+    margin: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ThemeSelected {
+    width: 33%;
+    height: 90%;
+    border-radius: 15px;
+    background: #D179C3;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ThemeUnselected {
+    width: 33%;
+    height: 90%;
+    border-radius: 15px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Time {
+    width: 85%;
+    margin: auto;
+    overflow-x: visible;
+}
+
+.TimeSpan {
+    color: #4F4F84;
+    font-size: 85%;
+    margin: 0 auto;
+    float: left;
+}
+
+.Title {
+    width: 85%;
+    margin: auto;
+}
+
+.Title span {
+    color: #4F4F84;
+    font-size: 85%;
+    margin: 0 auto;
+    float: left;
+}
+
+.vl {
+    border-left: 1px solid #7576FE;
+    height: 90%;
+    margin-top: 5%;
+}

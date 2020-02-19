@@ -1,0 +1,229 @@
+.background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.background span {
+    font-size: 115%;
+}
+
+.Buttons {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.Buttons span {
+    color: white;
+    font-size: 80%;
+}
+
+.Edit {
+    border-radius: 10px;
+    background: #A64BB5;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.Event {
+    height: 100%;
+    width: 33%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.Event div.EventCard {
+    width: 100%;
+    flex: 9;
+    margin-bottom: 5%;
+    margin-top: 6%;
+    border-radius: 20px;
+    background: white;
+    overflow: hidden;
+}
+
+.EventPast div.EventCard {
+    width: 100%;
+    flex: 9;
+    margin-bottom: 10%;
+    margin-top: 12%;
+    border-radius: 20px;
+    background: white;
+    overflow: hidden;
+}
+
+.EventLink {
+    width: 30%;
+    margin: auto;
+    height: 90%;
+    display: flex;
+    overflow: hidden;
+}
+
+.EventLinkPast {
+    width: 40%;
+    flex: 1;
+    margin: auto;
+}
+
+.EventLinkPast span {
+    color: white;
+    font-size: 75%;
+}
+
+
+.EventPast {
+    height: 90%;
+    width: 22%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.EventPast div.EventCard span {
+    font-size: 90%;
+}
+
+.EventPic {
+    background: url("/img/island.jpg");
+    height: 70%;
+    width: 100%;
+    background-size: cover;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.EventTitle {
+    margin-left: 10%;
+    margin-bottom: 5%;
+}
+
+.EventTitle span {
+    color: black;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+
+.Host {
+    margin-left: 8%;
+}
+
+.MyEventBody {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.NoPageLeft {
+    width: 2%;
+    height: 20%;
+    margin-left: 5%;
+}
+
+.NoPageRight {
+    width: 2%;
+    height: 20%;
+    margin-right: 5%;
+}
+
+.PageLeft {
+    background: url("/img/page_left.png") no-repeat center;
+    background-size: cover;
+    width: 2%;
+    height: 20%;
+    margin-left: 5%;
+}
+
+.PageRight {
+    background: url("/img/page_right.png") no-repeat center;
+    background-size: cover;
+    width: 2%;
+    height: 20%;
+    margin-right: 5%;
+}
+
+.Past {
+    border-radius: 15px;
+    background: linear-gradient(to right ,#D179C3, #6F8AE5);
+    width: 90%;
+    margin-top: 2.82%;
+    margin-left: 5%;
+    flex: 1;
+}
+
+.Past span {
+    color: white;
+    margin-left: 2.7%;
+}
+
+.PastEvents {
+    flex: 8;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.Start {
+    margin: auto;
+    border-radius: 10px;
+    background: #A64BB5;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    height: 90%;
+}
+
+.Upcoming {
+    border-radius: 15px;
+    background: linear-gradient(to right ,#D179C3, #6F8AE5);
+    width: 90%;
+    margin-top: 2.82%;
+    margin-left: 5%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.Upcoming div.frame {
+    flex: 1;
+}
+
+.Upcoming div.body {
+    flex: 4;
+}
+
+
+.Upcoming span {
+    color: white;
+    margin-left: 2.7%;
+}
+
+.UpcomingEvents {
+    flex: 8;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.View {
+    border-radius: 10px;
+    background: #A64BB5;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+

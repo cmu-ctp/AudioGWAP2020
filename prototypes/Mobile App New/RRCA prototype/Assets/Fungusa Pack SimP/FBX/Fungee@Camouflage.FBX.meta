@@ -1,0 +1,207 @@
+fileFormatVersion: 2
+guid: 40d921e3109c9e344bbd96cc33829c9c
+timeCreated: 1490709134
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Fungee
+    100002: //RootNode
+    100004: Rig
+    100006: RigHead
+    100008: RigHeadGizmo
+    100010: RigLBLeg1
+    100012: RigLBLeg2
+    100014: RigLBLegAnkle
+    100016: RigLBLegPlatform
+    100018: RigLFLeg1
+    100020: RigLFLeg2
+    100022: RigLFLegAnkle
+    100024: RigLFLegPlatform
+    100026: RigPelvis
+    100028: RigPelvisGizmo
+    100030: RigRBLeg1
+    100032: RigRBLeg2
+    100034: RigRBLegAnkle
+    100036: RigRBLegPlatform
+    100038: RigRFLeg1
+    100040: RigRFLeg2
+    100042: RigRFLegAnkle
+    100044: RigRFLegPlatform
+    100046: RigSpine1
+    100048: RigSpine2
+    100050: RigSpine3
+    100052: RigSpine4
+    400000: Fungee
+    400002: //RootNode
+    400004: Rig
+    400006: RigHead
+    400008: RigHeadGizmo
+    400010: RigLBLeg1
+    400012: RigLBLeg2
+    400014: RigLBLegAnkle
+    400016: RigLBLegPlatform
+    400018: RigLFLeg1
+    400020: RigLFLeg2
+    400022: RigLFLegAnkle
+    400024: RigLFLegPlatform
+    400026: RigPelvis
+    400028: RigPelvisGizmo
+    400030: RigRBLeg1
+    400032: RigRBLeg2
+    400034: RigRBLegAnkle
+    400036: RigRBLegPlatform
+    400038: RigRFLeg1
+    400040: RigRFLeg2
+    400042: RigRFLegAnkle
+    400044: RigRFLegPlatform
+    400046: RigSpine1
+    400048: RigSpine2
+    400050: RigSpine3
+    400052: RigSpine4
+    4300000: Fungee
+    7400000: Camouflage
+    9500000: //RootNode
+    13700000: Fungee
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Camouflage
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 5
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Fungee
+        weight: 1
+      - path: Rig
+        weight: 1
+      - path: RigHeadGizmo
+        weight: 1
+      - path: RigLBLegPlatform
+        weight: 1
+      - path: RigLFLegPlatform
+        weight: 1
+      - path: RigPelvis
+        weight: 1
+      - path: RigPelvis/RigLBLeg1
+        weight: 1
+      - path: RigPelvis/RigLBLeg1/RigLBLeg2
+        weight: 1
+      - path: RigPelvis/RigLBLeg1/RigLBLeg2/RigLBLegAnkle
+        weight: 1
+      - path: RigPelvis/RigLFLeg1
+        weight: 1
+      - path: RigPelvis/RigLFLeg1/RigLFLeg2
+        weight: 1
+      - path: RigPelvis/RigLFLeg1/RigLFLeg2/RigLFLegAnkle
+        weight: 1
+      - path: RigPelvis/RigRBLeg1
+        weight: 1
+      - path: RigPelvis/RigRBLeg1/RigRBLeg2
+        weight: 1
+      - path: RigPelvis/RigRBLeg1/RigRBLeg2/RigRBLegAnkle
+        weight: 1
+      - path: RigPelvis/RigRFLeg1
+        weight: 1
+      - path: RigPelvis/RigRFLeg1/RigRFLeg2
+        weight: 1
+      - path: RigPelvis/RigRFLeg1/RigRFLeg2/RigRFLegAnkle
+        weight: 1
+      - path: RigPelvis/RigSpine1
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigSpine4
+        weight: 1
+      - path: RigPelvis/RigSpine1/RigSpine2/RigSpine3/RigSpine4/RigHead
+        weight: 1
+      - path: RigPelvisGizmo
+        weight: 1
+      - path: RigRBLegPlatform
+        weight: 1
+      - path: RigRFLegPlatform
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

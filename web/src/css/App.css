@@ -1,0 +1,22 @@
+.App {
+  height: 100vh;
+  width: 100%;
+}
+
+.Background {
+  height: 100%;
+  width: 100%;
+  background: #C4BBF0;
+  background-size: cover;
+  display: flex;
+  flex-direction: row;
+}
+
+.AppBodyL {
+  flex: 1;
+  font-size: 150%;
+}
+
+.AppBodyS {
+  flex: 1;
+}

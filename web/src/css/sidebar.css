@@ -1,0 +1,133 @@
+.Bar250 {
+    background: linear-gradient(#E196B7, #A64BB5);
+    width: 250px;
+    float: left;
+}
+
+.Bar300 {
+    background: linear-gradient(#E196B7, #A64BB5);
+    width: 300px;
+    float: left;
+}
+
+.Bar400 {
+    background: linear-gradient(#E196B7, #A64BB5);
+    width: 400px;
+    float: left;
+}
+
+.CreateEvent {
+    position: relative;
+    width: 100%;
+    height: 17.51%;
+    display: flex;
+    align-items: center;
+}
+
+.CreateSelected {
+    background: url("/img/create_selected.png") no-repeat center center;
+    background-size: contain;
+    margin: 0 auto;
+    position: relative;
+    left: -7.89%;
+    height: 60.08%;
+    width: 53.23%;
+    /*top: 3vh;*/
+}
+
+.CreateNotSelected {
+    background: url("/img/create_notselected.png") no-repeat center center;
+    background-size: contain;
+    margin: 0 auto;
+    position: relative;
+    height: 60.08%;
+    width: 53.23%;
+    /*top: 3vh;*/
+}
+
+.EventSelected {
+    height: 60.08%;
+    width: 53.23%;
+    background: url("/img/myevent_selected.png") no-repeat center center;
+    background-size: contain;
+    margin: auto;
+    position: relative;
+    left: -7.89%;
+}
+
+.EventNotSelected {
+    height: 60.08%;
+    width: 53.23%;
+    background: url("/img/myevent_notselected.png") no-repeat center center;
+    background-size: contain;
+    margin: auto;
+    position: relative;
+}
+
+.Link {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.MyEvent {
+    position: relative;
+    width: 100%;
+    height: 17.51%;
+    display: flex;
+    align-items: center;
+}
+
+.Selected {
+    background: #C4BBF0;
+    /*17.62vw*/
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: 7.89%;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.Picture {
+    display: flex;
+    flex-direction: Column;
+    align-items: center;
+    justify-content: center;
+    width: 35%;
+    background: white;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.Picture img {
+    margin: auto;
+    width: 100%;
+    height: auto;
+}
+
+.Signout {
+    background: url("/img/signout.png") no-repeat center center;
+    background-size: contain;
+    width: 46.82%;
+    height: 6%;
+    border-radius: 15px;
+}
+
+.UserContent {
+    position: relative;
+    width: 100%;
+    height: 33.51%;
+    display: flex;
+    flex-direction: Column;
+    align-items: center;
+    justify-content: center;
+}
+
+.UserContent span {
+    margin: 5%;
+    color: white;
+    font-size: 120%;
+}

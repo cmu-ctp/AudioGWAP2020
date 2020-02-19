@@ -1,0 +1,412 @@
+.BackgroundImg {
+    background: url("/img/stat.png") no-repeat;
+    background-size: cover ;
+    flex: 15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    overflow: hidden;
+    width: 90%;
+}
+
+.BotButton {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 89%;
+}
+
+.BotButton img {
+    height: 60%;
+}
+
+.CirclePic {
+    width: 50%;
+    height: 100%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.CloudBackgroundImg {
+    flex: 15;
+    overflow: hidden;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CloudLeft {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.CloudRight {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 60%;
+}
+
+.CloudRight span {
+    flex: 1;
+}
+
+.Col {
+    flex: 1;
+}
+
+.ColPic0 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.ColPic1 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.ColPic2 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.Crown {
+    max-width: 25%;
+    position: relative;
+    left: 20%;
+    top: 15%;
+}
+
+.Other {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.OtherTitle {
+    flex: 1;
+    width: 90%;
+    background: url("/img/other_title.png") no-repeat center;
+    background-size: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.OtherTitle span {
+    margin-left: 14%;
+    margin-top: auto;
+    color: purple;
+    font-size: 90%;
+    transform:translateY(-12%);
+}
+
+.OtherCircle {
+    /*background: url("/img/circle.png") no-repeat center;*/
+    /*background-size: contain;*/
+    width: 12%;
+    height: 100%;
+    position: relative;
+    left: -5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.OtherContent {
+    flex: 1;
+    width: 90%;
+    background: url("/img/rank_bar.png") no-repeat center;
+    background-size: contain;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.OtherName {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: white;
+    font-family: adobe-heiti-std, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.OtherNum {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.OtherNum span {
+    margin-right: 50%;
+    color: white;
+    font-family: adobe-heiti-std, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.RankBody {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.RankPic {
+    height: 45%;
+    margin-left: 9%;
+    margin-right: 7%;
+}
+
+.RightBar {
+    background: url("/img/rank_bar.png") no-repeat center;
+    width: 100%;
+    flex: 1;
+    background-size: contain;
+    display: flex;
+    align-items: center;
+}
+
+.RightBar span {
+    position: relative;
+    left: -6%;
+    color: purple;
+    font-family: adobe-heiti-std, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 150%;
+}
+
+.RightCrown {
+    transform:scaleX(-1);
+    width: 10%;
+    position: relative;
+    top: -40%;
+    left: -7%;
+}
+
+.RightSpan {
+    color: #FFE201;
+    font-family: adobe-heiti-std, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 200%;
+    display: flex;
+    align-items: center;
+}
+
+
+.SoundNum {
+    max-height: 30%;
+    overflow: hidden;
+    display: flex;
+    justify-content: left;
+    flex: 1;
+    margin-left: 5%;
+    margin-top: 6%;
+    color: #FF72ED;
+    font-family: adobe-heiti-std, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.SoundNum0 {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    height: 58%;
+    background: url("/img/1bar.png") no-repeat bottom;
+    background-size: cover;
+}
+
+.SoundNum1 {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    height: 43.5%;
+    background: url("/img/2bar.png") no-repeat bottom;
+    background-size: cover;
+    padding-top: 1px;
+}
+
+.SoundNum2 {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    padding-top: 2px;
+    margin-left: 15px;
+    height: 27.5%;
+    background: url("/img/3bar.png") no-repeat bottom;
+    background-size: cover;
+}
+
+.SoundNumPic {
+    flex: 0.9;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5%;
+}
+
+.SoundPic {
+    max-height: 30px;
+    width: auto;
+}
+
+.StatBackground {
+    flex: 1;
+    margin-right: 3%;
+    margin-left: 3%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.TitleImg {
+    max-width: 50%;
+    margin-top: 2%;
+}
+
+.Top3 {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.TopEffect0 {
+    width: 130%;
+    display: flex;
+    flex-direction: column-reverse;
+    background: url("/img/1celeb.png") no-repeat bottom -18% center;
+    background-size: contain;
+    align-items: center;
+    flex: 4;
+}
+
+.TopEffect1 {
+    width: 130%;
+    display: flex;
+    flex-direction: column-reverse;
+    background: url("/img/2celeb.png") no-repeat bottom -5% center;
+    background-size: contain;
+    align-items: center;
+    flex: 4;
+}
+
+.TopEffect2 {
+    width: 130%;
+    display: flex;
+    flex-direction: column-reverse;
+    background: url("/img/3celeb.png") no-repeat bottom -1.5% center;
+    background-size: contain;
+    align-items: center;
+    flex: 4;
+    position: relative;
+    left: 5%;
+}
+
+.TopName0 {
+    width: 100%;
+    height: 14.5%;
+    margin-bottom: 6.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.TopName0 span {
+    font-size: 100%;
+    color: white;
+    margin-bottom: 2%;
+    font-family: adobe-heiti-std, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.TopName1 {
+    width: 100%;
+    height: 5.7%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.TopName1 span {
+    font-size: 100%;
+    color: white;
+    margin-bottom: 2%;
+    font-family: adobe-heiti-std, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.TopName2 {
+    width: 100%;
+    height: 4.6%;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.TopName2 span {
+    font-size: 100%;
+    color: white;
+    margin-bottom: 2%;
+    font-family: adobe-heiti-std, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.UpButton {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    width: 89%;
+}
+
+.UpButton img {
+    height: 60%;
+}
+
+.UserPic {
+    max-width: 100%;
+    border-radius: 50%;
+}

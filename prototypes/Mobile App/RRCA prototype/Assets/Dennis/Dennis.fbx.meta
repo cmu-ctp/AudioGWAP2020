@@ -1,0 +1,585 @@
+fileFormatVersion: 2
+guid: 7c1d548d336c4480c88e41624a13f207
+timeCreated: 1441269287
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: AllJoints
+    100002: AllJoints 1
+    100004: body
+    100006: //RootNode
+    100008: eyeL
+    100010: eyeR
+    100012: hair
+    100014: joint1
+    100016: joint10
+    100018: joint11
+    100020: joint12
+    100022: joint13
+    100024: joint14
+    100026: joint15
+    100028: joint16
+    100030: joint17
+    100032: joint18
+    100034: joint19
+    100036: joint2
+    100038: joint20
+    100040: joint21
+    100042: joint4
+    100044: joint5
+    100046: joint6
+    100048: joint7
+    100050: joint8
+    100052: joint9
+    100054: teethB
+    100056: teethT
+    100058: tongue
+    400000: AllJoints
+    400002: AllJoints 1
+    400004: body
+    400006: //RootNode
+    400008: eyeL
+    400010: eyeR
+    400012: hair
+    400014: joint1
+    400016: joint10
+    400018: joint11
+    400020: joint12
+    400022: joint13
+    400024: joint14
+    400026: joint15
+    400028: joint16
+    400030: joint17
+    400032: joint18
+    400034: joint19
+    400036: joint2
+    400038: joint20
+    400040: joint21
+    400042: joint4
+    400044: joint5
+    400046: joint6
+    400048: joint7
+    400050: joint8
+    400052: joint9
+    400054: teethB
+    400056: teethT
+    400058: tongue
+    2300000: eyeL
+    2300002: eyeR
+    2300004: hair
+    2300006: teethB
+    2300008: teethT
+    3300000: eyeL
+    3300002: eyeR
+    3300004: hair
+    3300006: teethB
+    3300008: teethT
+    4300000: body
+    4300002: tongue
+    4300004: teethB
+    4300006: hair
+    4300008: eyeL
+    4300010: eyeR
+    4300012: teethT
+    7400000: waiting
+    7400002: laughing
+    7400004: jumping
+    7400006: running
+    7400008: yelling
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: body
+    13700002: tongue
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: waiting
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 23
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: AllJoints
+        weight: 1
+      - path: AllJoints/AllJoints 1
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1/joint2
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1/teethB
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/eyeL
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/eyeR
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/hair
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/joint5
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/teethT
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6/joint7
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6/joint7/joint8
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9/joint10
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9/joint10/joint11
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12/joint13
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12/joint13/joint14
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15/joint16
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15/joint16/joint17
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19/joint20
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19/joint20/joint21
+        weight: 1
+      - path: body
+        weight: 1
+      - path: tongue
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: laughing
+      takeName: Take 001
+      firstFrame: 25
+      lastFrame: 37
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: AllJoints
+        weight: 1
+      - path: AllJoints/AllJoints 1
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1/joint2
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1/teethB
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/eyeL
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/eyeR
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/hair
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/joint5
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/teethT
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6/joint7
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6/joint7/joint8
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9/joint10
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9/joint10/joint11
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12/joint13
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12/joint13/joint14
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15/joint16
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15/joint16/joint17
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19/joint20
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19/joint20/joint21
+        weight: 1
+      - path: body
+        weight: 1
+      - path: tongue
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: jumping
+      takeName: Take 001
+      firstFrame: 40
+      lastFrame: 59
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: AllJoints
+        weight: 1
+      - path: AllJoints/AllJoints 1
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1/joint2
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1/teethB
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/eyeL
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/eyeR
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/hair
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/joint5
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/teethT
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6/joint7
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6/joint7/joint8
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9/joint10
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9/joint10/joint11
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12/joint13
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12/joint13/joint14
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15/joint16
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15/joint16/joint17
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19/joint20
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19/joint20/joint21
+        weight: 1
+      - path: body
+        weight: 1
+      - path: tongue
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: running
+      takeName: Take 001
+      firstFrame: 61
+      lastFrame: 72
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: AllJoints
+        weight: 1
+      - path: AllJoints/AllJoints 1
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1/joint2
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1/teethB
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/eyeL
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/eyeR
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/hair
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/joint5
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/teethT
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6/joint7
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6/joint7/joint8
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9/joint10
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9/joint10/joint11
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12/joint13
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12/joint13/joint14
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15/joint16
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15/joint16/joint17
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19/joint20
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19/joint20/joint21
+        weight: 1
+      - path: body
+        weight: 1
+      - path: tongue
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: yelling
+      takeName: Take 001
+      firstFrame: 74
+      lastFrame: 125
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: AllJoints
+        weight: 1
+      - path: AllJoints/AllJoints 1
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1/joint2
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint1/teethB
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/eyeL
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/eyeR
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/hair
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/joint5
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint4/teethT
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6/joint7
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint6/joint7/joint8
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9/joint10
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint9/joint10/joint11
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12/joint13
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint12/joint13/joint14
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15/joint16
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint15/joint16/joint17
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19/joint20
+        weight: 1
+      - path: AllJoints/AllJoints 1/joint18/joint19/joint20/joint21
+        weight: 1
+      - path: body
+        weight: 1
+      - path: tongue
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 120
+    splitTangentsAcrossUV: 1
+    normalImportMode: 1
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
