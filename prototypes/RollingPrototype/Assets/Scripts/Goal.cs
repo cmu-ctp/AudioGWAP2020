@@ -106,7 +106,7 @@ public class Goal : MonoBehaviour
         UpdateText();
     }
 
-    public void UpdateGoal(int num)
+    public void UpdateGoal(int num, GameObject obj)
     {
         //switch (taskType)
         //{
@@ -128,6 +128,7 @@ public class Goal : MonoBehaviour
         if (numGet >= numGoal)
         {
             GameManager.instance.taskCompleted++;
+            GameManager.instance.CompleteBonus(obj);
             StartCoroutine(NextTask());
         }
     }
@@ -138,7 +139,7 @@ public class Goal : MonoBehaviour
     }
 
     IEnumerator NextTask()
-    {
+    {    
         float elapsedTime = 0f;
         while (elapsedTime < moveTime)
         {
@@ -157,4 +158,6 @@ public class Goal : MonoBehaviour
             yield return null;
         }
     }
+
+    
 }

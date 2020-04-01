@@ -2552,7 +2552,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 107070213}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fddd81414704644c89a33b2253f98d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cf4f6837179504499bc5630da0c9e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leaderboard: {fileID: 705442105}
@@ -2561,13 +2561,14 @@ MonoBehaviour:
   minimap: {fileID: 1092179454}
   spawningPoints: {fileID: 1794920809}
   objectSpawner: {fileID: 350583607}
-  recognition: {fileID: 1714962827}
+  recognition: {fileID: 1464292994}
   goal: {fileID: 1010141158}
   ship: {fileID: 1508173203}
   player: {fileID: 1783743921}
   playerCamera: {fileID: 152081080}
   endingCamera: {fileID: 397723089}
-  spawnThreshold: 0.7
+  monsterRainPlane: {fileID: 334011639}
+  spawnThreshold: 0.5
   goalThresholdOutdoor: 0.1
   goalThresholdIndoor: 0.1
   objectsInScene: 0
@@ -8550,6 +8551,99 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 332110309}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &334011635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 334011639}
+  - component: {fileID: 334011638}
+  - component: {fileID: 334011637}
+  - component: {fileID: 334011636}
+  m_Layer: 0
+  m_Name: MonsterRainPlane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!64 &334011636
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334011635}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &334011637
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334011635}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &334011638
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334011635}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &334011639
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334011635}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.98, y: 30, z: -23.63}
+  m_LocalScale: {x: 14.229, y: 1, z: 11.6887}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 31
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &335666727
 PrefabInstance:
   m_ObjectHideFlags: 0

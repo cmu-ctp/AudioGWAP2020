@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 5981209603157739653}
   - component: {fileID: 730981940}
   - component: {fileID: 730981941}
+  - component: {fileID: 3093022588770829761}
   m_Layer: 0
   m_Name: Slug
   m_TagString: Object
@@ -239,6 +240,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 0.4, z: 0.4}
   m_Center: {x: 0, y: 0.18, z: 0}
+--- !u!114 &3093022588770829761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292580440774797658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b02012b0295008438ee9defebe8f439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1292611865296038686
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     GameObject playerCamera;
     [SerializeField]
     GameObject endingCamera;
+    [SerializeField]
+    Transform monsterRainPlane;
 
     [Header("Setting")]
     [SerializeField]
@@ -177,9 +179,9 @@ public class GameManager : MonoBehaviour
         goal.SetGoal();
     }
 
-    public void UpdateGoal(int num)
+    public void UpdateGoal(int num, GameObject obj)
     {
-        goal.UpdateGoal(num);
+        goal.UpdateGoal(num, obj);
     }
 
     public void GameEndWrapper()
@@ -231,5 +233,34 @@ public class GameManager : MonoBehaviour
         goal.gameObject.SetActive(true);
         gameState = GameState.Playing;
         SetGoal();
+    }
+
+    public void CompleteBonus(GameObject obj)
+    {
+        StartCoroutine(MonstrousRain(obj)); 
+    }
+
+    IEnumerator MonstrousRain(GameObject obj)
+    {
+        Vector3 planeMin = monsterRainPlane.GetComponent<MeshFilter>().mesh.bounds.min;
+        Vector3 planeMax = monsterRainPlane.GetComponent<MeshFilter>().mesh.bounds.max;
+        float planeScaleX = monsterRainPlane.localScale.x;
+        float planeScaleZ = monsterRainPlane.localScale.z;
+
+        for (int i = 0; i< 200; i++)
+        {
+            Vector3 randomPos = monsterRainPlane.transform.position -
+            new Vector3(Random.Range(planeMin.x * planeScaleX, planeMax.x * planeScaleX),
+            -monsterRainPlane.transform.position.y,
+            Random.Range(planeMin.z * planeScaleZ, planeMax.z * planeScaleZ));
+
+            GameObject rainObj = Instantiate(obj, randomPos, Quaternion.identity);
+            rainObj.GetComponent<SelfDestruction>().DestroySelf();
+            rainObj.transform.localScale *= 5;
+            rainObj.transform.SetParent(monsterRainPlane);
+            rainObj.GetComponent<Rigidbody>().useGravity = true;
+            rainObj.GetComponent<Rigidbody>().isKinematic = false;
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 }

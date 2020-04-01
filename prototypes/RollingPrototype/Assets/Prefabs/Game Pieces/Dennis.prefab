@@ -1215,6 +1215,7 @@ GameObject:
   - component: {fileID: 2443793637408566814}
   - component: {fileID: 778660245}
   - component: {fileID: 778660246}
+  - component: {fileID: -7166570706471866189}
   m_Layer: 0
   m_Name: Dennis
   m_TagString: Object
@@ -1406,6 +1407,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.015827188, y: 0.023861974, z: 0.015000008}
   m_Center: {x: 0.00031751097, y: -0.0014769356, z: 0}
+--- !u!114 &-7166570706471866189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5463512542117623419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b02012b0295008438ee9defebe8f439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5463512542117623421
 GameObject:
   m_ObjectHideFlags: 0

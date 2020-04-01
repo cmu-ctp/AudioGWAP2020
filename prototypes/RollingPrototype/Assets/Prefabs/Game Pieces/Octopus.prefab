@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 6546637430425652474}
   - component: {fileID: 701803648}
   - component: {fileID: 701803649}
+  - component: {fileID: -309377964213003354}
   m_Layer: 0
   m_Name: Octopus
   m_TagString: Object
@@ -242,6 +243,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.34, y: 0.5, z: 0.38}
   m_Center: {x: 0, y: 0.26, z: 0.015}
+--- !u!114 &-309377964213003354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734665798547247418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b02012b0295008438ee9defebe8f439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &734675246591296766
 GameObject:
   m_ObjectHideFlags: 0

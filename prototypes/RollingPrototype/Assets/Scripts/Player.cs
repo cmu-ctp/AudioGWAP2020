@@ -129,7 +129,7 @@ public class Player : MonoBehaviour
                     droppedObject.GetComponent<Rigidbody>().isKinematic = false;
                     droppedObject.GetComponent<ViewerObject>().immuneToBeCollected = 1f;
                     GameManager.instance.playerCollected.Remove(droppedObject.name);
-                    GameManager.instance.UpdateGoal(-1);
+                    GameManager.instance.UpdateGoal(-1, droppedObject.gameObject);
                     collision.gameObject.GetComponent<Bomb>().Explode(droppedObject.GetComponent<Rigidbody>());
                 }
             }          

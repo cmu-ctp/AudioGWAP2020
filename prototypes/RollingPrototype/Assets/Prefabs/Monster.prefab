@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: -6313392760412483372}
   - component: {fileID: -5390451091959224208}
   - component: {fileID: -5033694623092451155}
+  - component: {fileID: 1487094713264109704}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Object
@@ -322,7 +323,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -427,6 +428,20 @@ MonoBehaviour:
   immuneToBeCollected: 0
   uploaderName: 
   spawnPoint: {x: 0, y: 0, z: 0}
+  isOutdoor: 0
+  soundId: 
+--- !u!114 &1487094713264109704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713781036754730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b02012b0295008438ee9defebe8f439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1753159918419610
 GameObject:
   m_ObjectHideFlags: 0

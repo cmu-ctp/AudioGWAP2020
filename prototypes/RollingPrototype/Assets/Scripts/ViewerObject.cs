@@ -105,22 +105,22 @@ public class ViewerObject : MonoBehaviour
         {
             case TaskType.Indoor:
                 if (!isOutdoor)
-                    GameManager.instance.UpdateGoal(1);
+                    GameManager.instance.UpdateGoal(1, gameObject);
                 break;
             case TaskType.Outdoor:
                 if (isOutdoor)
-                    GameManager.instance.UpdateGoal(1);
+                    GameManager.instance.UpdateGoal(1, gameObject);
                 break;
             case TaskType.UniqueInRow:
                 if (GameManager.instance.playerCollected.Contains(gameObject.name))
                 {
                     GameManager.instance.playerCollected.Clear();
-                    GameManager.instance.UpdateGoal(-100);
+                    GameManager.instance.UpdateGoal(-100, gameObject);
                 }
                 else
                 {
                     GameManager.instance.playerCollected.Add(gameObject.name);
-                    GameManager.instance.UpdateGoal(1);
+                    GameManager.instance.UpdateGoal(1, gameObject);
                 }
                     
                 break;
@@ -128,7 +128,7 @@ public class ViewerObject : MonoBehaviour
                 if (!GameManager.instance.playerCollected.Contains(gameObject.name))
                 {
                     GameManager.instance.playerCollected.Add(gameObject.name);
-                    GameManager.instance.UpdateGoal(1);
+                    GameManager.instance.UpdateGoal(1, gameObject);
                 }
                 break;
             case TaskType.Destination:

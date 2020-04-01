@@ -125,6 +125,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-713555577095046147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33536471077360369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b02012b0295008438ee9defebe8f439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2130703477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +161,7 @@ MonoBehaviour:
   uploaderName: 
   spawnPoint: {x: 0, y: 0, z: 0}
   isOutdoor: 0
+  soundId: 
 --- !u!1001 &33536471077459033
 PrefabInstance:
   m_ObjectHideFlags: 0
