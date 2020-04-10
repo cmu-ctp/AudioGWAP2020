@@ -10,7 +10,7 @@ public class SoundLabellingDetails : MonoBehaviour
     private Dropdown eventDropDown, soundLabelDropDown;
 
     [SerializeField]
-    private GameObject eventArrow, soundLabelArrow, soundLabel, saveButton, saveText, customize;
+    private GameObject eventArrow, soundLabelArrow, soundLabel, saveButton, saveText, customize, consentcheckbox;
 
     [SerializeField]
     private GetEvents canvas;
@@ -41,7 +41,8 @@ public class SoundLabellingDetails : MonoBehaviour
     {
         if(soundLabelValue != "" && eventNameValue != "")
         {
-            saveButton.GetComponent<Button>().interactable = true;
+            saveButton.GetComponent<Button>().interactable = false;
+            //saveButton.GetComponent<Button>().interactable = true;
             eventArrow.SetActive(false);
             soundLabelArrow.SetActive(false);
             eventDropDown.interactable = false;
@@ -58,9 +59,14 @@ public class SoundLabellingDetails : MonoBehaviour
             soundLabelData.text = soundLabelValue;
             option.Add(soundLabelData);
             soundLabelDropDown.AddOptions(option);
+            //if(consentcheckbox.GetComponent<Toggle>().isOn == true)
+            //{
+            //    saveButton.GetComponent<Button>().interactable = true;
+            //}
         }
         else
         {
+            
             saveButton.GetComponent<Button>().interactable = false;
             eventArrow.SetActive(true);
             soundLabelArrow.SetActive(true);
@@ -99,9 +105,9 @@ public class SoundLabellingDetails : MonoBehaviour
         {
             customize.SetActive(true);
             saveText.SetActive(false);
-            saveButton.GetComponent<Button>().interactable = true;
             soundLabel.SetActive(true);
             StartCoroutine(GetEventDetailsFromServer(eventsJoined[0][eventDropDown.value - 1]));
+           
         }
         else
         {
@@ -109,6 +115,18 @@ public class SoundLabellingDetails : MonoBehaviour
             saveText.SetActive(true);
             saveButton.GetComponent<Button>().interactable = false;
             soundLabel.SetActive(false);
+        }
+    }
+    public void AgreetoSendData()
+    {
+        if (consentcheckbox.GetComponent<Toggle>().isOn == true)
+        {
+            saveButton.GetComponent<Button>().interactable = true;
+            //saveButton.GetComponent<Button>().interactable = true;
+        }
+        else
+        {
+            saveButton.GetComponent<Button>().interactable = false;
         }
     }
 

@@ -54,6 +54,7 @@ public class RecordManager : MonoBehaviour
     private bool isCustomSoundLabel;
     private byte[] recordedAudioData;
 
+    public List<String> RecordTimestamp = new List<String>();
 
     void Start()
     {
@@ -85,11 +86,19 @@ public class RecordManager : MonoBehaviour
         }
         homePage.SetActive(false);
         RecordingPage.SetActive(true);
+        //currentRecordingState.Value = "Prepare";
+        recordingTimerText.text = "00:00:00";
+    }
+ 
+
+    public void RequestRecord()
+    {
         currentRecordingState.Value = "Prepare";
         prepareStartTime = Time.realtimeSinceStartup;
         //soundLabelText = "";
-        customSoundLabelText = "";
+        //customSoundLabelText = "";
 
+        recordingTimerText.text = "00:00:00";
         if (!CheckPermission())
         {
             recordingStateText.text = "Requesting microphone permission...";
@@ -100,9 +109,11 @@ public class RecordManager : MonoBehaviour
             recordingStateText.text = "Recording";
             StartRecord();
         }
+
     }
 
-    private bool CheckPermission()
+
+        private bool CheckPermission()
     {
 #if UNITY_ANDROID
         if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
@@ -134,7 +145,7 @@ public class RecordManager : MonoBehaviour
 
         if (Time.realtimeSinceStartup - prepareStartTime <= 15f)
         {
-            PrepareRecord();
+            RequestRecord();
         }
         else
         {
@@ -178,6 +189,9 @@ public class RecordManager : MonoBehaviour
         int recordEndPos = Microphone.GetPosition(null);
         Microphone.End(null);
 
+        RecordTimestamp.Add(DateTime.Now.ToString());
+        Debug.Log(RecordTimestamp);
+
         // No audio recorded
         if (recordEndPos <= 0)
         {
@@ -191,6 +205,7 @@ public class RecordManager : MonoBehaviour
         System.GC.Collect();
 
         UpdateTime(audioClip.length);
+        
     }
 
     public void PlayAudio()
@@ -338,6 +353,7 @@ public class RecordManager : MonoBehaviour
             soundsUploadingPage.transform.GetChild(1).gameObject.GetComponent<Text>().text = "Server Trouble. Please close the application and try again";
         }
         else {
+            //Debug.Log(RecordTimestamp);
             Debug.Log("Upload complete!");
             soundsUploadingPage.SetActive(false);
             galleryPage.SetActive(true);

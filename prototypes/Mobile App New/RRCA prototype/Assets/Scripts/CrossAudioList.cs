@@ -31,7 +31,8 @@ public class CrossAudioList : MonoBehaviour
     {
         sounds = new List<SoundObject>();
         StartCoroutine(RequestSoundList());
-        
+
+
 
 
 
@@ -49,6 +50,9 @@ public class CrossAudioList : MonoBehaviour
         string responseBody;
         using (UnityWebRequest req = UnityWebRequest.Get("https://echoes.etc.cmu.edu/api/game/events/fake/sound"))
         {
+
+            req.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
+
             yield return req.SendWebRequest();
 
 
