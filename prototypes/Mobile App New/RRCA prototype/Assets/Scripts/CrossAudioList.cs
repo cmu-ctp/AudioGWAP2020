@@ -32,11 +32,6 @@ public class CrossAudioList : MonoBehaviour
         sounds = new List<SoundObject>();
         StartCoroutine(RequestSoundList());
 
-
-
-
-
-
     }
 
     // Update is called once per frame

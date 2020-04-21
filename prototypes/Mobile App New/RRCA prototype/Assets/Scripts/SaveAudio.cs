@@ -148,5 +148,6 @@ public static class SaveAudio {
 
 		Byte[] subChunk2 = BitConverter.GetBytes(samples * channels * 2);
 		fileStream.Write(subChunk2, 0, 4);
+        //
 	}
 }
