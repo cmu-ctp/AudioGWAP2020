@@ -19,7 +19,9 @@ public class Timer : MonoBehaviour
         timerText = GetComponent<Text>();
     }
 
-    // Update is called once per frame
+    // The timer of the game. End the game if reaches 0. 
+    // It updates the associated UI element, and will show special effect
+    // if there is not too much time left.
     void Update()
     {
         if (timeLeft > 0f)
@@ -31,6 +33,7 @@ public class Timer : MonoBehaviour
         else
             timerText.text = minutePart + ":0" + secondPart;
 
+        // Show red blinking if less than 30 seconds left
         if(timeLeft <= 30f && lastSecond != secondPart)
         {
             timerText.color = new Color(1, 0, 0);

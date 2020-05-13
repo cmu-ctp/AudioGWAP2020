@@ -33,6 +33,12 @@ public class Bomb : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // The bomb is randomly moving within an circular area. It will keep finding
+        // the next destination to go if not exploded.
+        // Potential features to add:
+        // 1. Let it chasing the player when close
+        // 2. Add rolling animation onto it. Currently the animation will make 
+        //    the bomb move to weird locations and finally disappear.
         if (!movingToNext)
         {
             movingToNext = true;
@@ -54,6 +60,7 @@ public class Bomb : MonoBehaviour
 
     public void Explode(Rigidbody rb)
     {
+        // Give an explosive force to anything touches it.
         rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, upwardModifier);
     }
 

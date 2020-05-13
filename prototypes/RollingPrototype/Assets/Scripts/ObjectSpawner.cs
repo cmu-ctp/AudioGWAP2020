@@ -35,6 +35,8 @@ public class ObjectSpawner : MonoBehaviour
 
     }
 
+    // Get the sound list of this event from server.
+    // TO DO: change the url to the new server's url
     IEnumerator GetSoundList()
     {
         string responseBody = PlayerPrefs.GetString("body");
@@ -53,6 +55,8 @@ public class ObjectSpawner : MonoBehaviour
             }
         }
 
+        // Maybe a better way to avoid networking burst - adding this will at least
+        // not temporarily make the network down.
         yield return null;
 
         GameManager.instance.totalNumObjects = sounds.Count;
@@ -74,6 +78,7 @@ public class ObjectSpawner : MonoBehaviour
         }      
     }
 
+    // Used by generating game pieces to map.
     void InitObjectIndexDict()
     {
         objectIndexes = new Dictionary<string, int>();
@@ -83,8 +88,12 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
+    // Spawn each individual game piece into the game, by get the type of 
+    // the game piece, the user who upload the sound, the sound attached to it,
+    // and the sound id (determine if this sound is unique).
     IEnumerator Spawn(string displayName, string modelName, string path, string id)
     {
+        // increase the number of objects in scene
         GameManager.instance.objectsInScene++;
         int objectIndex;
         if (!objectIndexes.TryGetValue(modelName, out objectIndex))
@@ -92,6 +101,9 @@ public class ObjectSpawner : MonoBehaviour
             objectIndex = 0;
         }
 
+        // Will always fill the outdoor spaces first, then indoor. This is by
+        // design since during playtest streamers tend not to get into the interior.
+        // Change it if the design changes.
         Vector3 position = spawningPoints.GetOutdoorPos();
         bool isOutdoor = false;
         if (!float.IsInfinity(position.x))
@@ -105,6 +117,7 @@ public class ObjectSpawner : MonoBehaviour
             yield break;
         }       
 
+        // Found the position, instantiate it at that position.
         GameObject spawnedObj = Instantiate(objectPrefabs[objectIndex], position, Quaternion.identity);
         spawnedObj.GetComponent<ViewerObject>().SetObjectInfo(displayName, position, isOutdoor, id);
         if (isOutdoor)
@@ -128,6 +141,7 @@ public class ObjectSpawner : MonoBehaviour
         GameManager.instance.allObjectsInScene.Add(spawnedObj);
     }
     
+    // Delayed files are those not spawning due to capacity issue at the beginning
     public IEnumerator SpawnDelayedFiles(int number)
     {
         for (int i = 0; i < number; i++)

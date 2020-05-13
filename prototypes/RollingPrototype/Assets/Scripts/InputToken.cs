@@ -30,6 +30,8 @@ public class InputToken : MonoBehaviour
         }
     }
 
+    // Handling if the input token is valid or not.
+    // TO DO: change the url into the new server's url
     IEnumerator ParseToken(string token)
     {    
         string responseBody;
