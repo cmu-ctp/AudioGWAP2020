@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public enum TaskType
 {
-    Indoor = 0,
-    Outdoor = 1,
-    UniqueTotal = 2,
-    UniqueInRow = 3,
-    Destination = 4,
-    NumTask = 5
+    Indoor = 0,       // Collect indoor items
+    Outdoor = 1,      // Collect outdoor items
+    UniqueTotal = 2,  // Collect number of types of items
+    UniqueInRow = 3,  // Collect number of different type of items cosecutively
+    Destination = 4,  // Reach the destination marked on minimap
+    NumTask = 5       // Collect total number of items
 }
 
 public class Goal : MonoBehaviour
@@ -57,6 +57,11 @@ public class Goal : MonoBehaviour
             SetGoal();
     }
 
+    // Generate the next task on game start and task completion.
+    // Tasks are predetermined, please see the enum for details.
+    // The next task will never be the same as the current one,
+    // unless all game objects are collected (I didn't handle this since
+    // currently it won't happen)
     public void SetGoal()
     {
         numGet = 0;
@@ -94,7 +99,7 @@ public class Goal : MonoBehaviour
                         continue;
                     numGoal = Mathf.Min(4, numTypes - 2);
                     break;
-                case TaskType.Destination:
+                case TaskType.Destination: // We had this before, but deleted due to design change
                     continue;
             }
             GameManager.instance.currentTask = taskType;
@@ -138,6 +143,8 @@ public class Goal : MonoBehaviour
         count.text = numGet.ToString() + " / " + numGoal.ToString();
     }
 
+    // The task panel will move out of the screen and come back when a task is 
+    // completed and a new task is assigned.
     IEnumerator NextTask()
     {    
         float elapsedTime = 0f;

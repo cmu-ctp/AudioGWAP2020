@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Not used currently since we have specified player spawning point.
+// However, if we want the user to choose where to spawn, this camera is basically
+// just a top down view camera that allows player to click the desired spawning point.
 public class PrepCameraController : MonoBehaviour
 {
     [SerializeField]

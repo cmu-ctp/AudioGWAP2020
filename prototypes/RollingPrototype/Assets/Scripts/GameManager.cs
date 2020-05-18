@@ -10,6 +10,9 @@ public enum GameState
     Ending = 2
 }
 
+// NOTE: this entire file needs a very huge refactoring - currently this class
+//       handles to many things that should not be handled here.
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -107,6 +110,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        // Shortcut
+
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    switch (gameState)
@@ -126,6 +131,7 @@ public class GameManager : MonoBehaviour
 
     void SortAndDisplayUsers()
     {
+        // Used by leaderboard ranking which users' sounds have been collected the most.
         List<KeyValuePair<string, int>> sortedBoard = userLeaderboard.ToList();
         sortedBoard.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
         string user1 = sortedBoard.Count > 0 ? sortedBoard[0].Key : "";
@@ -140,7 +146,7 @@ public class GameManager : MonoBehaviour
 
     void SortAndDisplayObjects()
     {
-        // Sort the recording leaderboard by value
+        // Used by leaderboard ranking which game piece has been collected the most.
         List<KeyValuePair<string, int>> sortedBoard = objectLeaderboard.ToList();       
         sortedBoard.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
         string obj1 = sortedBoard.Count > 0 ? sortedBoard[0].Key : "";
@@ -155,6 +161,7 @@ public class GameManager : MonoBehaviour
 
     public void EmptyPoint(Vector3 point, bool isOutdoor)
     {
+        // collect all available spawning points for game pieces.
         if (isOutdoor)
             spawningPoints.outdoorList.Add(point);
         else
@@ -163,6 +170,8 @@ public class GameManager : MonoBehaviour
 
     public void CheckEnoughSpace()
     {
+        // check if the available spawning points are enough to spawn all game pieces
+        // for this event. If not, delay part of the spawning until later.
         int emptyPoints = totalNumPoints - objectsInScene;
         if (emptyPoints >= objectSpawner.delayedFiles.Count)
         {
@@ -174,6 +183,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // two helper method for updating task goals.
     public void SetGoal()
     {
         goal.SetGoal();
@@ -184,6 +194,7 @@ public class GameManager : MonoBehaviour
         goal.UpdateGoal(num, obj);
     }
 
+    // called on game end, handle UI elements and game state
     public void GameEndWrapper()
     {
         timer.SetActive(false);
@@ -195,6 +206,8 @@ public class GameManager : MonoBehaviour
         //StartCoroutine(GameEnd());
     }
 
+    // This coroutine is only used when we have "reach destination" as a end goal.
+    // It will switch to another camera and show the ship leaving animation.
     public IEnumerator GameEnd()
     {
         playerCamera.SetActive(false);
@@ -213,6 +226,7 @@ public class GameManager : MonoBehaviour
         
     }
 
+    // Number of game piece types in the scene. Used by collect unique tasks.
     public int NumTypesInScene()
     {
         HashSet<string> num = new HashSet<string>();
@@ -235,6 +249,8 @@ public class GameManager : MonoBehaviour
         SetGoal();
     }
 
+    // A game piece rain will happen when completing a task.
+    // The game piece is determined by the last collected game piece.
     public void CompleteBonus(GameObject obj)
     {
         StartCoroutine(MonstrousRain(obj)); 
@@ -242,6 +258,9 @@ public class GameManager : MonoBehaviour
 
     IEnumerator MonstrousRain(GameObject obj)
     {
+        // Basically just have a plane in the sky, and spawn the given game piece
+        // randomly at any point in this plane. All game pieces produced by this 
+        // rain will be self-destroyed.
         Vector3 planeMin = monsterRainPlane.GetComponent<MeshFilter>().mesh.bounds.min;
         Vector3 planeMax = monsterRainPlane.GetComponent<MeshFilter>().mesh.bounds.max;
         float planeScaleX = monsterRainPlane.localScale.x;

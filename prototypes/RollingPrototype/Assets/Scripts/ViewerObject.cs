@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Prerequisites:
-// 1.  All models should have the correct relative sizes
+// 1.  All models should have the correct relative sizes 
+//     (please adjust the prefabs in editor)
 // 2a. Should make it works for all kinds of models later,
 //     so the model reference should be changed, or
 // 2b. Customized script for each type of models because 
@@ -41,12 +42,14 @@ public class ViewerObject : MonoBehaviour
 
     void Start()
     {
+        // Randomly choose an material if available
         if (materials.Length > 0)
         {
             int materialIndex = Random.Range(0, materials.Length);
             model.material = materials[materialIndex];
         }
         
+        // Randomly adjust the size of the game piece to make some different
         float scaleFactor = Random.Range(minScale, maxScale);
         transform.localScale = new Vector3(scaleFactor * transform.localScale.x, 
             scaleFactor * transform.localScale.y, scaleFactor * transform.localScale.z);
@@ -59,6 +62,8 @@ public class ViewerObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Must set not collectible when it is blowed away by bomb, otherwise
+        // player can collect it again immediately
         if (immuneToBeCollected > 0)
         {
             immuneToBeCollected -= Time.deltaTime;
@@ -66,11 +71,13 @@ public class ViewerObject : MonoBehaviour
                 Destroy(gameObject);
         }
 
+        // Prevent it goes below the ground
         if (transform.position.y < 0)
         {
             transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
         }
 
+        // Cut the sound playing if it is longer than 15 seconds
         if (playStarted)
         {
             playedTime += Time.deltaTime;
@@ -87,6 +94,8 @@ public class ViewerObject : MonoBehaviour
         this.tags = tags;
     }
 
+    // When the game piece is collected, it should stick to the player's avatar
+    // and stay there forever until get blowed away by the bomb
     public void Collected()
     {
         GetComponent<AudioSource>().Play();
@@ -100,7 +109,7 @@ public class ViewerObject : MonoBehaviour
         GameManager.instance.EmptyPoint(spawnPoint, isOutdoor);
         GameManager.instance.CheckEnoughSpace();
         GameManager.instance.totalItemCollected++;
-        
+        // Update the task
         switch (GameManager.instance.currentTask)
         {
             case TaskType.Indoor:

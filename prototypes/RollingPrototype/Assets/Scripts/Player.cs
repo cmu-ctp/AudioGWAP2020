@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     {
         if (GameManager.instance.gameState == GameState.Playing)
         {
-            //Move and rotate
+            //Move and rotate. It will brake automatically if the keys are not held.
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
 
@@ -87,6 +87,9 @@ public class Player : MonoBehaviour
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
             }
 
+            // A so-called better jumping system, however it behaves pretty bad
+            // in this game.
+
             //if (rb.velocity.y < 0)
             //{
             //    rb.velocity += Vector3.up * Physics.gravity.y * (fallFactor - 1) * Time.deltaTime;
@@ -100,9 +103,13 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        // Do not put keyboard/mouse input into the fixedUpdate - it will randomly
+        // omit the input, and behaves differently in different devices.
     }
 
+    // When the player touches a bomb, it should be blowed away and some items 
+    // collected will also be blowed away and destroyed. Task progress will also
+    // reflect the change.
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.tag == "Ground" || collision.collider.tag == "Ship")
@@ -137,6 +144,10 @@ public class Player : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
+        // If it touches a game piece, that game piece will stick onto the player,
+        // the associated sound will be played, and the recognition bar will be
+        // updated. Some commented area is for reaching the ship, but not there
+        // now due to design change.
         if (collision.collider.tag == "Object" && collision.gameObject.GetComponent<ViewerObject>().immuneToBeCollected <= 0)
         {
             objectCount++;
@@ -215,6 +226,8 @@ public class Player : MonoBehaviour
         //}    
     }
 
+    // Also used by previously-have reach destination end goal. All attached
+    // game pieces will drop to the ship.
     private void DropObjects(Transform ship)
     {
         foreach(Transform obj in collectedObjects)

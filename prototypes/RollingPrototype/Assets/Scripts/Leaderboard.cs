@@ -42,16 +42,7 @@ public class Leaderboard : MonoBehaviour
     [SerializeField]
     Text totalTaskCount;
 
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        
-    }
-
+    // Display top 3 users whose game pieces have been collected the most
     public void UpdateSoundBoard(string user1, int count1, string user2, int count2, string user3, int count3)
     {
         if (user1.Length > 0)
@@ -73,6 +64,7 @@ public class Leaderboard : MonoBehaviour
         }       
     }
 
+    // Display top 3 types of game pieces that have been collected the most
     public void UpdateItemBoard(string obj1, int count1, string obj2, int count2, string obj3, int count3, int totalItem, int tasks)
     {
         if (obj1.Length > 0)

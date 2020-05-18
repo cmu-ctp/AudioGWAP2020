@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
+    // Just a very basic third-person camera. Please replace to a more robust one
+    // if needed.
+
     [SerializeField]
     private Vector3 dir;
     [SerializeField]

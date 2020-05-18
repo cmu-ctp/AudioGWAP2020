@@ -21,6 +21,7 @@ public class GetSpawningPoints : MonoBehaviour
         FindOutdoor();
     }
 
+    // Get all indoor spawning points
     private void FindIndoor()
     {
         GameObject[] indoorObjs = GameObject.FindGameObjectsWithTag(indoorTag);
@@ -33,6 +34,7 @@ public class GetSpawningPoints : MonoBehaviour
         }    
     }
 
+    // Get all outdoor spawning points
     private void FindOutdoor() {
         GameObject[] outdoorObjs = GameObject.FindGameObjectsWithTag(outdoorTag);
         
@@ -44,6 +46,7 @@ public class GetSpawningPoints : MonoBehaviour
         }    
     }
 
+    // Get an indoor spawning point if available.
     public Vector3 GetIndoorPos()
     {
         //if (indoorList.Count == 0)
@@ -67,6 +70,7 @@ public class GetSpawningPoints : MonoBehaviour
         
     }
 
+    // Get an outdoor spawning point if available.
     public Vector3 GetOutdoorPos()
     {
         //if (outdoorList.Count == 0) { }

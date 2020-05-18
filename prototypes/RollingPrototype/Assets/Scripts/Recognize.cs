@@ -25,6 +25,8 @@ public class Recognize : MonoBehaviour
         
     }
 
+    // Show real-time recognition (ignore my typo for the method name for now) 
+    // of whose sound is being collected now.
     public IEnumerator ShowRecognization(string userName)
     {
         recognizeText.text = "Sound from <color=#F85797>" + userName + "</color> is collected!";

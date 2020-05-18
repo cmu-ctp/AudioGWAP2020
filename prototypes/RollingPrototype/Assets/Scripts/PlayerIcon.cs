@@ -15,6 +15,7 @@ public class PlayerIcon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Update player icon in the minimap
         transform.position = new Vector3(player.position.x, 50f, player.position.z);
     }
 }
