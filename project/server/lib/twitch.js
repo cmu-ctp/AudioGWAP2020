@@ -23,7 +23,9 @@ class Twitch {
     // New Twitch API
     this.twitchClient = this.client.create({
       baseURL: 'https://api.twitch.tv/helix/',
-      headers: { 'Authorization': `Bearer ${this.tokens.access_token || ''}` }
+      headers: { 'Authorization': `Bearer ${this.tokens.access_token || ''}`,
+                 'Client-ID': config.oauth.twitch.key 
+    }
     });
   }
 
