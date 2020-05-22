@@ -3,6 +3,7 @@ import './css/create.css';
 import Datetime from 'react-datetime';
 import './css/react-datetime.css'
 import Panel from "./common";
+import { CONFIG } from "./config/config";
 
 const CategoryList = ["Kitchen", "Bathroom", "Living", "Garage", "Ambience", "Concerning"];
 const CategoryLen = 6;
@@ -240,11 +241,11 @@ class Create extends React.Component {
             headers: myHeaders,
             body: JSON.stringify(submitObj)
         };
-        let apiUrl = 'https://echoes.etc.cmu.edu/api/streamer/events';
+        let apiUrl = CONFIG.serverIp + CONFIG.streamerEvents;
         if (this.props.edit != null) {
             init.method = 'PUT';
             let eventId = window.location.pathname.substr(6);
-            apiUrl = 'https://echoes.etc.cmu.edu/api/streamer/events/' + eventId;
+            apiUrl =  CONFIG.serverIp + CONFIG.streamerEvents + '/' + eventId;
         }
         fetch(
             apiUrl,
@@ -258,7 +259,7 @@ class Create extends React.Component {
                 throw new Error(data.msg || "Internal Error");
             }
 
-            window.location.href = "https://echoes.etc.cmu.edu/"
+            window.location.href = CONFIG.serverIp
         })
         .catch( e => alert(e));
     };

@@ -1,6 +1,7 @@
 import React from "react";
 import './css/stat.css';
 import ReactWordcloud from 'react-wordcloud';
+import { CONFIG } from "./config/config";
 
 
 const NumMap = ["../img/4.png","../img/5.png","../img/6.png","../img/7.png","../img/8.png","../img/9.png","../img/10.png"];
@@ -204,7 +205,7 @@ class Statistics extends React.Component {
         };
         let id = window.location.pathname.substr(12);
         fetch(
-            'https://echoes.etc.cmu.edu/api/streamer/events/' + id + '/stat/users',
+            CONFIG.serverIp + CONFIG.streamerEvents + "/" + id + CONFIG.userStats,
             //'https://echoes.etc.cmu.edu/api/streamer/events/fake/stat/users',
             init
         )
@@ -216,10 +217,10 @@ class Statistics extends React.Component {
                 data: data.result
             });
         })
-        .catch( () => window.location.href = "https://echoes.etc.cmu.edu/api/auth/login");
+        .catch( () => window.location.href = CONFIG.serverIp + CONFIG.authLogin);
 
         fetch(
-            'https://echoes.etc.cmu.edu/api/streamer/events/' + id + '/stat/categories',
+            CONFIG.serverIp + CONFIG.streamerEvents + "/" + id + CONFIG.statCategories,
             init
         )
         .then(
@@ -231,7 +232,7 @@ class Statistics extends React.Component {
                 cloudData: data.result
             });
         })
-        .catch( () => window.location.href = "https://echoes.etc.cmu.edu/api/auth/login");
+        .catch( () => window.location.href = CONFIG.serverIp + CONFIG.authLogin);
     }
 
     handleClick = () => {

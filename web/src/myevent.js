@@ -3,6 +3,7 @@ import './css/myevent.css'
 import Panel from "./common";
 import {Link} from "react-router-dom";
 import Popup from "reactjs-popup";
+import { CONFIG } from "./config/config";
 
 class EventButton extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class EventButton extends React.Component {
             credentials: 'include', // cookies,
             mode: 'cors'
         };
-        let apiUrl = "https://echoes.etc.cmu.edu/api/streamer/events/" + this.props.eventId + "/token";
+        let apiUrl = CONFIG.serverIp + CONFIG.streamerEvents + "/" + this.props.eventId + "/token";
         fetch(
             apiUrl,
             init
@@ -247,7 +248,7 @@ class MyEvent extends React.Component {
             mode: 'cors'
         };
         fetch(
-            'https://echoes.etc.cmu.edu/api/streamer/events/upcoming',
+            CONFIG.serverIp + CONFIG.streamerUpcomingEvents,
             init
         )
         .then(
@@ -273,7 +274,7 @@ class MyEvent extends React.Component {
         .catch( e => alert(e));
 
         fetch(
-            'https://echoes.etc.cmu.edu/api/streamer/events/past',
+            CONFIG.serverIp + CONFIG.streamerPastEvents,
             init
         )
             .then(
