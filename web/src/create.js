@@ -259,7 +259,7 @@ class Create extends React.Component {
                 throw new Error(data.msg || "Internal Error");
             }
 
-            window.location.href = CONFIG.serverIp
+            window.location.href = CONFIG.uiUrl
         })
         .catch( e => alert(e));
     };
