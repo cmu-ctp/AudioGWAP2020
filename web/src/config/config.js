@@ -1,7 +1,6 @@
 export const CONFIG = {
     uiUrl: 'http://localhost:3000',
-    serverIp: 'http://localhost:8080/api',
-    nginxPrefix: '',
+    serverIp: 'http://localhost:80/api',
     userInfo: '/users/info',
     authLogin: '/auth/login',
     authLogout: '/auth/logout',
