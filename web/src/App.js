@@ -6,6 +6,7 @@ import Create from './create'
 import MyEvent from "./myevent";
 import Edit from "./edit"
 import Statistics from "./stat"
+import { CONFIG } from './config/config';
 
 const init = {
   method: 'GET',
@@ -52,9 +53,9 @@ class App extends React.Component {
       route: current
     });
   };
-  componentWillMount() {
+  componentWillMount() {  // Strict checking of logged in user
     fetch(
-        'https://echoes.etc.cmu.edu/api/users/info',
+        CONFIG.serverIp + CONFIG.userInfo,
         init
     )
     .then(
@@ -69,11 +70,11 @@ class App extends React.Component {
         userName: data.result.display_name
       })
     })
-    .catch( () => window.location.href = "https://echoes.etc.cmu.edu/api/auth/login");
+    .catch( () => window.location.href = CONFIG.serverIp + CONFIG.authLogin);
   }
 
   handleSignout = () =>  {
-    window.location.href = "https://echoes.etc.cmu.edu/api/auth/logout";
+    window.location.href = CONFIG.serverIp + CONFIG.authLogout;
   };
 
   render() {

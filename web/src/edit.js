@@ -1,5 +1,6 @@
 import Create from "./create";
 import React from "react";
+import { CONFIG } from "./config/config";
 
 class Edit extends React.Component {
     constructor(props) {
@@ -10,7 +11,7 @@ class Edit extends React.Component {
     };
     componentWillMount() {
         let eventId = window.location.pathname.substr(6);
-        let getApi = "https://echoes.etc.cmu.edu/api/streamer/events/" + eventId;
+        let getApi = CONFIG.serverIp + CONFIG.streamerEvents + "/" + eventId;
         let init = {
             method: 'GET',
             credentials: 'include', // cookies,
