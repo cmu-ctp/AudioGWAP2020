@@ -6,8 +6,9 @@ html(lang='en')
     div
       h3
         form(method='get')
-          label(for='query') Search:
-          input(type='text' id='query' name='query')
+          label(for='q') Search:
+          input(type='text' id='q' name='q')
+          input(type='submit' value='Search')
     table
       thead
         tr
@@ -25,4 +26,4 @@ html(lang='en')
             td #{sound.path}
       tfoot
         tr
-          th(colspan='6')
+          th(colspan='2')
