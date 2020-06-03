@@ -1,0 +1,28 @@
+doctype html
+html(lang='en')
+  head
+    title Audio Dataset
+  body
+    div
+      h3
+        form(method='get')
+          label(for='query') Search:
+          input(type='text' id='query' name='query')
+    table
+      thead
+        tr
+          th Label
+          th Path
+      tbody
+        each sound in sounds
+          tr
+            if sound.game_meta.sound_label
+              td #{sound.game_meta.sound_label}
+            else if sound.meta && sound.meta.category
+              td #{sound.meta.category}
+            else
+              td UNLABELED
+            td #{sound.path}
+      tfoot
+        tr
+          th(colspan='6')
