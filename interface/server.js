@@ -3,7 +3,6 @@ const app = express()
 const MongoClient = require('mongodb').MongoClient
 const assert = require('assert')
 
-let cursor
 let sound
 
 MongoClient.connect('mongodb://localhost:27017', {useUnifiedTopology: true})
@@ -17,8 +16,8 @@ MongoClient.connect('mongodb://localhost:27017', {useUnifiedTopology: true})
       const { q } = req.query
       const results = await getResults(q)
       
-      console.log(results)
-      res.render('dataset', {sounds: results})
+      console.log(q)
+      res.render('dataset', {sounds: results, query: q})
     })
 
     app.listen(5000,() => console.log('listening on port 5000.'))
@@ -27,10 +26,16 @@ MongoClient.connect('mongodb://localhost:27017', {useUnifiedTopology: true})
   .catch(err => console.error(err))
 
 async function getResults (query) {
-  return sound.find({$or: [
-    {'game_meta.sound_label': query},
-    {'meta.category': query}
-  ]}).sort({
+  let cursor
+  if (query && query.length > 0) {
+    cursor = await sound.find({$or: [
+      {'game_meta.sound_label': query},
+      {'meta.category': query}
+    ]})
+  } else {
+    cursor = await sound.find()
+  }
+  return cursor.sort({
     'game_meta.sound_label': -1, 
     'meta.category': -1}).toArray()
 }
