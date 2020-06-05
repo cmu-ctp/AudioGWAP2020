@@ -30,21 +30,9 @@ html(lang='en')
                   td UNLABELED
                 td 
                   - var path = sound.path.substr(1)
-                  //- var loadArg = 'loadAudio(' + path + ',' + sound._id + ')'
                   audio(controls preload='none' src=path)
-                  //-button(id=sound._id onclick=loadArg) Play Audio
           tfoot
             tr
               th(colspan='2')
       else
         p No results
-      //-script.
-        function loadAudio(path, buttonId) {
-          console.log('got here!')
-          var sound = document.getElementById(path)
-          var button = document.getElementById(buttonId)
-          button.style.display = 'none'
-          sound.src = path
-          sound.style.display = 'block'
-          sound.play()
-        }

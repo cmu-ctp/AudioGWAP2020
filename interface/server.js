@@ -18,7 +18,9 @@ MongoClient.connect('mongodb://localhost:27017', {useUnifiedTopology: true})
       const { q } = req.query
       const results = await getResults(q)
       
-      console.log(q)
+      if(q) {
+        console.log('Query: ' + q)
+      }
       res.render('dataset', {sounds: results, query: q})
     })
 
