@@ -12,6 +12,8 @@ MongoClient.connect('mongodb://localhost:27017', {useUnifiedTopology: true})
 
     app.set('view engine', 'pug')
 
+    app.use('/upload', express.static('../project/server/upload'))
+
     app.get('/', async (req, res) => {
       const { q } = req.query
       const results = await getResults(q)
@@ -29,8 +31,8 @@ async function getResults (query) {
   let cursor
   if (query && query.length > 0) {
     cursor = await sound.find({$or: [
-      {'game_meta.sound_label': query},
-      {'meta.category': query}
+      {'game_meta.sound_label': {$regex: query, $options: 'i'}},
+      {'meta.category': {$regex: query, $options: 'i'}}
     ]})
   } else {
     cursor = await sound.find()

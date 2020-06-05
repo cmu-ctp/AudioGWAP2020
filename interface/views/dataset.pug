@@ -18,7 +18,7 @@ html(lang='en')
           thead
             tr
               th Label
-              th Path
+              th Audio
           tbody
             each sound in sounds
               tr
@@ -28,9 +28,15 @@ html(lang='en')
                   td #{sound.meta.category}
                 else
                   td UNLABELED
-                td #{sound.path}
+                td 
+                //  - var path = 
+                  audio(controls)
+                    source(src=#{sound.path} type='audio/wav')
           tfoot
             tr
               th(colspan='2')
       else
         p No results
+    
+      //audio(controls)
+        source(src="upload/5dcb341b78798462410abfcf/462858971/1573604813_5dcb4dccc83ada6963ece6a6.wav" type='audio/wav')
