@@ -19,7 +19,7 @@ public class GetUserName : MonoBehaviour
 
     IEnumerator GetUsername()
     {
-        UnityWebRequest www = UnityWebRequest.Get("https://echoes.etc.cmu.edu/api/users/info");
+        UnityWebRequest www = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/users/info");
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
         //Debug.Log("username : ");
  

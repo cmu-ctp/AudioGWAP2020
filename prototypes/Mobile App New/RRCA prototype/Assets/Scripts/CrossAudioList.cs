@@ -43,7 +43,7 @@ public class CrossAudioList : MonoBehaviour
     IEnumerator RequestSoundList()
     {
         string responseBody;
-        using (UnityWebRequest req = UnityWebRequest.Get("https://echoes.etc.cmu.edu/api/game/events/fake/sound"))
+        using (UnityWebRequest req = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/game/events/fake/sound"))
         {
 
             req.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
@@ -75,7 +75,7 @@ public class CrossAudioList : MonoBehaviour
         {
             foreach (SoundData sound in result.result)
             {
-                string path = "https://echoes.etc.cmu.edu" + sound.path;
+                string path = "https://hcii-gwap-01.andrew.cmu.edu" + sound.path;
                 string displayName = sound.user.display_name;
                 string labelName = sound.game_meta.sound_label;
                 string id = sound.id;

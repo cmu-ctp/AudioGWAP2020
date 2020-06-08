@@ -344,7 +344,7 @@ public class RecordManager : MonoBehaviour
             formData.Add(new MultipartFormDataSection("sound", JsonUtility.ToJson(soundData)));
         }
 
-        UnityWebRequest www = UnityWebRequest.Post("https://echoes.etc.cmu.edu/api/viewer/events/" + eventId + "/sound", formData);
+        UnityWebRequest www = UnityWebRequest.Post("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/events/" + eventId + "/sound", formData);
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
         yield return www.SendWebRequest();
  
@@ -444,7 +444,7 @@ public class RecordManager : MonoBehaviour
 
         string jsonData = gamePieceData.SaveToString();
 
-        var request = UnityWebRequest.Put("https://echoes.etc.cmu.edu/api/users/info/", jsonData);
+        var request = UnityWebRequest.Put("https://hcii-gwap-01.andrew.cmu.edu/api/users/info/", jsonData);
         request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
         request.SetRequestHeader("Content-Type", "application/json");
         yield return request.SendWebRequest();

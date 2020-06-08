@@ -16,7 +16,7 @@ public class EventJoin : MonoBehaviour
 
     IEnumerator JoinEvent()
     {
-        UnityWebRequest www = UnityWebRequest.Post("https://echoes.etc.cmu.edu/api/viewer/events/" + eventId + "/join", "");
+        UnityWebRequest www = UnityWebRequest.Post("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/events/" + eventId + "/join", "");
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
         yield return www.SendWebRequest();
 
