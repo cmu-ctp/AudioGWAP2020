@@ -6,6 +6,8 @@
 const BaseModel = require('./base');
 const Event = require('./event');
 const User = require('./user');
+const fs = require('fs');
+const path = require('path');
 
 module.exports = class Sound extends BaseModel {
   constructor(ctx) {
@@ -13,6 +15,22 @@ module.exports = class Sound extends BaseModel {
     this.includeUnpublishedEvents = true;
   }
 
+  async deleteUserSound(uid){
+    var query = { uid: uid };
+    const userSounds = await this.collection.find(query).toArray();
+    
+    for(let usersound of userSounds){
+      const soundPath = path.resolve(__dirname + '/..' + usersound.path);
+      try {
+        fs.unlinkSync(soundPath);
+        console.log("All sounds successfully removed from server");
+      } catch(err) {
+        console.error(err);
+        console.log("Unable to delete file");
+      }
+    }
+  }
+  
   async find(id) {
     let result = await this.collection.findOne(this.filterQuery({
       _id: this.getObjectId(id)
