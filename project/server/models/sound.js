@@ -18,17 +18,26 @@ module.exports = class Sound extends BaseModel {
   async deleteUserSound(uid){
     var query = { uid: uid };
     const userSounds = await this.collection.find(query).toArray();
-    
+
     for(let usersound of userSounds){
       const soundPath = path.resolve(__dirname + '/..' + usersound.path);
       try {
         fs.unlinkSync(soundPath);
-        console.log("All sounds successfully removed from server");
+        console.log("All .wav files successfully removed from server");
       } catch(err) {
+        console.log("Unable to delete .wav file");
         console.error(err);
-        console.log("Unable to delete file");
       }
     }
+    try{
+      await this.collection.deleteMany(query);
+      console.log("All file removed from DB");
+    } catch(err) {
+      console.log("Unable to delete sound from DB");
+      console.log(err);
+    }
+
+    
   }
   
   async find(id) {
