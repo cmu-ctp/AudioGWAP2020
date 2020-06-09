@@ -43,8 +43,9 @@ function getTime() {
 /**
  * GET /viewer/consent/revoke
  */
-router.get('/consent/revoke/:uid', async (ctx) => {  
-  const uid = ctx.params.uid;
+router.get('/consent/revoke', async (ctx) => {  
+  const uid = ctx.user.uid;
+  console.log(`Uid ${uid}`);
   const soundModel = new Sound(ctx);
   const totalSounds = await soundModel.deleteUserSound(uid);
   ctx.body = {
