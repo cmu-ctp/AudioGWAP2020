@@ -1,14 +1,17 @@
 const express = require('express')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
-const assert = require('assert')
+require('dotenv').config()
 
 let sound
+const user = encodeURIComponent(process.env.MONGO_USER)
+const pass = encodeURIComponent(process.env.MONGO_PASS)
+const mongoURL = `mongodb://${user}:${pass}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}?authSource=${process.env.MONGO_AUTH_SOURCE}`
 
-MongoClient.connect('mongodb://localhost:27017', {useUnifiedTopology: true})
+MongoClient.connect(mongoURL, {useUnifiedTopology: true})
   .then(client => {
     console.log('Connected to MongoDB!')
-    sound = client.db('echoes').collection('sound')
+    sound = client.db(process.env.MONGO_DB).collection('sound')
 
     app.set('view engine', 'pug')
 
