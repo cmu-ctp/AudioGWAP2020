@@ -19,6 +19,7 @@ public class CheckValidLogin : MonoBehaviour
 
     private void CheckToken()
     {
+        Debug.Log("button clicked");
         if(PlayerPrefs.GetString("token") == "")
         {
             GoToWebView();
@@ -40,7 +41,7 @@ public class CheckValidLogin : MonoBehaviour
 
         if(www.responseCode == 200)
         {
-            Debug.Log("Successfully hit API");
+            //Debug.Log("Successfully hit API");
             GoToNextPage();
         }
         else

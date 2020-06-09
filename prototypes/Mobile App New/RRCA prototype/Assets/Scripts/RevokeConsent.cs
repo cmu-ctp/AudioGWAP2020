@@ -23,7 +23,7 @@ public class RevokeConsent : MonoBehaviour
     {
         if(PlayerPrefs.GetString("token") == "")
         {
-            GoToWebView();
+            //GoToWebView();
         }
         else
         {
