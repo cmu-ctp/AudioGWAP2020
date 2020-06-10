@@ -1,0 +1,38 @@
+doctype html
+html(lang='en')
+  head
+    title Audio Dataset
+  body
+    div
+      h3
+        form(method='get')
+          label(for='q') Search:
+          if query && query.length > 0
+            input(type='text' id='q' name='q' value=query)
+          else 
+            input(type='text' id='q' name='q')
+          input(type='submit' value='Search')
+    div
+      if sounds.length
+        table
+          thead
+            tr
+              th Label
+              th Audio
+          tbody
+            each sound in sounds
+              tr
+                if sound.game_meta.sound_label
+                  td #{sound.game_meta.sound_label}
+                else if sound.meta && sound.meta.category
+                  td #{sound.meta.category}
+                else
+                  td UNLABELED
+                td 
+                  - var path = sound.path.substr(1)
+                  audio(controls preload='none' src=path)
+          tfoot
+            tr
+              th(colspan='2')
+      else
+        p No results
