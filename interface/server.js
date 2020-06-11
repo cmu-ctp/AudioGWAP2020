@@ -1,26 +1,26 @@
 const express = require('express')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
-require('dotenv').config()
+const assert = require('assert')
 
 let sound
-const user = encodeURIComponent(process.env.MONGO_USER)
-const pass = encodeURIComponent(process.env.MONGO_PASS)
-const mongoURL = `mongodb://${user}:${pass}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}?authSource=${process.env.MONGO_AUTH_SOURCE}`
 
-MongoClient.connect(mongoURL, {useUnifiedTopology: true})
+MongoClient.connect('mongodb://localhost:27017', {useUnifiedTopology: true})
   .then(client => {
     console.log('Connected to MongoDB!')
-    sound = client.db(process.env.MONGO_DB).collection('sound')
+    sound = client.db('echoes').collection('sound')
 
     app.set('view engine', 'pug')
+      app.use(express.static('public'));
 
     app.use('/upload', express.static('../project/server/upload'))
 
     app.get('/', async (req, res) => {
       const { q } = req.query
-      const results = await getResults(q)
-      
+        let results = []
+        if(q != null) {
+            results = await getResults(q)
+        }
       if(q) {
         console.log('Query: ' + q)
       }
