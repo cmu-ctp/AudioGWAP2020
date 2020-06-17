@@ -8,12 +8,12 @@ import { CONFIG } from "./config/config";
 const CategoryList = ["Kitchen", "Bathroom", "Living", "Garage", "Ambience", "Concerning"];
 const CategoryLen = 6;
 const CategorySubList = [
-    ["Sink/Faucet","Disposer","Garbage bin","Microwave","Oven","Toaster","Cooktop","Kettle","Refrigerator","Cooking","Silverwave","Plates","Mopping floor"],
-    ["Sink","Bathtub","Shower","Hairdryer","Mirror cabinet","Toothbrush","Toilet flush","Toilet paper","Hand wash","Electric trimmer","Soap dispenser","Deodorant","Extractor fan"],
-    ["Door","Doorbell","TV","Stereo","Children playing","Phone Ringing","Typing Keyboard","Window","Chair/Coach","Air conditioner","Vacuum cleaner","Fireplace","Clock"],
-    ["Door","Car","Bike","Motorbike","Tools","Washer","Dryer","Furnace","Water leaking","Repair trimmer","Wood work"],
-    ["Footsteps","Drinking","Eating","Baby crying","Dog/Cat","Light switch","Walking","Running","Car sounds","Bird sounds","Rain"],
-    ["Person falling","Snoring","Coughing","Sneezing","Call for help","Smoke detector","Security alarm","Glass break"]
+    ["Sink/Faucet","Garbage Disposal","Garbage Bin","Microwave","Oven","Toaster","Cooktop/Burner","Kettle","Refrigerator","Cooking","Silverware","Plates","Mopping Floor"],
+    ["Sink","Bathtub","Shower","Hair Dryer","Mirror Cabinet","Toothbrush","Toilet Flush","Toilet Paper","Hand Wash","Electric Trimmer","Soap Dispenser","Deodorant","Extractor Fan"],
+    ["Door","Doorbell","TV","Stereo/Music","Children Playing","Phone Ringing","Typing Keyboard","Window","Chair/Couch","Air Conditioner","Vacuum Cleaner","Fireplace","Clock"],
+    ["Garage Door","Car","Bike","Motorbike","Tools","Washer","Dryer","Furnace","Water Leaking","Repair","Wood Work"],
+    ["Footsteps","Drinking","Eating","Baby Crying","Dog/Cat","Light Switch","Walking","Running","Car Sounds","Bird Sounds","Rain"],
+    ["Person Falling","Snoring","Coughing","Sneezing","Call For Help","Smoke Detector","Security Alarm","Glass Break"]
 ];
 
 const ThemeMap = ["../img/cyber.jpg", "../img/island.jpg", "../img/desert.jpg"];
