@@ -86,7 +86,7 @@ router.get('/sound', async (ctx) => {
  * GET /viewer/event/:id/sound
  */
 router.get('/events/:id/sound', async (ctx) => {  
-  console.log("POST request received to upload sound: "+ JSON.parse(ctx.request.body.sound));
+  
   const eventId = ctx.params.id;
   const eventModel = new Event(ctx);
   eventModel.hideUnpublishedEvents();
@@ -234,6 +234,8 @@ router.post('/events/fake/sound', async (ctx) => {
  * POST /viewer/event/:id/sound
  */
 router.post('/events/:id/sound', async (ctx) => {  
+
+  console.log("POST request received to upload sound: "+ JSON.parse(ctx.request.body.sound));
   const eventId = ctx.params.id;
   const eventModel = new Event(ctx);
   eventModel.hideUnpublishedEvents();
@@ -278,6 +280,7 @@ router.post('/events/:id/sound', async (ctx) => {
     ctx.throw(400, 'Sound info required');
   }
 
+  console.log("Successfully found sound info and created directory to upload sound");
   let soundInfo;
   try {
     soundInfo = JSON.parse(ctx.request.body.sound);
@@ -290,7 +293,7 @@ router.post('/events/:id/sound', async (ctx) => {
     console.log(e);
     ctx.throw(400, 'Invalid sound info format');
   }
-  
+   
   // Remove empty label
   if (!soundInfo.meta.label) {
     delete soundInfo.meta.label;
@@ -302,6 +305,8 @@ router.post('/events/:id/sound', async (ctx) => {
   } catch (err) {
     ctx.throw(400, err);
   }
+
+  console.log("Successfully validated uploaded sound");
 
   if (!['audio/wav', 'audio/wave', 'audio/x-wav'].includes(file.type) ||
       !file.name.endsWith('.wav')) {
@@ -349,6 +354,7 @@ router.post('/events/:id/sound', async (ctx) => {
   soundData.validatedLabel = null;
 
   const soundItem = await soundModel.create(soundData);
+  console.log("Successfully saved uploaded sound");
 
   ctx.body = {
     'msg': 'success',
