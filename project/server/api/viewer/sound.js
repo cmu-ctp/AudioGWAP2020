@@ -18,6 +18,12 @@ const Sound = require('../../models/sound');
 
 const router = new Router();
 
+const votedLabel = Joi.object(
+  {
+    uid: Joi.string(),
+    label: Joi.string()
+  }
+);
 const soundSchema = Joi.object({
   game_meta: Joi.object({
     model: Joi.string()
@@ -25,7 +31,11 @@ const soundSchema = Joi.object({
   meta: Joi.object({
     category: Joi.string().required(),
     label: Joi.string().allow(null)
-  })
+  }),
+  isValidated: Joi.boolean(),
+  votingRound: Joi.number(),
+  votedLabels: Joi.array().items(votedLabel),
+  validatedLabel: Joi.string().allow(null)
 });
 
 function getUploadDir() {
@@ -76,6 +86,7 @@ router.get('/sound', async (ctx) => {
  * GET /viewer/event/:id/sound
  */
 router.get('/events/:id/sound', async (ctx) => {  
+  console.log("POST request received to upload sound: "+ JSON.parse(ctx.request.body.sound));
   const eventId = ctx.params.id;
   const eventModel = new Event(ctx);
   eventModel.hideUnpublishedEvents();
@@ -333,6 +344,9 @@ router.post('/events/:id/sound', async (ctx) => {
   soundData.event_id = soundModel.getObjectId(eventId);
   soundData.path = fileUrl;
   soundData._id = soundId;
+  soundData.votingRound = 0;
+  soundData.isValidated = false;
+  soundData.validatedLabel = null;
 
   const soundItem = await soundModel.create(soundData);
 
