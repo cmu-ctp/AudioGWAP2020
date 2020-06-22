@@ -63,6 +63,31 @@ router.get('/consent/revoke', async (ctx) => {
   };
 });
 
+/**
+ * GET viewer/sound/retrieve
+ */
+
+router.get('/sound/retrieve', async (ctx) => { 
+  const uid = ctx.user.uid;
+
+  const soundModel = new Sound(ctx);
+  const soundObj = await soundModel.fetchSound(uid);
+
+  if(soundObj === null){
+    ctx.body = {
+      'msg': 'There are currently no new sounds for validation',
+      'result': null
+    }; 
+    return;
+  }
+  
+  ctx.body = {
+    'msg': 'Success',
+    'result': soundObj
+  };
+
+});
+
 
 /**
  * GET /viewer/sound
@@ -81,6 +106,7 @@ router.get('/sound', async (ctx) => {
     'result': itemList
   };
 });
+
 
 /**
  * GET /viewer/event/:id/sound
