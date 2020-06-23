@@ -41,7 +41,11 @@ module.exports = class Sound extends BaseModel {
   }
 
   async fetchSound(uid){
-    var query = { isValidated: false };
+    var query = { 
+      isValidated: { $eq: false },
+      uid: { $ne: uid},
+      'votedLabels.uid': { $ne: uid} 
+    };
     const sound = await this.collection.findOne(query);
     
     //let sound = await this.collection.find({ uid: uid }).toArray();

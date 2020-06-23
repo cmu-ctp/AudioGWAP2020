@@ -15,6 +15,7 @@ const config = require('../../config');
 
 const Event = require('../../models/event');
 const Sound = require('../../models/sound');
+//const Redis = require('../../lib/redis');
 
 const router = new Router();
 
@@ -32,6 +33,7 @@ const soundSchema = Joi.object({
     category: Joi.string().required(),
     label: Joi.string().allow(null)
   }),
+  sid: Joi.string().allow(null),
   isValidated: Joi.boolean(),
   votingRound: Joi.number(),
   votedLabels: Joi.array().items(votedLabel),
@@ -72,6 +74,8 @@ router.get('/sound/retrieve', async (ctx) => {
 
   const soundModel = new Sound(ctx);
   const soundObj = await soundModel.fetchSound(uid);
+  // const cache = new Redis();
+  // const soundObj = await cache.getCachedSoundClip(ctx);
 
   if(soundObj === null){
     ctx.body = {
@@ -375,6 +379,7 @@ router.post('/events/:id/sound', async (ctx) => {
   soundData.event_id = soundModel.getObjectId(eventId);
   soundData.path = fileUrl;
   soundData._id = soundId;
+  soundData.sid = soundId;
   soundData.votingRound = 0;
   soundData.isValidated = false;
   soundData.validatedLabel = null;
