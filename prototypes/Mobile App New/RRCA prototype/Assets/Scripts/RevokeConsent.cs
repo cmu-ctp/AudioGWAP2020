@@ -8,7 +8,7 @@ public class RevokeConsent : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject canvas, sampleWebView, loginPage, consentPage, homePage, soundItems;//, loading;
+    private GameObject canvas, sampleWebView, loginPage, consentPage, homePage, soundItems, revokeConfirmPage;//, loading;
 
     [SerializeField]
     private IntVariable chosenGamePieceIndex;
@@ -21,25 +21,24 @@ public class RevokeConsent : MonoBehaviour
 
     private void CheckToken()
     {
+        
         if(PlayerPrefs.GetString("token") == "")
         {
+            Debug.Log("Coroutine not started");
             //GoToWebView();
         }
         else
         {
+            Debug.Log("Coroutine started");
             StartCoroutine(sendRequest());
         }
+        
     }
 
-    // Update is called once per frame
-    /*void Update()
+    IEnumerator sendRequest()
     {
-        StartCoroutine(GetEventsInfoFromServer());
-    }*/
 
-     IEnumerator sendRequest()
-    {
-        
+        Debug.Log("Sending request!");
         UnityWebRequest www = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/consent/revoke/");
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
         yield return www.SendWebRequest();
@@ -47,21 +46,28 @@ public class RevokeConsent : MonoBehaviour
         if(www.isNetworkError || www.isHttpError) {
             Debug.Log(www.error + " : " + www.downloadHandler.text);
         }
-        /*else {
-            Debug.Log("Successfully hit API");
-        }*/
+        else {
+            Debug.Log("Successfully hit API and revoked consent");
+        }
+
+        if(www.responseCode == 200)
+        {
+            Debug.Log("Going to next screen");
+            GoToNextPage();
+        }
     }
 
-     public void GoToWebView()
+    public void GoToNextPage()
     {
-        PlayerPrefs.SetInt("chosenGamePiece", -1);
-        this.gameObject.SetActive(false);
-        //loading.SetActive(true);
-        //canvas.SetActive(false);
-        //loginPage.SetActive(false);
-        //consentPage.SetActive(true);
-        soundItems.GetComponent<PopulateGallery>().StartPopulating();
-        sampleWebView.SetActive(true);
+        //chosenGamePieceIndex.Value = PlayerPrefs.GetInt("chosenGamePiece");
+        //canvas.GetComponent<GetEvents>().StartGettingEvents();
+        // loginPage.SetActive(false);
+        // this.gameObject.SetActive(false);
+        // consentPage.SetActive(true);
+        revokeConfirmPage.SetActive(false);
+        //homePage.SetActive(true);
+        //soundItems.GetComponent<PopulateGallery>().StartPopulating();
     }
+
 
 }
