@@ -10,11 +10,12 @@ body {
 .nav-container {
     height: 120px;
     background: #FFFFFF;
+
 }
 .nav-wrapper {
-    max-width: 1860px;
+    max-width: 1920px;
     margin: 0 auto;
-    padding: 37px;
+
 }
 nav {
     display: flex;
@@ -23,8 +24,10 @@ nav {
 }
 nav ul {
     display: flex;
+
 }
 nav .logo {
+    margin-left: 40px;
     font-family: "Poppins", sans-serif;
     font-style: normal;
     font-weight: 800;
@@ -33,22 +36,44 @@ nav .logo {
 
 }
 .nav-items li {
+
     list-style: none;
-    margin-right: 100px;
+    display: flex;
+
+
+
 }
+
+.nav-items li:hover:not(:last-child) a {
+    background-color: black;
+    color: #FFFFFF;
+}
+
 .nav-items li:nth-last-of-type(1) {
     margin: 0;
 }
 .nav-items li a {
+    width: 150px;
+    height: 120px;
+    left: 1200px;
     text-decoration: none;
     font-family: "Lato", sans-serif;
     font-style: normal;
-    font-weight: 500;
-    font-size: 28px;
-    line-height: 34px;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 29px;
     /* identical to box height */
-    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9A9A9A;
+
 }
+.nav-items li.active a{
+    font-weight: 500;
+    color: black;
+}
+
 .body-container {
     height: 1200px;
 
@@ -102,9 +127,9 @@ nav .logo {
     height: 67px;
     background: #000000;
     border: 0;
-
     box-shadow: none;
     border-radius: 0px;
+    padding-top: 5px;
 }
 
 .result {
@@ -116,4 +141,3 @@ nav .logo {
 .result table {
     margin: 0 auto;
 }
-
