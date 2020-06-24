@@ -11,7 +11,8 @@ using UnityEngine.iOS;
 #endif
 public class TagManager : MonoBehaviour
 {
-    public CrossAudioList crossAudioList;
+    // public CrossAudioList crossAudioList;
+    public GetValidationSound crossAudioList;
 
 
     public List<string> tagmanager;
@@ -43,7 +44,7 @@ public class TagManager : MonoBehaviour
 
     public void generateTagList()
     {
-
+        Debug.Log("generating tag list");
         string[] labelinput = {
             "Sink/Faucet","Disposer","Garbage bin","Microwave","Oven","Toaster","Cooktop","Kettle","Refrigerator","Cooking","Silverwave","Plates","Mopping floor",
             "Sink","Bathtub","Shower","Hairdryer","Mirror cabinet","Toothbrush","Toilet flush","Toilet paper","Hand wash","Electric trimmer","Soap dispenser","Deodorant","Extractor fan",
@@ -58,6 +59,7 @@ public class TagManager : MonoBehaviour
     }
     public void loadTagList(string t)
     {
+        Debug.Log("loading tag list");
         randomMnumber(3, tagmanager.Count);
         if (chosentag.Contains(t))
         {
@@ -192,8 +194,13 @@ public class TagManager : MonoBehaviour
 
     public void PlayAudio()
     {
-
-        Camera.main.GetComponent<AudioSource>().clip = crossAudioList.ClipDownLoaded[0].downloadclips;//audioclip from server
+        Debug.Log("PlayAudio()");
+        Debug.Log("clip downloaded length (in play audio):" + crossAudioList.ClipDownLoaded.Count);
+        if (crossAudioList.ClipDownLoaded[0].downloadclips == null) {
+            Debug.Log("sound clip is null");
+        }
+        UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+        Camera.main.GetComponent<AudioSource>().clip = crossAudioList.ClipDownLoaded[0].downloadclips; //audioclip from server
         Camera.main.GetComponent<AudioSource>().Play();
 
     }
@@ -212,6 +219,7 @@ public class TagManager : MonoBehaviour
     
     private void UpdateTime(float rawTime)
     {
+        // Debug.Log("In UpdateTime()");
         int millisecond = Mathf.FloorToInt(rawTime * 1000) % 1000;
         int time = Mathf.FloorToInt(rawTime);
         audioTime.text = $"{time / 60:D2}:{time % 60:D2}:{millisecond / 15:D2}";
@@ -251,15 +259,25 @@ public class TagManager : MonoBehaviour
         //clear
         //generateTaglist
         //
-        generateTagList();
+        
+        // generateTagList(); 
+        /* no longer need to generate tag list with a guideline based system */
 
-        loadTagList(crossAudioList.ClipDownLoaded[0].labelnames);
-        UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+        // loadTagList(crossAudioList.ClipDownLoaded[0].labelnames);
+        Debug.Log("Tag Manager Started");
+        Debug.Log("clip downloaded length (in tm):" + crossAudioList.ClipDownLoaded.Count);
 
+        /*
+        if (crossAudioList.ClipDownLoaded[0].downloadclips == null) {
+            Debug.Log("sound clip is null");
+        }
+        else {
+            Debug.Log("sound clip is not null");
+        }
+        */
+        // UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
 
-
-
-
+        Debug.Log("Setting button listeners");
         optionButtons[0].onClick.AddListener(OnClickButton0);
         optionButtons[1].onClick.AddListener(OnClickButton1);
         optionButtons[2].onClick.AddListener(OnClickButton2);
@@ -268,6 +286,7 @@ public class TagManager : MonoBehaviour
         optionButtons[5].onClick.AddListener(PauseAudio);
         optionButtons[6].onClick.AddListener(UpdateAudio);
         optionButtons[7].onClick.AddListener(SkipAudio);
+        Debug.Log("clip downloaded length 2 (in tm):" + crossAudioList.ClipDownLoaded.Count);
 
 
     }
@@ -275,7 +294,6 @@ public class TagManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
 
         if (Camera.main.GetComponent<AudioSource>().isPlaying)
         {

@@ -63,9 +63,6 @@ public class CrossAudioList : MonoBehaviour
 
     }
 
-    
-
-
     IEnumerator GetSoundList()
     {
         string responseBody = PlayerPrefs.GetString("body");
@@ -73,6 +70,7 @@ public class CrossAudioList : MonoBehaviour
         SoundFetchAPIResult result = JsonUtility.FromJson<SoundFetchAPIResult>(responseBody);
         if (result.result != null)
         {
+            /*
             foreach (SoundData sound in result.result)
             {
                 string path = "https://hcii-gwap-01.andrew.cmu.edu" + sound.path;
@@ -82,6 +80,7 @@ public class CrossAudioList : MonoBehaviour
 
                 sounds.Add(new SoundObject(path, displayName, labelName, id));
             }
+            */
         }
 
         yield return new WaitForEndOfFrame();

@@ -205,6 +205,7 @@ public class RecordManager : MonoBehaviour
         System.GC.Collect();
 
         UpdateTime(audioClip.length);
+        Debug.Log("Finished Recording");
         
     }
 
@@ -245,6 +246,7 @@ public class RecordManager : MonoBehaviour
 
     public void OnUploadBtnClick(StringVariable eventId)
     {
+        Debug.Log("On Upload Btn Click");
         string tempLabel = "Custom";
         string serverCategory = tempLabel;
         string soundCustomLabel = "";
@@ -313,6 +315,7 @@ public class RecordManager : MonoBehaviour
 
             PlayerPrefs.SetString(countTemp.ToString(), tempLabel);
             PlayerPrefs.SetString("Length_" + countTemp.ToString(), recordingTimerText.text);
+            // PlayerPrefs.SetString("Id_"+countTemp.ToString(),) 
 
             StartCoroutine(UploadAudioToServer(serverCategory, soundCustomLabel, eventId.Value));
 
@@ -323,12 +326,17 @@ public class RecordManager : MonoBehaviour
     IEnumerator UploadAudioToServer(string category, string soundLabel, string eventId) {
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormFileSection("file", recordedAudioData, "myfile.wav", "audio/wav"));
+        Debug.Log("event id: "+eventId);
 
         if(string.IsNullOrEmpty(soundLabel))
         {
             var soundData = new JsonSoundDataWithoutLabel();
             soundData.game_meta = new JsonSoundGameMeta();
             soundData.meta = new JsonSoundMetaWithoutLabel();
+            soundData.isValidated = false; // initialize validated false
+            soundData.votingRound = 0;
+            soundData.validatedLabel = "unknown";
+            soundData.sid = "unknown";
             soundData.game_meta.model = gamePieces.Value[chosenGamePieceIndex.Value];
             soundData.meta.category = category;
             formData.Add(new MultipartFormDataSection("sound", JsonUtility.ToJson(soundData)));
@@ -338,19 +346,25 @@ public class RecordManager : MonoBehaviour
             var soundData = new JsonSoundDataWithLabel();
             soundData.game_meta = new JsonSoundGameMeta();
             soundData.meta = new JsonSoundMeta();
+            soundData.isValidated = false; // initialize validated false
+            soundData.votingRound = 0;
+            soundData.validatedLabel = "unknown";
+            soundData.validatedLabel = "unknown";
             soundData.game_meta.model = gamePieces.Value[chosenGamePieceIndex.Value];
             soundData.meta.category = category;
             soundData.meta.label = soundLabel;
             formData.Add(new MultipartFormDataSection("sound", JsonUtility.ToJson(soundData)));
         }
 
+        Debug.Log("Sending request to server");
         UnityWebRequest www = UnityWebRequest.Post("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/events/" + eventId + "/sound", formData);
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
         yield return www.SendWebRequest();
  
         if(www.isNetworkError || www.isHttpError) {
+            Debug.Log("Error uploading sound to the server");
             Debug.Log(www.error + " : " + www.downloadHandler.text);
-            soundsUploadingPage.transform.GetChild(1).gameObject.GetComponent<Text>().text = "Server Trouble. Please close the application and try again";
+            soundsUploadingPage.transform.GetChild(1).gameObject.GetComponent<Text>().text = www.downloadHandler.text; //"Server Trouble. Please close the application and try again";
         }
         else {
             //Debug.Log(RecordTimestamp);
@@ -422,7 +436,7 @@ public class RecordManager : MonoBehaviour
         // else
         // {
         isCustomSoundLabel = false;
-        int index = dropDownObject.transform.parent.GetSiblingIndex() + 1;
+        int index = dropDownObject.transform.parent.GetSiblingIndex() + 1; // index out of bounds exception
         Transform customLabel = dropDownObject.transform.parent.parent.GetChild(index);
         // customLabel.GetChild(2).gameObject.SetActive(false);
         customLabel.GetChild(0).gameObject.GetComponent<Toggle>().isOn = false;
