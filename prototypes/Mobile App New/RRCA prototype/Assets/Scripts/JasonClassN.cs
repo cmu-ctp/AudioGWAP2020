@@ -7,16 +7,25 @@ using System;
 public class SoundFetchAPIResult
 {
     public string msg;
-    public SoundData[] result;
+    public SoundData result;
+    // public SoundData[] result;
 }
 
 [Serializable]
 public class SoundData
 {
     public string path;
+    public SoundMeta meta;
     public SoundGameMeta game_meta;
     public UserData user;
     public string id;
+}
+
+[Serializable]
+public class SoundMeta
+{
+    public string category;
+
 }
 
 [Serializable]
