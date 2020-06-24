@@ -37,16 +37,32 @@ MongoClient.connect(mongoURL, {useUnifiedTopology: true})
       }
     })
 
-    app.get('/', async (req, res) => {
+    app.get('/dataset', async (req, res) => {
+      res.render('dataset')
+    })
+
+    app.get('/dataset/results', async (req, res) => {
       const { q } = req.query
       let results = []
       if (q && q.length > 0) {
           results = await getResults(q)
       }
       if (q) {
-        console.log('Query: ' + q)
+          console.log('Query: ' + q)
       }
-      res.render('dataset', {sounds: results, query: q})
+      res.render('results', {sounds: results, query: q})
+    })
+
+    app.get('/people', async (req, res) => {
+      res.render('people')
+    })
+  
+    app.get('/future', async (req, res) => {
+      res.render('future')
+    })
+    
+    app.get('/', async (req, res) => {
+      res.render('home')
     })
 
     app.listen(5000,() => console.log('listening on port 5000.'))
