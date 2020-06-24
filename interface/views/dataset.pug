@@ -28,9 +28,15 @@ html(lang='en')
           if query && query.length > 0
             input.searchbox(type='text' id='q' name='q' value=query)
           else
-            input.searchbox(type='text' id='q' name='q' placeholder="What sounds are you looking for")
+            input.searchbox(type='text' id='q' name='q' placeholder="Search Dataset")
           button.submit-btn(type='submit' value='Search')
             img(src="/images/search-submit.png" alt="search icon")
 
 
         script(type='text/javascript' src='script.js' defer='defer')
+      div.ontology-container
+        dl
+          each subCats, category in ontology
+            dt #{category}
+            each subCategory in subCats
+              dd -#{subCategory.sub}
