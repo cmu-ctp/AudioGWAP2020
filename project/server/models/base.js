@@ -32,7 +32,7 @@ module.exports = class BaseModel {
 
   async create(data) {
     if (!data) {
-      throw new Error('invalid create data');
+      throw new Error('Invalid create data');
     }
 
     const result = await this.collection.insertOne(data);

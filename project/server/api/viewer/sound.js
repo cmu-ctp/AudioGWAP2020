@@ -15,7 +15,7 @@ const config = require('../../config');
 
 const Event = require('../../models/event');
 const Sound = require('../../models/sound');
-//const Redis = require('../../lib/redis');
+const Cache = require('../../models/cachedData');
 
 const router = new Router();
 
@@ -70,12 +70,8 @@ router.get('/consent/revoke', async (ctx) => {
  */
 
 router.get('/sound/retrieve', async (ctx) => { 
-  const uid = ctx.user.uid;
-
-  const soundModel = new Sound(ctx);
-  const soundObj = await soundModel.fetchSound(uid);
-  // const cache = new Redis();
-  // const soundObj = await cache.getCachedSoundClip(ctx);
+  const cache = new Cache(ctx);
+  const soundObj = await cache.getUnvalidatedSound(ctx);
 
   if(soundObj === null){
     ctx.body = {
@@ -90,6 +86,18 @@ router.get('/sound/retrieve', async (ctx) => {
     'result': soundObj
   };
 
+});
+
+router.post('/label/submit', async (ctx) => {
+  try{
+    const cache = new Cache(ctx);
+    await cache.updateCache(ctx);
+    ctx.body = {
+      'msg': 'Label sucessfully added',
+    }
+  } catch (err) {
+    ctx.throw(400, err);
+  }
 });
 
 
@@ -265,7 +273,6 @@ router.post('/events/fake/sound', async (ctx) => {
  */
 router.post('/events/:id/sound', async (ctx) => {  
 
-  console.log("POST request received to upload sound: "+ JSON.parse(ctx.request.body.sound));
   const eventId = ctx.params.id;
   const eventModel = new Event(ctx);
   eventModel.hideUnpublishedEvents();
@@ -379,7 +386,7 @@ router.post('/events/:id/sound', async (ctx) => {
   soundData.event_id = soundModel.getObjectId(eventId);
   soundData.path = fileUrl;
   soundData._id = soundId;
-  soundData.sid = soundId;
+  soundData.sid = soundId.str;
   soundData.votingRound = 0;
   soundData.isValidated = false;
   soundData.validatedLabel = null;

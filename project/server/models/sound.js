@@ -36,22 +36,23 @@ module.exports = class Sound extends BaseModel {
       console.log("Unable to delete sound from DB");
       console.log(err);
     }
-
-    
   }
 
-  async fetchSound(uid){
+  async fetchSound(){
     var query = { 
       isValidated: { $eq: false },
-      uid: { $ne: uid},
-      'votedLabels.uid': { $ne: uid} 
     };
-    const sound = await this.collection.findOne(query);
-    
-    //let sound = await this.collection.find({ uid: uid }).toArray();
-    console.log(uid);
-    console.log(sound);
-    return sound;
+    const sounds = await this.collection.find(query);
+    return this.filterResult(sounds);
+  }
+
+  async updateValidatedSound(sound){
+    try{
+      await this.collection.update({ sid: sound.sid}, sound);
+    } catch(err){
+      console.log("Unable to update the validated sound in DB");
+      console.log(err);
+    }
   }
   
   async find(id) {
