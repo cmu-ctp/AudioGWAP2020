@@ -40,7 +40,7 @@ module.exports = class cachedData extends BaseModel {
             console.log("Initially received sound object with label"+JSON.stringify(sound));
             
             // Check for majority on reaching max labels
-            if(sound.votedLabels.length >= 1){
+            if(sound.votedLabels.length >= 3){
                 const labels = sound.votedLabels;
                 let count = 0;
                 for(let i=0; i < labels.length; i++){
@@ -50,7 +50,7 @@ module.exports = class cachedData extends BaseModel {
                 }
 
                 // If majority votes have been reached, update db & cache
-                if(count >= 1){
+                if(count >= 2){
                     console.log("Majority votes have been achieved");
                     sound.isValidated = true;
                     sound.validatedLabel = sound.meta.category;
