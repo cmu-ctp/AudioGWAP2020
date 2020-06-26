@@ -32,8 +32,11 @@ module.exports = class cachedData extends BaseModel {
 
     async updateCache(ctx){
         try {
-            const sound = JSON.parse(ctx.request.body.sound);
             const uid = ctx.user.uid;
+            const sound = JSON.parse(ctx.request.body.sound);
+            if(!sound) {
+                ctx.throw(400, "Post object cannot be null")
+              }
             console.log("Initially received sound object with label"+JSON.stringify(sound));
             
             // Check for majority on reaching max labels
@@ -64,11 +67,11 @@ module.exports = class cachedData extends BaseModel {
             else {
 
                 this.sound.votedLabels[votedLabels.length-1].uid = ctx.user.uid;
-                console.log("Final updated sound object:" + JSON.stringify(sond));
+                console.log("Final updated sound object being resaved in cache:" + JSON.stringify(sound));
                 this.collection.update({ sid: sound.sid}, sound);
             }
         } catch (err) {
-            console.log("Unable to update cache with added labels");
+            console.log("Error occured while processing post object with label");
             console.log(err);
         }
         
