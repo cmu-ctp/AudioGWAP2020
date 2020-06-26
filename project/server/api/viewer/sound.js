@@ -97,6 +97,7 @@ router.post('/label/submit', async (ctx) => {
       ctx.throw(400, "Post object cannot be null")
     }
     await cache.updateCache(requestObject, uid);
+    console.log("Label successfully submitted.")
     ctx.body = {
       'msg': 'Label sucessfully added',
     }

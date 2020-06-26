@@ -32,7 +32,7 @@ module.exports = class cachedData extends BaseModel {
 
     async updateCache(sound, uid){
         try {
-            console.log("Sound object with label"+sound);
+            console.log("Sound object with label"+JSON.stringify(sound));
             // Check for majority on reaching max labels
             if(sound.votedLabels.length >= 1){
                 const labels = sound.votedLabels;
@@ -59,6 +59,7 @@ module.exports = class cachedData extends BaseModel {
             else {
 
                 this.sound.votedLabels[votedLabels.length-1].uid = ctx.user.uid;
+                console.log("Final updated sound object:" + JSON.stringify(sond));
                 this.collection.update({ sid: sound.sid}, sound);
             }
         } catch (err) {
