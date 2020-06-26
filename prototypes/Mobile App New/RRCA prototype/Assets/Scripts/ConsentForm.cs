@@ -25,7 +25,6 @@ public class ConsentForm : MonoBehaviour
     void Update()
     {
         if (checkbox1.isOn && checkbox2.isOn && checkbox3.isOn) {
-            Debug.Log("toggle is on");
             acceptButton.gameObject.SetActive(true);
         }
         else {

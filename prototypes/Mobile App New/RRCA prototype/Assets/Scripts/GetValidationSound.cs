@@ -14,6 +14,8 @@ public class GetValidationSound : MonoBehaviour
 
     public string label = "";
 
+    public SoundData sound;
+
     /* get one sound from the server and play the sound */
     [SerializeField]
     private Text guideline;
@@ -26,8 +28,9 @@ public class GetValidationSound : MonoBehaviour
         
     }
 
-    private void GetSound()
+    public void GetSound()
     {
+        Debug.Log("Get sound");
         StartCoroutine(RequestSoundList());
     }
 
@@ -41,13 +44,14 @@ public class GetValidationSound : MonoBehaviour
     }
 
     /* from CrossAudioList */
-    IEnumerator RequestSoundList()
+    public IEnumerator RequestSoundList()
     {
+        Debug.Log("in Request Sound List");
         string responseBody;
         // https://hcii-gwap-01.andrew.cmu.edu/api/viewer/sound/retrieve
         using (UnityWebRequest req = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/sound/retrieve"))
         {
-
+            Debug.Log("making api call");
             req.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
 
             yield return req.SendWebRequest();
@@ -73,9 +77,10 @@ public class GetValidationSound : MonoBehaviour
         string responseBody = PlayerPrefs.GetString("body");
         SoundObject soundObject; 
         string path;
-        string displayName;
+        string displayName = ""; // not used
         string labelName;
-        string id;
+        string id = ""; // not used
+        List<JsonVotedLabel> votedLabels;
 
         SoundFetchAPIResult result = JsonUtility.FromJson<SoundFetchAPIResult>(responseBody);
         Debug.Log("result message: "+result.msg);
@@ -84,14 +89,18 @@ public class GetValidationSound : MonoBehaviour
         {
             Debug.Log("result: "+result.result);
             
-            SoundData sound = result.result;
+            sound = result.result;
            
             path = "https://hcii-gwap-01.andrew.cmu.edu" + sound.path;
             Debug.Log(path);
-            displayName = sound.user.display_name;
+            // displayName = sound.user.display_name;
             labelName = sound.meta.category; //sound.game_meta.sound_label;
-            id = sound.id;
-            label = guideline.text + labelName + " ?";
+            // id = sound.id;
+            label = "Is this the sound of " + labelName + " ?";
+            votedLabels = sound.votedLabels;
+           
+            // Debug.Log("_id"+sound._id);
+            Debug.Log("voting round: "+sound.votingRound);
            
             Debug.Log("guideline text: "+label);
             //guideline.text = guideline.text + " " + labelName;

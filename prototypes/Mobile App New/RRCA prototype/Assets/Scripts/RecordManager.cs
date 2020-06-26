@@ -334,6 +334,7 @@ public class RecordManager : MonoBehaviour
             soundData.game_meta = new JsonSoundGameMeta();
             soundData.meta = new JsonSoundMetaWithoutLabel();
             soundData.isValidated = false; // initialize validated false
+            soundData.sid = "null";
             soundData.votingRound = 0;
             soundData.validatedLabel = "unknown";
             soundData.sid = "unknown";
@@ -348,6 +349,7 @@ public class RecordManager : MonoBehaviour
             soundData.meta = new JsonSoundMeta();
             soundData.isValidated = false; // initialize validated false
             soundData.votingRound = 0;
+            soundData.sid = "null";
             soundData.validatedLabel = "unknown";
             soundData.validatedLabel = "unknown";
             soundData.game_meta.model = gamePieces.Value[chosenGamePieceIndex.Value];

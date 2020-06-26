@@ -12,7 +12,8 @@ using UnityEngine.iOS;
 public class TagManager : MonoBehaviour
 {
     // public CrossAudioList crossAudioList;
-    public GetValidationSound crossAudioList;
+    public GetValidationSound crossAudioList = new GetValidationSound(); 
+    // would this mess things up because im creating a new instance
 
 
     public List<string> tagmanager;
@@ -23,6 +24,10 @@ public class TagManager : MonoBehaviour
     public GameObject option3;
     private string target;
     int ClipAmountsDid = 1 ;
+
+    private string tag;
+
+    public bool getNext = false;
 
     public UnityWebRequest www;
     public Text audioTime;
@@ -36,6 +41,9 @@ public class TagManager : MonoBehaviour
 
     [SerializeField]
     private Button[] optionButtons;
+
+    [SerializeField]
+    private Text guideline;
 
 
 
@@ -95,46 +103,24 @@ public class TagManager : MonoBehaviour
 
     void OnClickButton0()
     {
-        userchoosetag = chosentag[0];
-        //if (chosentag[0] == target)
-        //{
-        //    Debug.Log("yeeeeee");
-        //}
-        //else
-        //{
-        //    Debug.Log("noooooooo");
-        //}
-        //update 
-        //UpdateAudio();
-
+        Debug.Log("Yes button clicked");
+        // userchoosetag = chosentag[0];
+        tag = "Yes";
+        Debug.Log("tag: "+tag);
 
     }
     void OnClickButton1()
     {
-        userchoosetag = chosentag[1];
+        Debug.Log("button one clicked!");
+        // userchoosetag = chosentag[1];
+        tag = "No";
 
-        //if (chosentag[1] == target)
-        //{
-        //    Debug.Log("yeeeeee");
-        //}
-        //else
-        //{
-        //    Debug.Log("noooooooo");
-        //}
-        //UpdateAudio();
     }
     void OnClickButton2()
     {
-        userchoosetag = chosentag[2];
-        //if (chosentag[2] == target)
-        //{
-        //    Debug.Log("yeeeeee");
-        //}
-        //else
-        //{
-        //    Debug.Log("noooooooo");
-        //}
-        //UpdateAudio();
+        // userchoosetag = chosentag[2];
+        tag = "Neither";
+       
     }
 
     void CompareTag()
@@ -195,7 +181,7 @@ public class TagManager : MonoBehaviour
     public void PlayAudio()
     {
         Debug.Log("PlayAudio()");
-        Debug.Log("clip downloaded length (in play audio):" + crossAudioList.ClipDownLoaded.Count);
+        Debug.Log("clip downloaded num (in play audio):" + crossAudioList.ClipDownLoaded.Count);
         if (crossAudioList.ClipDownLoaded[0].downloadclips == null) {
             Debug.Log("sound clip is null");
         }
@@ -208,13 +194,13 @@ public class TagManager : MonoBehaviour
     public void PauseAudio()
     {
         Camera.main.GetComponent<AudioSource>().Pause();
-        //Debug.Log("Pause!");
+        Debug.Log("Pause!");
     }
 
     public void StopAudio()
     {
         Camera.main.GetComponent<AudioSource>().Stop();
-        //Debug.Log("Stop!");
+        Debug.Log("Stop!");
     }
     
     private void UpdateTime(float rawTime)
@@ -252,19 +238,73 @@ public class TagManager : MonoBehaviour
 
     }
 
+    public void SaveAudio() {
+        Debug.Log("save button clicked!");
+        // Debug.Log("sound path in TM: "+crossAudioList.sound.path);
+        StartCoroutine(UpdateAudioInServer());
+    }
+
+    public void NextAudio() {
+        Debug.Log("next button clicked!");
+        getNext = true;
+    }
+
+
+    IEnumerator UpdateAudioInServer() {
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        Debug.Log("Updating audio data to the server");
+
+        SoundData updatedSound = crossAudioList.sound;
+        Debug.Log("new sound: "+updatedSound.path); 
+        // from RecordManager.cs 
+    
+        List<JsonVotedLabel> votedLabels = updatedSound.votedLabels;
+        JsonVotedLabel newLabel = new JsonVotedLabel();
+        newLabel.uid = "null";
+        newLabel.label = tag;
+        if (votedLabels == null) {
+            Debug.Log("validated array was null");
+            votedLabels = new List<JsonVotedLabel>();
+        }
+        votedLabels.Add(newLabel);
+        updatedSound.votedLabels = votedLabels;
+        
+        Debug.Log("voting array: "+ updatedSound.votedLabels);
+        Debug.Log("voting array count: "+updatedSound.votedLabels.Count);
+    
+
+        formData.Add(new MultipartFormDataSection("sound", JsonUtility.ToJson(updatedSound)));
+        Debug.Log("new json: "+JsonUtility.ToJson(updatedSound));
+        
+        UnityWebRequest www = UnityWebRequest.Post("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/label/submit", formData);
+        www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
+        yield return www.SendWebRequest();
+
+        if(www.isNetworkError || www.isHttpError) {
+            Debug.Log("Error uploading sound to the server");
+            Debug.Log(www.error + " : " + www.downloadHandler.text);
+        }
+        else {
+            //Debug.Log(RecordTimestamp);
+            Debug.Log("Upload complete!");
+            
+        }
+        
+        
+    }
+
 
 
     void Start()
     {
-        //clear
-        //generateTaglist
-        //
         
         // generateTagList(); 
         /* no longer need to generate tag list with a guideline based system */
 
         // loadTagList(crossAudioList.ClipDownLoaded[0].labelnames);
-        Debug.Log("Tag Manager Started");
+        Debug.LogError("Tag Manager Started");
+        // crossAudioList.GetSound();
+        // Debug.Log("clip downloaded length after next:" + crossAudioList.ClipDownLoaded.Count);
         Debug.Log("clip downloaded length (in tm):" + crossAudioList.ClipDownLoaded.Count);
 
         /*
@@ -284,16 +324,27 @@ public class TagManager : MonoBehaviour
         optionButtons[3].onClick.AddListener(ReportQuestion);
         optionButtons[4].onClick.AddListener(PlayAudio);
         optionButtons[5].onClick.AddListener(PauseAudio);
-        optionButtons[6].onClick.AddListener(UpdateAudio);
+        optionButtons[6].onClick.AddListener(SaveAudio);
+        // optionButtons[6].onClick.AddListener(UpdateAudio);
         optionButtons[7].onClick.AddListener(SkipAudio);
+        optionButtons[8].onClick.AddListener(NextAudio);
         Debug.Log("clip downloaded length 2 (in tm):" + crossAudioList.ClipDownLoaded.Count);
-
+        if (optionButtons[8].enabled) {
+            Debug.Log("next button enabled");
+        }
+        else {
+            Debug.Log("next button not enabled");
+        }
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        if (crossAudioList.label != "") {
+            guideline.text = crossAudioList.label;
+        }
 
         if (Camera.main.GetComponent<AudioSource>().isPlaying)
         {
@@ -304,6 +355,13 @@ public class TagManager : MonoBehaviour
             playaudiobutton.SetActive(true);
             pauseaudiobutton.SetActive(false);
             UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+        }
+
+        if (getNext) {
+            getNext = false;
+            crossAudioList.GetSound();
+            Debug.Log("clip downloaded length after next:" + crossAudioList.ClipDownLoaded.Count);
+
         }
         
     }
