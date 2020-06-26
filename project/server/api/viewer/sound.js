@@ -92,7 +92,7 @@ router.post('/label/submit', async (ctx) => {
   try{
     const cache = new Cache(ctx);
     const uid = ctx.user.uid;
-    const requestObject = ctx.request.body.sound;
+    const requestObject = JSON.parse(ctx.request.body.sound);
     if(!requestObject) {
       ctx.throw(400, "Post object cannot be null")
     }
