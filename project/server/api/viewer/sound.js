@@ -399,6 +399,7 @@ router.post('/events/:id/sound', async (ctx) => {
   soundData.isValidated = false;
   soundData.validatedLabel = null;
 
+  console.log("Sound being saved:"+ JSON.stringify(soundData));
   const soundItem = await soundModel.create(soundData);
   console.log("Successfully saved uploaded sound");
 

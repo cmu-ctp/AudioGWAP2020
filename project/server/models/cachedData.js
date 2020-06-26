@@ -33,6 +33,7 @@ module.exports = class cachedData extends BaseModel {
     async updateCache(sound, uid){
         try {
             console.log("Sound object with label"+JSON.stringify(sound));
+            
             // Check for majority on reaching max labels
             if(sound.votedLabels.length >= 1){
                 const labels = sound.votedLabels;
@@ -45,6 +46,7 @@ module.exports = class cachedData extends BaseModel {
 
                 // If majority votes have been reached, update db & cache
                 if(count >= 1){
+                    console.log("Majority votes have been achieved");
                     sound.isValidated = true;
                     const soundModel = new Sound(ctx);
                     await soundModel.updateValidatedSound(sound);
