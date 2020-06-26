@@ -103,6 +103,7 @@ router.post('/label/submit', async (ctx) => {
       'msg': 'Label sucessfully added',
     }
   } catch (err) {
+    console.log("Label was not submitted");
     ctx.throw(400, err);
   }
 });

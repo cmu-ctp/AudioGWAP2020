@@ -30,7 +30,7 @@ module.exports = class cachedData extends BaseModel {
         return sound;
     }
 
-    async updateCache(sound, uid, ctx){
+    async updateCache(ctx){
         try {
             const sound = JSON.parse(ctx.request.body.sound);
             const uid = ctx.user.uid;
