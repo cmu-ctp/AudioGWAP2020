@@ -36,7 +36,7 @@ const soundSchema = Joi.object({
   sid: Joi.string().allow(null),
   isValidated: Joi.boolean(),
   votingRound: Joi.number(),
-  votedLabels: Joi.array().items(votedLabel),
+  votedLabels: Joi.array().items(votedLabel).allow(null),
   validatedLabel: Joi.string().allow(null)
 });
 
@@ -278,6 +278,7 @@ router.post('/events/fake/sound', async (ctx) => {
  */
 router.post('/events/:id/sound', async (ctx) => {  
 
+  console.log("Recorded sound object: "+ctx.request.body.sound);
   const eventId = ctx.params.id;
   const eventModel = new Event(ctx);
   eventModel.hideUnpublishedEvents();
@@ -393,6 +394,7 @@ router.post('/events/:id/sound', async (ctx) => {
   soundData._id = soundId;
   soundData.sid = soundId.str;
   soundData.votingRound = 0;
+  soundData.votedLabels = null;
   soundData.isValidated = false;
   soundData.validatedLabel = null;
 
