@@ -33,7 +33,6 @@ module.exports = class cachedData extends BaseModel {
     async updateCache(sound, uid){
         try {
             console.log("Sound object with label"+sound);
-            console.log("Voted Labels: "+sound.votedLabels[0]);
             // Check for majority on reaching max labels
             if(sound.votedLabels.length >= 1){
                 const labels = sound.votedLabels;
