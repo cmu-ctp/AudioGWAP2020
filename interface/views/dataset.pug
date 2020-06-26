@@ -24,7 +24,7 @@ html(lang='en')
       div.search-slogan Search place, object and scenario
 
       div.search-container
-        form(method='get' action='/dataset/results')
+        form(method='get' action='/dataset/search/')
           if query && query.length > 0
             input.searchbox(type='text' id='q' name='q' value=query)
           else
@@ -39,4 +39,6 @@ html(lang='en')
           each subCats, category in ontology
             dt #{category}
             each subCategory in subCats
-              dd -#{subCategory.sub}
+              - var categoryLink = '/dataset/search/?q=' + subCategory.sub
+              dd 
+                a(href=categoryLink) #{subCategory.sub}

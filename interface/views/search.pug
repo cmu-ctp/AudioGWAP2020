@@ -32,7 +32,7 @@ html(lang='en')
                     button.submit-btn(type='submit' value='Search')
                         img(src="/images/search-submit.png" alt="search icon")
             div.result
-                if sounds.length
+                if results.length
                     table
                         thead
                             tr
@@ -40,20 +40,16 @@ html(lang='en')
                                 th Audio
                                 th
                         tbody
-                            each sound in sounds
-                                tr
-                                    if sound.game_meta.sound_label
-                                        td #{sound.game_meta.sound_label}
-                                    else if sound.meta && sound.meta.category
-                                        td #{sound.meta.category}
-                                    else
-                                        td UNLABELED
-                                    td
-                                        - var path = sound.path.substr(1)
-                                        audio(controls preload='none' src=path)
-                                    td
-                                        - var down = '/d' + sound.path
-                                        a(href=down target="_blank") Download
+                            each category in results
+                                each sound in category.sounds
+                                    - var down = '/d' + sound
+                                    tr
+                                        td #{category.sub}
+                                        td 
+                                            audio(controls preload='none' src=sound)
+                                            
+                                        td
+                                            a(href=down target="_blank") Download
                         tfoot
                             tr
                                 th(colspan='3')

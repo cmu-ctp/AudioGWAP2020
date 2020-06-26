@@ -22,22 +22,6 @@ mongo.dbConnect(err => {
     }
   })
 
-  /*app.get('/dataset', async (req, res) => {
-    res.render('dataset')
-  })
-
-  app.get('/dataset/results', async (req, res) => {
-    const { q } = req.query
-    let results = []
-    if (q && q.length > 0) {
-        results = await getResults(q)
-    }
-    if (q) {
-        console.log('Query: ' + q)
-    }
-    res.render('results', {sounds: results, query: q})
-  })*/
-
   app.get('/people', async (req, res) => {
     res.render('people')
   })
@@ -48,6 +32,15 @@ mongo.dbConnect(err => {
   
   app.get('/', async (req, res) => {
     res.render('home')
+  })
+
+  app.use(function (req, res, next) {
+    res.status(404).send('404 Error: Page not found')
+  })
+
+  app.use(function (err, req, res, next) {
+    console.error(err.stack)
+    res.status(500).send('An error happened on our end. Sorry!')
   })
 
   app.listen(5000,() => console.log('listening on port 5000.'))
