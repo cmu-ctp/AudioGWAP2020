@@ -91,7 +91,12 @@ router.get('/sound/retrieve', async (ctx) => {
 router.post('/label/submit', async (ctx) => {
   try{
     const cache = new Cache(ctx);
-    await cache.updateCache(ctx);
+    const uid = ctx.user.uid;
+    const requestObject = ctx.request.body.sound;
+    if(!requestObject) {
+      ctx.throw(400, "Post object cannot be null")
+    }
+    await cache.updateCache(requestObject, uid);
     ctx.body = {
       'msg': 'Label sucessfully added',
     }

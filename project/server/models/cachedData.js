@@ -30,10 +30,10 @@ module.exports = class cachedData extends BaseModel {
         return sound;
     }
 
-    async updateCache(ctx){
+    async updateCache(sound, uid){
         try {
-            const sound = JSON.parse(ctx.request.body.sound);
-            
+            console.log("Sound object with label"+sound);
+            console.log("Voted Labels: "+sound.votedLabels.toString());
             // Check for majority on reaching max labels
             if(sound.votedLabels.length >= 1){
                 const labels = sound.votedLabels;
