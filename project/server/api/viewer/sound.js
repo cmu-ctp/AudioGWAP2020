@@ -91,12 +91,10 @@ router.get('/sound/retrieve', async (ctx) => {
 router.post('/label/submit', async (ctx) => {
   try{
     const cache = new Cache(ctx);
-    const uid = ctx.user.uid;
-    const requestObject = JSON.parse(ctx.request.body.sound);
     if(!requestObject) {
       ctx.throw(400, "Post object cannot be null")
     }
-    await cache.updateCache(requestObject, uid, ctx);
+    await cache.updateCache(ctx);
     console.log("Label successfully submitted.")
     ctx.body = {
       'msg': 'Label sucessfully added',
@@ -279,7 +277,7 @@ router.post('/events/fake/sound', async (ctx) => {
  */
 router.post('/events/:id/sound', async (ctx) => {  
 
-  console.log("Recorded sound object: "+ctx.request.body.sound);
+  console.log("Initially recorded sound object: "+ctx.request.body.sound);
   const eventId = ctx.params.id;
   const eventModel = new Event(ctx);
   eventModel.hideUnpublishedEvents();

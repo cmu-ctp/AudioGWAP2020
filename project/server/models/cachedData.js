@@ -32,7 +32,9 @@ module.exports = class cachedData extends BaseModel {
 
     async updateCache(sound, uid, ctx){
         try {
-            console.log("Sound object with label"+JSON.stringify(sound));
+            const sound = JSON.parse(ctx.request.body.sound);
+            const uid = ctx.user.uid;
+            console.log("Initially received sound object with label"+JSON.stringify(sound));
             
             // Check for majority on reaching max labels
             if(sound.votedLabels.length >= 1){
@@ -48,6 +50,7 @@ module.exports = class cachedData extends BaseModel {
                 if(count >= 1){
                     console.log("Majority votes have been achieved");
                     sound.isValidated = true;
+                    sound.validatedLabel = sound.meta.category;
                     const soundModel = new Sound(ctx);
                     await soundModel.updateValidatedSound(sound);
                     await this.collection.remove({'sid': sound.sid});
