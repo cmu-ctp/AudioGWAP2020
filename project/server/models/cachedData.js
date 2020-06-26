@@ -30,7 +30,7 @@ module.exports = class cachedData extends BaseModel {
         return sound;
     }
 
-    async updateCache(sound, uid){
+    async updateCache(sound, uid, ctx){
         try {
             console.log("Sound object with label"+JSON.stringify(sound));
             
@@ -50,7 +50,7 @@ module.exports = class cachedData extends BaseModel {
                     sound.isValidated = true;
                     const soundModel = new Sound(ctx);
                     await soundModel.updateValidatedSound(sound);
-                    await this.collection.remove(sound.sid);
+                    await this.collection.remove({'sid': sound.sid});
 
                 } else {
                     sound.votingRound = sound.votingRound + 1;
