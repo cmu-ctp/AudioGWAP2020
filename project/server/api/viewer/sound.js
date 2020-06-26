@@ -71,6 +71,7 @@ router.get('/consent/revoke', async (ctx) => {
 
 router.get('/sound/retrieve', async (ctx) => { 
   const cache = new Cache(ctx);
+  console.log("Request made to fetch sound");
   const soundObj = await cache.getUnvalidatedSound(ctx);
 
   if(soundObj === null){
