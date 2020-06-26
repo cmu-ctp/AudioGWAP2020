@@ -74,6 +74,7 @@ router.get('/sound/retrieve', async (ctx) => {
   console.log("Request made to fetch sound");
   const soundObj = await cache.getUnvalidatedSound(ctx);
 
+  console.log("Sound object being sent for labelling:"+soundObj);
   if(soundObj === null){
     ctx.body = {
       'msg': 'There are currently no new sounds for validation',
@@ -91,6 +92,7 @@ router.get('/sound/retrieve', async (ctx) => {
 
 router.post('/label/submit', async (ctx) => {
   try{
+    console.log("Request made to submit label");
     const cache = new Cache(ctx);
     if(!requestObject) {
       ctx.throw(400, "Post object cannot be null")
