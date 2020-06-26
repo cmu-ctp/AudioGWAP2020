@@ -66,7 +66,7 @@ module.exports = class cachedData extends BaseModel {
             }
             else {
 
-                this.sound.votedLabels[votedLabels.length-1].uid = ctx.user.uid;
+                sound.votedLabels[(votedLabels.length)-1].uid = ctx.user.uid;
                 console.log("Final updated sound object being resaved in cache:" + JSON.stringify(sound));
                 this.collection.update({ sid: sound.sid}, sound);
             }
