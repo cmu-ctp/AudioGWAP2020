@@ -6,6 +6,9 @@ const mongo = require('../lib/mongo')
 const db = mongo.getDb()
 const bodyParser = require('body-parser')
 const sound_categories = db.collection('sound_categories')
+const fs = require('fs')
+const jszip = require('jszip')
+const JSZip = require('jszip')
 
 router.get('/upload/:path1/:path2/:fileName', (req, res) => {
   if(!req.params.fileName.endsWith('.wav')){
@@ -31,9 +34,26 @@ router.post('/', urlParser, async (req, res) => {
       let obj = { sub: category}
       catQuery.push(obj)
     }
-    
+    let zip = new JSZip()
     let results = await getResults(catQuery)
-    res.send(results)
+    for (const category of results) {
+      if (category.sounds.length == 0) {
+        continue
+      }
+      let folderName = category.sub.replace("/","-")
+      let catFolder = zip.folder(folderName)
+      for (const sound of category.sounds) {
+        let fileName = sound.substring(sound.lastIndexOf("/")+1, sound.length)
+        let filePath = "../project/server" + sound
+        catFolder.file(fileName, fs.readFileSync(filePath))
+      }
+    }
+
+    res.set('Content-Type', 'application/zip')
+    res.set('Content-Disposition', 'attachment; filename=sounds.zip')
+    zip.generateNodeStream({type: 'nodebuffer', streamFiles: true})
+    .pipe(res)
+    console.log("Zip file generated and downloaded!")
   }
 })
 
