@@ -74,7 +74,7 @@ router.get('/sound/retrieve', async (ctx) => {
   console.log("Request made to fetch sound");
   const soundObj = await cache.getUnvalidatedSound(ctx);
 
-  console.log("Sound object being sent for labelling:"+soundObj);
+  console.log("Sound object being sent for labelling:"+JSON.stringify(soundObj));
   if(soundObj === null){
     ctx.body = {
       'msg': 'There are currently no new sounds for validation',
