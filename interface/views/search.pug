@@ -33,6 +33,7 @@ html(lang='en')
                         img(src="/images/search-submit.png" alt="search icon")
             div.result
                 if results.length
+                    p #{count} files found:
                     table
                         thead
                             tr
@@ -47,7 +48,6 @@ html(lang='en')
                                         td #{category.sub}
                                         td 
                                             audio(controls preload='none' src=sound)
-                                            
                                         td
                                             a(href=down target="_blank") Download
                         tfoot

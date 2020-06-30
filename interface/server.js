@@ -9,18 +9,9 @@ app.use('/upload', express.static('../project/server/upload'))
 
 mongo.dbConnect(err => {
   const datasetRouter = require('./routes/dataset')
+  const downloadRouter = require('./routes/download')
   app.use('/dataset', datasetRouter)
-
-  app.get('/d/upload/:path1/:path2/:fileName', (req, res) => {
-    if(!req.params.fileName.endsWith('.wav')){
-      console.error('Not a .wav file')
-      res.status(404).send("Sorry, we can't find that file.")
-    } else {
-      var filePath = `../project/server/upload/${req.params.path1}/${req.params.path2}/${req.params.fileName}`
-      res.download(filePath, req.params.fileName)
-      console.log('File ' + req.params.fileName + ' Downloaded!')
-    }
-  })
+  app.use('/d', downloadRouter)
 
   app.get('/people', async (req, res) => {
     res.render('people')

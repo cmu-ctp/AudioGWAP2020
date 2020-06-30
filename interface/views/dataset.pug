@@ -35,10 +35,13 @@ html(lang='en')
 
         script(type='text/javascript' src='script.js' defer='defer')
       div.ontology-container
-        dl
+        form(method="post" action="/d/" target="_blank")
           each subCats, category in ontology
-            dt #{category}
-            each subCategory in subCats
-              - var categoryLink = '/dataset/search/?q=' + subCategory.sub
-              dd 
-                a(href=categoryLink) #{subCategory.sub}
+            fieldset
+              legend #{category}
+              each subCategory in subCats
+                - var categoryLink = '/dataset/search/?q=' + subCategory.sub
+                input(type="checkbox" id=subCategory.sub name="d[]" value=subCategory.sub)
+                label(for=subCategory.sub) 
+                  a(href=categoryLink) #{subCategory.sub}
+          input(type="submit" value="Download")

@@ -4,7 +4,6 @@ const express = require('express')
 const router = express.Router()
 const mongo = require('../lib/mongo')
 const db = mongo.getDb()
-const sound = db.collection('sound')
 const sound_categories = db.collection('sound_categories')
 
 const categoryList = ["Kitchen", "Bathroom", "Living/Bedroom", "Garage", "Ambience", "Concerning"]
@@ -18,7 +17,13 @@ router.get('/search/', async (req, res) => {
   if (q) {
       console.log('Query: ' + q)
   }
-  res.render('search', {results: results, query: q})
+
+  let numFound = 0
+  for (category of results) {
+    numFound += category.sounds.length
+  }
+
+  res.render('search', {results: results, query: q, count: numFound})
 })
 
 router.get('/', async (req, res) => {
