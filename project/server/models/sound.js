@@ -48,7 +48,7 @@ module.exports = class Sound extends BaseModel {
 
   async updateValidatedSound(sound){
     try{
-      await this.collection.update({ sid: sound.sid}, 
+      await this.collection.updateOne({ sid: sound.sid}, 
       {
         $set: {
           isValidated: true,

@@ -61,14 +61,27 @@ module.exports = class cachedData extends BaseModel {
                 } else {
                     sound.votingRound = sound.votingRound + 1;
                     sound.votedLabels = null;
-                    this.collection.update({ sid: sound.sid}, sound);
+                    //this.collection.update({ sid: sound.sid}, sound);
+                    await this.collection.updateOne({ sid: sound.sid}, 
+                        {
+                          $set: {
+                            votingRound: sound.votingRound + 1,
+                            votedLabels: null
+                          }
+                        });
                 }
             }
             else {
                 const labels = sound.votedLabels
                 labels[(labels.length)-1].uid = ctx.user.uid;
                 console.log("Final updated sound object being resaved in cache:" + JSON.stringify(sound));
-                this.collection.update({ sid: sound.sid}, sound);
+                await this.collection.updateOne({ sid: sound.sid},
+                    {
+                        $set: {
+                            votedLabels: sound.votedLabels
+                        }
+
+                    });
             }
         } catch (err) {
             console.log("Error occured while processing post object with label");
