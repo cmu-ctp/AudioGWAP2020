@@ -24,13 +24,24 @@ html(lang='en')
       div.search-slogan Search place, object and scenario
 
       div.search-container
-        form(method='get' action='/dataset/results')
+        form(method='get' action='/dataset/search/')
           if query && query.length > 0
             input.searchbox(type='text' id='q' name='q' value=query)
           else
-            input.searchbox(type='text' id='q' name='q' placeholder="What sounds are you looking for")
+            input.searchbox(type='text' id='q' name='q' placeholder="Search Dataset")
           button.submit-btn(type='submit' value='Search')
             img(src="/images/search-submit.png" alt="search icon")
 
 
         script(type='text/javascript' src='script.js' defer='defer')
+      div.ontology-container
+        form(method="post" action="/d/" target="_blank")
+          each subCats, category in ontology
+            fieldset
+              legend #{category}
+              each subCategory in subCats
+                - var categoryLink = '/dataset/search/?q=' + subCategory.sub
+                input(type="checkbox" id=subCategory.sub name="d[]" value=subCategory.sub)
+                label(for=subCategory.sub) 
+                  a(href=categoryLink) #{subCategory.sub}
+          input(type="submit" value="Download")
