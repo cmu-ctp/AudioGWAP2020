@@ -6,6 +6,8 @@ module.exports = class cachedData extends BaseModel {
       super(ctx, 'cache');
     }
 
+    
+
     async getUnvalidatedSound(ctx){
         const uid = ctx.user.uid;
         console.log("Fetching data from cache");
@@ -16,13 +18,13 @@ module.exports = class cachedData extends BaseModel {
             console.log("Restoring cache");
             const soundModel = new Sound(ctx);
             var sounds = await soundModel.fetchSound();
-            for (let soundItem in sounds) {
-                console.log(soundItem);
-                await this.create(soundItem);
-            }
-            // sounds.forEach(async (sound) => {
-            //     const response =  await this.create(sound);
-            // });
+            // for (let soundItem in sounds) {
+            //     console.log(soundItem);
+            //     await this.collection.insertOne(soundItem);
+            // }
+            await Promise.all(sounds.forEach(async (sound) => {
+                const response =  await this.create(sound);
+            }));
         }
        
         // Get search result from cache
