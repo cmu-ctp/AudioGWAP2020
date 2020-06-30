@@ -48,7 +48,14 @@ module.exports = class Sound extends BaseModel {
 
   async updateValidatedSound(sound){
     try{
-      await this.collection.update({ sid: sound.sid}, sound);
+      await this.collection.update({ sid: sound.sid}, 
+      {
+        $set: {
+          isValidated: true,
+          validatedLabel: sound.validatedLabel
+        }
+      });
+      
     } catch(err){
       console.log("Unable to update the validated sound in DB");
       console.log(err);
