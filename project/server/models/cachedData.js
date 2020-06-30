@@ -11,13 +11,14 @@ module.exports = class cachedData extends BaseModel {
         console.log("Fetching data from cache");
         
         // Fetch data if cache is null
-        if(await this.collection.countDocuments({}) <= 0) {
+        const soundsNotPresentInCache = await this.collection.countDocuments({}) <= 0;
+        if(soundsNotPresentInCache) {
             console.log("Restoring cache");
             const soundModel = new Sound(ctx);
             var sounds = await soundModel.fetchSound();
             sounds.forEach(sound => {
-                const response =  this.create(sound);
-            }); 
+                const response =  await this.create(sound);
+            });
         }
        
         // Get search result from cache
