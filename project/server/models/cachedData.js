@@ -16,7 +16,7 @@ module.exports = class cachedData extends BaseModel {
             console.log("Restoring cache");
             const soundModel = new Sound(ctx);
             var sounds = await soundModel.fetchSound();
-            sounds.forEach(sound => {
+            sounds.forEach(async (sound) => {
                 const response =  await this.create(sound);
             });
         }
