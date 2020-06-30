@@ -43,7 +43,7 @@ module.exports = class Sound extends BaseModel {
       isValidated: { $eq: false },
     };
     const sounds = await this.collection.find(query);
-    return this.filterResult(sounds);
+    return this.sounds;
   }
 
   async updateValidatedSound(sound){

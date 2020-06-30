@@ -22,9 +22,11 @@ module.exports = class cachedData extends BaseModel {
             //     console.log(soundItem);
             //     await this.collection.insertOne(soundItem);
             // }
-            await Promise.all(sounds.forEach(async (sound) => {
-                const response =  await this.create(sound);
-            }));
+            await this.collection.insertMany(sounds);
+
+            // await Promise.all(sounds.map(async (sound) => {
+            //     const response =  await this.create(sound);
+            // }));
         }
        
         // Get search result from cache
