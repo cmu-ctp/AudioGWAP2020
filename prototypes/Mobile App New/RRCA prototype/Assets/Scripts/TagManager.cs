@@ -45,7 +45,13 @@ public class TagManager : MonoBehaviour
     [SerializeField]
     private Text guideline;
 
+    [SerializeField]
+    private GameObject NoSoundScreen;
 
+    [SerializeField]
+    private Image NoSoundPopUp;
+
+    
 
     //public int audioindex = 0;
     // Start is called before the first frame update
@@ -119,6 +125,7 @@ public class TagManager : MonoBehaviour
     void OnClickButton2()
     {
         // userchoosetag = chosentag[2];
+        // NoSoundScreen.gameObject.SetActive(true); 
         tag = "Neither";
        
     }
@@ -137,6 +144,7 @@ public class TagManager : MonoBehaviour
     
     void ReportQuestion()
     {
+        
         SkipAudio();
         Debug.Log("questionnnnnnnnn");
         //UpdateAudio();
@@ -241,6 +249,7 @@ public class TagManager : MonoBehaviour
     public void SaveAudio() {
         Debug.Log("save button clicked!");
         // Debug.Log("sound path in TM: "+crossAudioList.sound.path);
+        optionButtons[6].interactable = false;
         StartCoroutine(UpdateAudioInServer());
     }
 
@@ -289,6 +298,7 @@ public class TagManager : MonoBehaviour
             Debug.Log("Upload complete!");
             
         }
+        optionButtons[8].interactable = true;
         
         
     }
@@ -302,7 +312,7 @@ public class TagManager : MonoBehaviour
         /* no longer need to generate tag list with a guideline based system */
 
         // loadTagList(crossAudioList.ClipDownLoaded[0].labelnames);
-        Debug.LogError("Tag Manager Started");
+        Debug.Log("Tag Manager Started");
         // crossAudioList.GetSound();
         // Debug.Log("clip downloaded length after next:" + crossAudioList.ClipDownLoaded.Count);
         Debug.Log("clip downloaded length (in tm):" + crossAudioList.ClipDownLoaded.Count);
@@ -328,6 +338,8 @@ public class TagManager : MonoBehaviour
         // optionButtons[6].onClick.AddListener(UpdateAudio);
         optionButtons[7].onClick.AddListener(SkipAudio);
         optionButtons[8].onClick.AddListener(NextAudio);
+        optionButtons[8].interactable = false;
+        // optionButtons[8].GetComponent<Image>().color = new Color(115, 115, 115);
         Debug.Log("clip downloaded length 2 (in tm):" + crossAudioList.ClipDownLoaded.Count);
         if (optionButtons[8].enabled) {
             Debug.Log("next button enabled");
@@ -335,12 +347,28 @@ public class TagManager : MonoBehaviour
         else {
             Debug.Log("next button not enabled");
         }
+        if (crossAudioList.setPopUp) {
+            NoSoundScreen.gameObject.SetActive(true); 
+            NoSoundPopUp.gameObject.SetActive(true);
+        }
+        else {
+            NoSoundScreen.gameObject.SetActive(false);
+            NoSoundPopUp.gameObject.SetActive(false);
+        }
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (crossAudioList.setPopUp) {
+            NoSoundScreen.gameObject.SetActive(true); 
+            NoSoundPopUp.gameObject.SetActive(true);
+        }
+        else {
+            NoSoundScreen.gameObject.SetActive(false);
+            NoSoundPopUp.gameObject.SetActive(false);
+        }
         
         if (crossAudioList.label != "") {
             guideline.text = crossAudioList.label;
@@ -348,18 +376,24 @@ public class TagManager : MonoBehaviour
 
         if (Camera.main.GetComponent<AudioSource>().isPlaying)
         {
-            UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            if (crossAudioList.ClipDownLoaded.Count != 0) {
+                UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            }
         }
         else
         {
             playaudiobutton.SetActive(true);
             pauseaudiobutton.SetActive(false);
-            UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            if (crossAudioList.ClipDownLoaded.Count != 0) {
+                UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            }
         }
 
         if (getNext) {
             getNext = false;
             crossAudioList.GetSound();
+            optionButtons[8].interactable = false;
+            optionButtons[6].interactable = true;
             Debug.Log("clip downloaded length after next:" + crossAudioList.ClipDownLoaded.Count);
 
         }

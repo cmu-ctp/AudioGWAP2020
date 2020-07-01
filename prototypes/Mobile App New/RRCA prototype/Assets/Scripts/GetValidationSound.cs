@@ -20,6 +20,8 @@ public class GetValidationSound : MonoBehaviour
     [SerializeField]
     private Text guideline;
 
+    public bool setPopUp = false;
+
     void Start()
     {
         Debug.Log("Start requesting validation sound");
@@ -84,40 +86,48 @@ public class GetValidationSound : MonoBehaviour
 
         SoundFetchAPIResult result = JsonUtility.FromJson<SoundFetchAPIResult>(responseBody);
         Debug.Log("result message: "+result.msg);
-        
-        if (result.result != null)
-        {
-            Debug.Log("result: "+result.result);
-            
-            sound = result.result;
-           
-            path = "https://hcii-gwap-01.andrew.cmu.edu" + sound.path;
-            Debug.Log(path);
-            // displayName = sound.user.display_name;
-            labelName = sound.meta.category; //sound.game_meta.sound_label;
-            // id = sound.id;
-            label = "Is this the sound of " + labelName + " ?";
-            votedLabels = sound.votedLabels;
-           
-            // Debug.Log("_id"+sound._id);
-            Debug.Log("voting round: "+sound.votingRound);
-           
-            Debug.Log("guideline text: "+label);
-            //guideline.text = guideline.text + " " + labelName;
 
-            soundObject = new SoundObject(path, displayName, labelName, id);
-            
-            // yield return new WaitForEndOfFrame();
-            StartCoroutine(DownloadAudioFromSoundList(soundObject.displayName, soundObject.labelName, soundObject.path, soundObject.id));
-
+        if (result.msg != "Success") {
+            setPopUp = true;
+            label = "Is this the sound of ... ";
         }
+
         else {
-           Debug.Log("result.result IS null"); 
+            setPopUp = false;
+            if (result.result != null)
+            {
+                Debug.Log("result: "+result.result);
+                
+                sound = result.result;
+            
+                path = "https://hcii-gwap-01.andrew.cmu.edu" + sound.path;
+                Debug.Log(path);
+                // displayName = sound.user.display_name;
+                labelName = sound.meta.category; //sound.game_meta.sound_label;
+                // id = sound.id;
+                label = "Is this the sound of a(n)" + labelName + "?";
+                votedLabels = sound.votedLabels;
+            
+                // Debug.Log("_id"+sound._id);
+                Debug.Log("voting round: "+sound.votingRound);
+            
+                Debug.Log("guideline text: "+label);
+                //guideline.text = guideline.text + " " + labelName;
+
+                soundObject = new SoundObject(path, displayName, labelName, id);
+                
+                // yield return new WaitForEndOfFrame();
+                StartCoroutine(DownloadAudioFromSoundList(soundObject.displayName, soundObject.labelName, soundObject.path, soundObject.id));
+
+            }
+            else {
+            Debug.Log("result.result IS null"); 
+            }
+
+            Debug.Log("Made request for sound audio file");
+
+            yield return new WaitForEndOfFrame();
         }
-
-        Debug.Log("Made request for sound audio file");
-
-        yield return new WaitForEndOfFrame();
         // StartCoroutine(DownLoadClipRoutine());
 
         // StartCoroutine(DownloadAudioFromSoundList(soundObject.displayName, soundObject.labelName, soundObject.path, soundObject.id));
