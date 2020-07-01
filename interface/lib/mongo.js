@@ -5,7 +5,7 @@ var _db;
 require('dotenv').config()
 
 module.exports = {
-  dbConnect: callback => {
+  dbConnect: callback => { //connect to db, should only be called once
     let mongoURL = 'mongodb://'
     if (process.env.MONGO_USER && process.env.MONGO_PASS) {
       const user = encodeURIComponent(process.env.MONGO_USER)
@@ -20,10 +20,10 @@ module.exports = {
     MongoClient.connect(mongoURL, {useUnifiedTopology: true}, (err, client) => {
       console.log("Connected to MongoDB!")
       _db = client.db(process.env.MONGO_DB)
-      return callback(err)
+      return callback(err) //executes callback once connected
     })
   },
-  getDb: () => {
+  getDb: () => { //returns db connected to from dbConnect
     return _db
   }
 }

@@ -10,6 +10,9 @@ const fs = require('fs')
 const jszip = require('jszip')
 const JSZip = require('jszip')
 
+/** Individual file download route
+ *  URL path of a file's download link is their location within project/server/upload
+ */
 router.get('/upload/:path1/:path2/:fileName', (req, res) => {
   if(!req.params.fileName.endsWith('.wav')){
     console.error('Not a .wav file')
@@ -23,19 +26,25 @@ router.get('/upload/:path1/:path2/:fileName', (req, res) => {
 
 const urlParser = bodyParser.urlencoded({ extended: true })
 
+/** Category download route
+ *  Determines which category to download via URLencoded POST data
+ */
 router.post('/', urlParser, async (req, res) => {
-  const download = req.body.d
+  const download = req.body.d //array of categories to be downloaded
   if (download == null) {
     console.error('Bad request')
     res.status(404).send("Sorry, we couldn't find the categories you wanted")
   } else {
+    //build array for mongoDB query
     let catQuery = [];
     for (const category of download) {
       let obj = { sub: category}
       catQuery.push(obj)
     }
-    let zip = new JSZip()
     let results = await getResults(catQuery)
+
+    //zip all the files together dynamically
+    let zip = new JSZip()
     for (const category of results) {
       if (category.sounds.length == 0) {
         continue
@@ -57,6 +66,10 @@ router.post('/', urlParser, async (req, res) => {
   }
 })
 
+/** takes in array of subcategories to find (with syntax { sub: "name"})
+ *  returns array of docs containing category name and array of paths
+ *  for audio files
+ */
 async function getResults(queryArray) {
   let cursor = await sound_categories.find({
     $or: queryArray

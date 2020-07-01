@@ -1,4 +1,4 @@
 Download Link Formats:
 
-Curl: curl -d "d[]=Sink/Faucet&d[]=Clock&d[]=Toilet+Paper" -X POST -JO localhost:5000/d/
+Curl: curl -d "d[]=Sink%2FFaucet&d[]=Clock&d[]=Toilet+Paper" -X POST -JO localhost:5000/d/
 Wget: wget --post-data "d[]=Sink%2FFaucet&d[]=Clock&d[]=Toilet+Paper" --content-disposition localhost:5000/d/
