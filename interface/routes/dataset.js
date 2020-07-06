@@ -5,6 +5,7 @@ const router = express.Router()
 const mongo = require('../lib/mongo')
 const db = mongo.getDb()
 const sound_categories = db.collection('sound_categories')
+const fs = require('fs')
 
 const categoryList = ["Kitchen", "Bathroom", "Living/Bedroom", "Garage", "Ambience", "Concerning"]
 
@@ -22,11 +23,32 @@ router.get('/search/', async (req, res) => {
   }
 
   let numFound = 0
-  for (category of results) {
-    numFound += category.sounds.length
+  let totalSize = 0
+  for (let category of results) {
+    let len = category.sounds.length
+    numFound += len
+    //gets the size of each audio file
+    for (let i = 0; i < len; i++) {
+      let sound = category.sounds[i]
+      const stats = fs.statSync('../project/server' + sound)
+      let size = stats.size
+      totalSize += size
+      let obj = {
+        path: sound,
+        fileSize: convertSize(size)
+      }
+      category.sounds[i] = obj
+    }
   }
 
-  res.render('search', {results: results, query: q, count: numFound})
+  totalSize = convertSize(totalSize)
+  
+  res.render('search', {
+    results: results, 
+    query: q, 
+    count: numFound,
+    totalSize: totalSize
+  })
 })
 
 /** Route for general dataset landing page
@@ -56,6 +78,18 @@ async function getResults(query) {
 async function getSubCategories(category) {
   let cursor = await sound_categories.find({'parent': category})
   return cursor.sort({'sub': 1}).toArray()
+}
+
+function convertSize(size) {
+  if (size < 1000) {
+    return size.toString() + " B"
+  } else if (size < 1000000) {
+    size = size / 1000
+    return size.toFixed(1) + " KB"
+  } else {
+    size = size / 1000000
+    return size.toFixed(1) + " MB"
+  }
 }
 
 module.exports = router
