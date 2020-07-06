@@ -5,7 +5,9 @@ const router = express.Router()
 const mongo = require('../lib/mongo')
 const db = mongo.getDb()
 const sound_categories = db.collection('sound_categories')
-const fs = require('fs')
+const wfi = require('wav-file-info')
+const EventEmitter = require('events')
+const wavDone = new EventEmitter()
 
 const categoryList = ["Kitchen", "Bathroom", "Living/Bedroom", "Garage", "Ambience", "Concerning"]
 
@@ -22,33 +24,50 @@ router.get('/search/', async (req, res) => {
       console.log('Query: ' + q)
   }
 
+  /*somewhat hacky setup to make sure all wav files done analyzing
+    if you have a better idea, feel free to modify
+    gets count of # of sounds first, then checks count to decide when to render*/
   let numFound = 0
+  results.forEach(category => {
+    numFound += category.sounds.length
+  });
   let totalSize = 0
-  for (let category of results) {
+  let analysisCount = 0
+  for (let i = 0; i < results.length; i++) {
+    const category = results[i]
     let len = category.sounds.length
-    numFound += len
     //gets the size of each audio file
-    for (let i = 0; i < len; i++) {
-      let sound = category.sounds[i]
-      const stats = fs.statSync('../project/server' + sound)
-      let size = stats.size
-      totalSize += size
-      let obj = {
-        path: sound,
-        fileSize: convertSize(size)
-      }
-      category.sounds[i] = obj
+    for (let j = 0; j < len; j++) {
+      let sound = category.sounds[j]
+      wfi.infoByFilename('../project/server' + sound, (err, info) => {
+        if (err) {
+          console.log(err)
+          analysisCount++
+          return
+        }
+        let size = info.stats.size
+        totalSize += size
+        let obj = {
+          path: sound,
+          fileSize: convertSize(size),
+          bitDepth: info.header.bits_per_sample.toString() + ' bit',
+          sampleRate: info.header.sample_rate.toString() + ' Hz'
+        }
+        category.sounds[j] = obj
+        analysisCount++
+        if (analysisCount == numFound) {
+          totalSize = convertSize(totalSize)
+          console.log('Rendering page!')
+          res.render('search', {
+            results: results, 
+            query: q, 
+            count: numFound,
+            totalSize: totalSize
+          })
+        }
+      })
     }
   }
-
-  totalSize = convertSize(totalSize)
-  
-  res.render('search', {
-    results: results, 
-    query: q, 
-    count: numFound,
-    totalSize: totalSize
-  })
 })
 
 /** Route for general dataset landing page

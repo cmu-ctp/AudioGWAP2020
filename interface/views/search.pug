@@ -44,6 +44,7 @@ html(lang='en')
                                 th Label
                                 th Audio
                                 th File Size
+                                th Details
                                 th
                         tbody
                             each category in results
@@ -54,6 +55,7 @@ html(lang='en')
                                         td 
                                             audio(controls preload='none' src=sound.path)
                                         td #{sound.fileSize}
+                                        td Sample Rate: #{sound.sampleRate}, Bit Depth: #{sound.bitDepth}
                                         td
                                             a(href=down target="_blank") Download
                         tfoot
