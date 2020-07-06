@@ -110,6 +110,7 @@ public class TagManager : MonoBehaviour
     void OnClickButton0()
     {
         Debug.Log("Yes button clicked");
+        optionButtons[8].interactable = true;
         // userchoosetag = chosentag[0];
         tag = "Yes";
         Debug.Log("tag: "+tag);
@@ -119,6 +120,7 @@ public class TagManager : MonoBehaviour
     {
         Debug.Log("button one clicked!");
         // userchoosetag = chosentag[1];
+        optionButtons[8].interactable = true;
         tag = "No";
 
     }
@@ -126,6 +128,7 @@ public class TagManager : MonoBehaviour
     {
         // userchoosetag = chosentag[2];
         // NoSoundScreen.gameObject.SetActive(true); 
+        optionButtons[8].interactable = true;
         tag = "Neither";
        
     }
@@ -249,13 +252,13 @@ public class TagManager : MonoBehaviour
     public void SaveAudio() {
         Debug.Log("save button clicked!");
         // Debug.Log("sound path in TM: "+crossAudioList.sound.path);
-        optionButtons[6].interactable = false;
+        // optionButtons[6].interactable = false;
         StartCoroutine(UpdateAudioInServer());
     }
 
     public void NextAudio() {
         Debug.Log("next button clicked!");
-        getNext = true;
+        // getNext = true;
     }
 
 
@@ -295,10 +298,11 @@ public class TagManager : MonoBehaviour
         }
         else {
             //Debug.Log(RecordTimestamp);
-            Debug.Log("Upload complete!");
+            Debug.LogError("Upload complete!");
+            getNext = true;
             
         }
-        optionButtons[8].interactable = true;
+        // optionButtons[8].interactable = true;
         
         
     }
@@ -312,7 +316,7 @@ public class TagManager : MonoBehaviour
         /* no longer need to generate tag list with a guideline based system */
 
         // loadTagList(crossAudioList.ClipDownLoaded[0].labelnames);
-        Debug.Log("Tag Manager Started");
+        Debug.LogError("Tag Manager Started");
         // crossAudioList.GetSound();
         // Debug.Log("clip downloaded length after next:" + crossAudioList.ClipDownLoaded.Count);
         Debug.Log("clip downloaded length (in tm):" + crossAudioList.ClipDownLoaded.Count);
@@ -337,16 +341,18 @@ public class TagManager : MonoBehaviour
         optionButtons[6].onClick.AddListener(SaveAudio);
         // optionButtons[6].onClick.AddListener(UpdateAudio);
         optionButtons[7].onClick.AddListener(SkipAudio);
-        optionButtons[8].onClick.AddListener(NextAudio);
+        optionButtons[8].onClick.AddListener(SaveAudio); // NextAudio
         optionButtons[8].interactable = false;
         // optionButtons[8].GetComponent<Image>().color = new Color(115, 115, 115);
         Debug.Log("clip downloaded length 2 (in tm):" + crossAudioList.ClipDownLoaded.Count);
+        /*
         if (optionButtons[8].enabled) {
-            Debug.Log("next button enabled");
+            Debug.LogError("next button enabled");
         }
         else {
             Debug.Log("next button not enabled");
         }
+        */
         if (crossAudioList.setPopUp) {
             NoSoundScreen.gameObject.SetActive(true); 
             NoSoundPopUp.gameObject.SetActive(true);
@@ -393,7 +399,7 @@ public class TagManager : MonoBehaviour
             getNext = false;
             crossAudioList.GetSound();
             optionButtons[8].interactable = false;
-            optionButtons[6].interactable = true;
+            // optionButtons[6].interactable = true;
             Debug.Log("clip downloaded length after next:" + crossAudioList.ClipDownLoaded.Count);
 
         }

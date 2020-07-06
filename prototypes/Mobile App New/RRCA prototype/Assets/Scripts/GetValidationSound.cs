@@ -105,7 +105,7 @@ public class GetValidationSound : MonoBehaviour
                 // displayName = sound.user.display_name;
                 labelName = sound.meta.category; //sound.game_meta.sound_label;
                 // id = sound.id;
-                label = "Is this the sound of a(n)" + labelName + "?";
+                label = "Is this the sound of a(n) " + labelName + "?";
                 votedLabels = sound.votedLabels;
             
                 // Debug.Log("_id"+sound._id);
