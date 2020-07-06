@@ -32,7 +32,7 @@ html(lang='en')
                     button.submit-btn(type='submit' value='Search')
                         img(src="/images/search-submit.png" alt="search icon")
             div.result
-                if results.length
+                if count != 0
                     p #{count} files found, #{totalSize}
                     form(method="post" action="/d/" target="_blank")
                         each category in results

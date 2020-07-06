@@ -32,40 +32,55 @@ router.get('/search/', async (req, res) => {
     numFound += category.sounds.length
   });
   let totalSize = 0
-  let analysisCount = 0
-  for (let i = 0; i < results.length; i++) {
-    const category = results[i]
-    let len = category.sounds.length
-    //gets the size of each audio file
-    for (let j = 0; j < len; j++) {
-      let sound = category.sounds[j]
-      wfi.infoByFilename('../project/server' + sound, (err, info) => {
-        if (err) {
-          console.log(err)
+
+  if (numFound == 0) {
+    res.render('search', {
+      results: results, 
+      query: q, 
+      count: numFound,
+      totalSize: '0 B'
+    })
+  } else {
+    let analysisCount = 0
+    for (const category of results) {
+      let len = category.sounds.length
+      //gets the size of each audio file
+      for (let i = 0; i < len; i++) {
+        let sound = category.sounds[i]
+        wfi.infoByFilename('../project/server' + sound, (err, info) => {
+          let obj
+          if (err) {
+            console.log(err)
+            obj = {
+              path: sound,
+              fileSize: 'Error',
+              bitDepth: 'Error',
+              sampleRate: 'Error'
+            }
+          } else {
+            let size = info.stats.size
+            totalSize += size
+            obj = {
+              path: sound,
+              fileSize: convertSize(size),
+              bitDepth: info.header.bits_per_sample.toString() + ' bit',
+              sampleRate: info.header.sample_rate.toString() + ' Hz'
+            }
+          }
+          category.sounds[i] = obj
           analysisCount++
-          return
-        }
-        let size = info.stats.size
-        totalSize += size
-        let obj = {
-          path: sound,
-          fileSize: convertSize(size),
-          bitDepth: info.header.bits_per_sample.toString() + ' bit',
-          sampleRate: info.header.sample_rate.toString() + ' Hz'
-        }
-        category.sounds[j] = obj
-        analysisCount++
-        if (analysisCount == numFound) {
-          totalSize = convertSize(totalSize)
-          console.log('Rendering page!')
-          res.render('search', {
-            results: results, 
-            query: q, 
-            count: numFound,
-            totalSize: totalSize
-          })
-        }
-      })
+          if (analysisCount == numFound) {
+            totalSize = convertSize(totalSize)
+            console.log('Rendering page!')
+            res.render('search', {
+              results: results, 
+              query: q, 
+              count: numFound,
+              totalSize: totalSize
+            })
+          }
+        })
+      }
     }
   }
 })
