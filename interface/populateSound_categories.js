@@ -3,7 +3,7 @@
     DO NOT RUN ON SERVER!!!!!!!!
 */
 
-if (db.sound_categories.find().count() == 0) {
+if (db.sound_categories.find().count() === 0) {
   const CategoryList = ["Kitchen", "Bathroom", "Living/Bedroom", "Garage", "Ambience", "Concerning"];
   const CategorySubList = [
     ["Sink/Faucet","Garbage Disposal","Garbage Bin","Microwave","Oven","Toaster","Cooktop/Burner","Kettle","Refrigerator","Cooking","Silverware","Plates","Mopping Floor"],
