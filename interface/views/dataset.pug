@@ -39,9 +39,9 @@ html(lang='en')
                 input(type="checkbox" name="select" class="checkAll")
               th Category
               th
-              th Count
+              th File Count
               th File Size
-              th Update
+              th Last Updated
             - var rowId = 0;
               each subCats, category in ontology
                 - rowId++;
@@ -51,9 +51,9 @@ html(lang='en')
                   td(data-toggle="collapse" data-target="#"+rowId) #{category}
                   td.expand-button(data-toggle="collapse" data-target="#"+rowId aria-expanded="false")
                     img(src="/images/arrow_drop_down.png" onmouseover="this.src='/images/black_arrow_drop_down.png'" onmouseout="this.src='/images/arrow_drop_down.png'")
-                  td 42
-                  td 42M
-                  td 4/2/2020
+                  td #{counts[category]} files
+                  td #{fileSizes[category]}
+                  td #{lastModified[category]}
 
                 tr
                   td.hiddenRow(colspan="12")
@@ -67,6 +67,9 @@ html(lang='en')
                               - var categoryLink = '/dataset/search/?q=' + subCategory.sub
                               label(for=subCategory.sub)
                                 a(href=categoryLink) #{subCategory.sub}
+                            td #{subCategory.sounds.length}
+                            td #{subCategory.fileSizes}
+                            td #{subCategory.lastMod}
           input(type="submit" value="Download")
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
