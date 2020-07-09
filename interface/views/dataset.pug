@@ -47,7 +47,7 @@ html(lang='en')
                 - rowId++;
                 tr
                   td
-                    input(type="checkbox" id=category onclick="check('" + category + "')")
+                    input(type="checkbox" id=category class="parent")
                   td(data-toggle="collapse" data-target="#"+rowId) #{category}
                   td.expand-button(data-toggle="collapse" data-target="#"+rowId aria-expanded="false")
                     img(src="/images/arrow_drop_down.png" onmouseover="this.src='/images/black_arrow_drop_down.png'" onmouseout="this.src='/images/arrow_drop_down.png'")

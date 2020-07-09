@@ -3,6 +3,11 @@ $(".checkAll").click(function () {
     $('input:checkbox').not(this).prop('checked', this.checked);
 });
 
+$(".parent").click(function () {
+    let subClass = ".sub-" + this.id
+    $(subClass).prop('checked', this.checked);
+})
+
 function check(categoryName) {
     var allChecked = true;
     if($("#"+categoryName)[0].checked){
@@ -23,16 +28,23 @@ function check(categoryName) {
 }
 function uncheck(data, categoryName) {
     var allSubChecked = true;
+    var noneChecked = true;
     var allChecked = true;
     $(".sub-"+categoryName).each(function () {
         if(!this.checked) {
-            $("#"+categoryName)[0].checked = false;
-            $(".checkAll")[0].checked = false;
             allSubChecked = false;
+        } else {
+            noneChecked = false;
         }
     })
     if(allSubChecked) {
         $("#"+categoryName)[0].checked = true;
+        $("#"+categoryName)[0].indeterminate = false;
+    } else if (noneChecked) {
+        $("#"+categoryName)[0].checked = false;
+        $("#"+categoryName)[0].indeterminate = false;
+    } else {
+        $("#"+categoryName)[0].indeterminate = true;
     }
     $('td input:checkbox').each(function () {
         if(!this.checked) {
