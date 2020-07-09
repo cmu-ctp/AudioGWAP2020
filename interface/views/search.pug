@@ -45,25 +45,26 @@ html(lang='en')
                             th Audio
                             th Duration
                             th File Size
-                            th Update
+                            th Last Updated
                             th Download
                             each category in results
                                 -var rowId = 0;
                                 each sound in category.sounds
                                     - rowId++;
-                                    - var down = '/d' + sound
+                                    - var down = '/d' + sound.path
                                     tr
                                         td
                                             input(type="checkbox")
                                         td #{rowId}
                                         td #{category.sub}
                                         td
-                                            audio(controls preload='none' src=sound)
-                                        td 0:42:42
-                                        td 42M
-                                        td 4/2/2020
+                                            audio(controls preload='none' src=sound.path)
+                                        td #{sound.duration}
+                                        td #{sound.fileSize}
+                                        td #{sound.lastMod}
                                         td
                                             a(href=down target="_blank") Download
+<<<<<<< HEAD
                     input(type="submit" value="Download")
                     //table
                     //    thead
@@ -85,6 +86,8 @@ html(lang='en')
                     //        tr
                     //            th(colspan='3')
 
+=======
+>>>>>>> ef8a65ee0e46c7b2b62460311289d5364b8828ed
                 else
                     p No results
 

@@ -6,8 +6,7 @@ const mongo = require('../lib/mongo')
 const db = mongo.getDb()
 const sound_categories = db.collection('sound_categories')
 const wfi = require('wav-file-info')
-const EventEmitter = require('events')
-const wavDone = new EventEmitter()
+const fs = require('fs')
 
 const categoryList = ["Kitchen", "Bathroom", "Living/Bedroom", "Garage", "Ambience", "Concerning"]
 
@@ -64,7 +63,9 @@ router.get('/search/', async (req, res) => {
               path: sound,
               fileSize: convertSize(size),
               bitDepth: info.header.bits_per_sample.toString() + ' bit',
-              sampleRate: info.header.sample_rate.toString() + ' Hz'
+              sampleRate: info.header.sample_rate.toString() + ' Hz',
+              duration: decSecToTime(info.duration),
+              lastMod: info.stats.mtime.toLocaleDateString('en-US')
             }
           }
           category.sounds[i] = obj
@@ -91,11 +92,52 @@ router.get('/search/', async (req, res) => {
  */
 router.get('/', async (req, res) => {
   let ontology = {}
+  let counts = {}
+  let fileSizes = {}
+  let lastModified = {}
   for(const category of categoryList) {
-    ontology[category] = await getSubCategories(category)
+    let subCats = await getSubCategories(category)
+    ontology[category] = subCats
+    let categoryCount = 0
+    let categoryFileSizes = 0
+    let categoryLastMod = 0
+    for (const subCat of subCats) {
+      categoryCount += subCat.sounds.length
+      let subCatFileSizes = 0
+      let subCatLastMod = 0
+      for (const sound of subCat.sounds) {
+        const stats = fs.statSync('../project/server' + sound)
+        categoryFileSizes += stats.size
+        subCatFileSizes += stats.size
+        if (stats.mtimeMs > categoryLastMod) {
+          categoryLastMod = stats.mtimeMs
+        }
+        if (stats.mtimeMs > subCatLastMod) {
+          subCatLastMod = stats.mtimeMs
+        }
+      }
+      subCat.fileSizes = convertSize(subCatFileSizes)
+      if (subCatLastMod == 0) {
+        subCat.lastMod = 'N/A'
+      } else {
+        let subCatModDate = new Date(categoryLastMod)
+        subCat.lastMod = subCatModDate.toLocaleDateString('en-US')
+      }
+    }
+    fileSizes[category] = convertSize(categoryFileSizes)
+    counts[category] = categoryCount
+    if (categoryLastMod == 0) {
+      lastModified[category] = 'N/A'
+    } else {
+      let modDate = new Date(categoryLastMod)
+      lastModified[category] = modDate.toLocaleDateString('en-US')
+    }
   }
-  //console.log(ontology)
-  res.render('dataset', {ontology: ontology})
+  res.render('dataset', {
+    ontology: ontology, 
+    counts: counts, 
+    fileSizes: fileSizes, 
+    lastModified: lastModified})
 })
 
 //Searches sound_categories database for categories that match
@@ -124,6 +166,22 @@ function convertSize(size) {
     size = size / 1000000
     return size.toFixed(1) + " MB"
   }
+}
+
+function decSecToTime(decimalSeconds) {
+  let mins = Math.floor(decimalSeconds / 60)
+  let secs = Math.round(decimalSeconds - (mins * 60))
+  let dateString = ''
+  if (mins == 0) {
+    dateString += '0:'
+  } else {
+    dateString += (mins.toString() + ':')
+  }
+  if (secs < 10) {
+    dateString += '0'
+  }
+  dateString += secs.toString()
+  return dateString
 }
 
 module.exports = router
