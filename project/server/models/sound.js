@@ -42,8 +42,8 @@ module.exports = class Sound extends BaseModel {
     var query = { 
       isValidated: { $eq: false },
     };
-    const sounds = await this.collection.find(query);
-    return this.sounds;
+    const sounds = await this.collection.find(query).toArray();
+    return this.filterResult(sounds);
   }
 
   async updateValidatedSound(sound){
@@ -58,6 +58,89 @@ module.exports = class Sound extends BaseModel {
       
     } catch(err){
       console.log("Unable to update the validated sound in DB");
+      console.log(err);
+    }
+  }
+
+  async getUnvalidatedSound(ctx){
+    const uid = ctx.user.uid;
+    console.log("Fetching data from database");
+
+    var query = {
+      uid: { $ne: uid},
+      'votedLabels.uid': { $ne: uid},
+      isValidated: { $eq: false }
+    }
+
+    const sound = await this.collection.findOne(query);
+    return sound;
+  }
+
+  async updateLabel(ctx){
+    try{
+      const uid = ctx.user.uid;
+      const sound = JSON.parse(ctx.request.body.sound);
+
+      if(!sound) {
+        ctx.throw(400, "Post object cannot be null")
+      }
+
+      console.log("Initially received sound object with label"+JSON.stringify(sound));
+
+      // Check for majority on reaching max labels
+      if(sound.votedLabels.length >= 3){
+        const labels = sound.votedLabels;
+        let count = 0;
+        for(let i=0; i < labels.length; i++){
+            if(labels[i].label === 'Yes'){
+                count++;
+            }
+        }
+
+        // If majority votes have been reached, update db & cache
+        if(count >= 2){
+          console.log("Majority votes have been achieved");
+          try{
+            await this.collection.updateOne({ sid: sound.sid}, 
+            {
+              $set: {
+                isValidated: true,
+                validatedLabel: sound.meta.category
+              }
+            });
+            
+          } catch(err){
+            console.log("Unable to update the validated sound in DB");
+            console.log(err);
+          }
+        } 
+        // Max votes reached but no majority label found.
+        else {
+          sound.votingRound = sound.votingRound + 1;
+          sound.votedLabels = null;
+          await this.collection.updateOne({ sid: sound.sid}, 
+              {
+                $set: {
+                  votingRound: sound.votingRound + 1,
+                  votedLabels: null
+                }
+              });
+        }
+      } else {
+        const labels = sound.votedLabels;
+        labels[(labels.length)-1].uid = ctx.user.uid;
+        console.log("Final updated sound object being resaved in cache:" + JSON.stringify(sound));
+        await this.collection.updateOne({ sid: sound.sid},
+        {
+            $set: {
+                votedLabels: sound.votedLabels
+            }
+
+        });
+      }
+
+    } catch (err) {
+      console.log("Error occured while processing post object with label");
       console.log(err);
     }
   }

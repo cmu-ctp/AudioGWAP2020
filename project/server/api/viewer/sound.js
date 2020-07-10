@@ -70,9 +70,11 @@ router.get('/consent/revoke', async (ctx) => {
  */
 
 router.get('/sound/retrieve', async (ctx) => { 
-  const cache = new Cache(ctx);
   console.log("Request made to fetch sound");
-  const soundObj = await cache.getUnvalidatedSound(ctx);
+  //const cache = new Cache(ctx);
+  //const soundObj = await cache.getUnvalidatedSound(ctx);  
+  const soundModel = new Sound(ctx);
+  const soundObj = await soundModel.getUnvalidatedSound(ctx);
 
   console.log("Sound object being sent for labelling:"+JSON.stringify(soundObj));
   if(soundObj === null){
@@ -93,8 +95,10 @@ router.get('/sound/retrieve', async (ctx) => {
 router.post('/label/submit', async (ctx) => {
   try{
     console.log("Request made to submit label");
-    const cache = new Cache(ctx);
-    await cache.updateCache(ctx);
+    // const cache = new Cache(ctx);
+    // await cache.updateCache(ctx);
+    const soundModel = new Sound(ctx);
+    await soundModel.updateLabel(ctx);
     console.log("Label successfully submitted.")
     ctx.body = {
       'msg': 'Label sucessfully added',
