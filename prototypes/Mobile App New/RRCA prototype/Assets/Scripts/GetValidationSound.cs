@@ -102,7 +102,6 @@ public class GetValidationSound : MonoBehaviour
             
                 path = "https://hcii-gwap-01.andrew.cmu.edu" + sound.path;
                 Debug.Log(path);
-                // displayName = sound.user.display_name;
                 labelName = sound.meta.category; //sound.game_meta.sound_label;
                 // id = sound.id;
                 label = "Is this the sound of a(n) " + labelName + "?";
@@ -128,16 +127,6 @@ public class GetValidationSound : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-        // StartCoroutine(DownLoadClipRoutine());
-
-        // StartCoroutine(DownloadAudioFromSoundList(soundObject.displayName, soundObject.labelName, soundObject.path, soundObject.id));
-
-        //foreach (SoundObject sound in sounds)
-        //{
-
-        //    StartCoroutine(DownloadAudioFromSoundList(sound.displayName, sound.labelName, sound.path, sound.id));
-
-        //}
 
     }
 
@@ -162,21 +151,12 @@ public class GetValidationSound : MonoBehaviour
             newClip.labelnames = labelName;
 
             Debug.Log("Audio clip successfully downloaded");
-            ClipDownLoaded.Add(newClip); // do I need this?
-
-            // notdownloading = true;
+            ClipDownLoaded.Add(newClip);
             
             Debug.Log("clip downloaded count: "+ClipDownLoaded.Count);
 
-            //clips.Add(DownloadHandlerAudioClip.GetContent(req));
-            //labelnames.Add(labelName);
-            //clips_labels.Add(DownloadHandlerAudioClip.GetContent(req), labelName);
-            //dictionaries.Add(clips_labels);
             
         }
-        
-
-
 
     }
 }

@@ -22,6 +22,7 @@ public class GetEvents : MonoBehaviour
 
     public void StartGettingEvents()
     {
+        Debug.LogError("Start Getting Events");
         numberOfEvents.Value = 0;
         numberOfJoinedEvents.Value = 0;
         StartCoroutine(GetJoinedEventsInfoFromServer());
@@ -40,6 +41,7 @@ public class GetEvents : MonoBehaviour
 
     IEnumerator GetEventsInfoFromServer()
     {
+        Debug.Log("Retrieving events from server");
         
         UnityWebRequest www = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/events");
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));

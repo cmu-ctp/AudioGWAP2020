@@ -13,8 +13,6 @@ public class TagManager : MonoBehaviour
 {
     // public CrossAudioList crossAudioList;
     public GetValidationSound crossAudioList = new GetValidationSound(); 
-    // would this mess things up because im creating a new instance
-
 
     public List<string> tagmanager;
     public List<string> chosentag = new List<string>();
@@ -52,8 +50,6 @@ public class TagManager : MonoBehaviour
     private Image NoSoundPopUp;
 
     
-
-    //public int audioindex = 0;
     // Start is called before the first frame update
 
     public void generateTagList()
@@ -127,7 +123,6 @@ public class TagManager : MonoBehaviour
     void OnClickButton2()
     {
         // userchoosetag = chosentag[2];
-        // NoSoundScreen.gameObject.SetActive(true); 
         optionButtons[8].interactable = true;
         tag = "Neither";
        
@@ -135,22 +130,15 @@ public class TagManager : MonoBehaviour
 
     void CompareTag()
     {
-        if (userchoosetag == target)
-        {
-            Debug.Log("yeeeeee");
-        }
-        else
-        {
-            Debug.Log("noooooooo");
-        }
+       
     }
     
     void ReportQuestion()
     {
         
         SkipAudio();
-        Debug.Log("questionnnnnnnnn");
         //UpdateAudio();
+        // send response to server to report 
     }
 
 
