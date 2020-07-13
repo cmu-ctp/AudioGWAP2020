@@ -8,6 +8,9 @@ const Event = require('./event');
 const User = require('./user');
 const fs = require('fs');
 const path = require('path');
+const maxVotes = 3;
+const majorityVotes = 2;
+const maxVotingRounds = 1;
 
 module.exports = class Sound extends BaseModel {
   constructor(ctx) {
@@ -88,7 +91,7 @@ module.exports = class Sound extends BaseModel {
       console.log("Initially received sound object with label"+JSON.stringify(sound));
 
       // Check for majority on reaching max labels
-      if(sound.votedLabels.length >= 3){
+      if(sound.votedLabels.length >= maxVotes){
         const labels = sound.votedLabels;
         let count = 0;
         for(let i=0; i < labels.length; i++){
@@ -98,7 +101,7 @@ module.exports = class Sound extends BaseModel {
         }
 
         // If majority votes have been reached, update db & cache
-        if(count >= 2){
+        if(count >= majorityVotes){
           console.log("Majority votes have been achieved");
           try{
             await this.collection.updateOne({ sid: sound.sid}, 
@@ -114,19 +117,30 @@ module.exports = class Sound extends BaseModel {
             console.log(err);
           }
         } 
+
         // Max votes reached but no majority label found.
         else {
           sound.votingRound = sound.votingRound + 1;
-          sound.votedLabels = null;
-          await this.collection.updateOne({ sid: sound.sid}, 
+
+          // TODO: Max number of voting rounds reached. Mark sound as noise and remove from sound collection.
+          if(sound.votingRound > maxVotingRounds){
+
+          } 
+          else {
+            sound.votedLabels = null;
+            await this.collection.updateOne({ sid: sound.sid}, 
               {
                 $set: {
                   votingRound: sound.votingRound + 1,
                   votedLabels: null
                 }
               });
+          }
+          
         }
-      } else {
+      } 
+      // Max votes not reached. Append the label submitted to existing list of labels.
+      else {
         const labels = sound.votedLabels;
         labels[(labels.length)-1].uid = ctx.user.uid;
         console.log("Final updated sound object being resaved in cache:" + JSON.stringify(sound));
