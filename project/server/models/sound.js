@@ -11,6 +11,7 @@ const path = require('path');
 const maxVotes = 3;
 const majorityVotes = 2;
 const maxVotingRounds = 1;
+const Noise = require('../../models/noise');
 
 module.exports = class Sound extends BaseModel {
   constructor(ctx) {
@@ -82,6 +83,7 @@ module.exports = class Sound extends BaseModel {
   async updateLabel(ctx){
     try{
       const uid = ctx.user.uid;
+      const noiseModel = new Noise(ctx);
       const sound = JSON.parse(ctx.request.body.sound);
 
       if(!sound) {
@@ -122,9 +124,11 @@ module.exports = class Sound extends BaseModel {
         else {
           sound.votingRound = sound.votingRound + 1;
 
-          // TODO: Max number of voting rounds reached. Mark sound as noise and remove from sound collection.
+          //Max number of voting rounds reached. Mark sound as noise and remove from sound collection.
           if(sound.votingRound > maxVotingRounds){
-
+            sound.validatedLabel = "Noise";
+            await this.collection.deleteOne({'sid': sound.sid});
+            await noiseModel.markAsNoise(sound);
           } 
           else {
             sound.votedLabels = null;

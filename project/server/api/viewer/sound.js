@@ -15,7 +15,7 @@ const config = require('../../config');
 
 const Event = require('../../models/event');
 const Sound = require('../../models/sound');
-const Cache = require('../../models/cachedData');
+//const Cache = require('../../models/cachedData');
 
 const router = new Router();
 
