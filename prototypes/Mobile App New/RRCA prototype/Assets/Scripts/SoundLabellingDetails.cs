@@ -10,8 +10,8 @@ public class SoundLabellingDetails : MonoBehaviour
     private Dropdown eventDropDown, soundLabelDropDown;
 
     [SerializeField]
-    private GameObject eventArrow, soundLabelArrow, soundLabel, saveButton, saveText, customize, consentcheckbox;
-
+    private GameObject eventArrow, soundLabelArrow, soundLabel, saveButton, deleteButton, saveText, customize, consentcheckbox; // saveButton
+    
     [SerializeField]
     private GetEvents canvas;
 
@@ -26,6 +26,12 @@ public class SoundLabellingDetails : MonoBehaviour
     private Dropdown.OptionData eventsData = new Dropdown.OptionData();
     private Dropdown.OptionData soundLabelData = new Dropdown.OptionData();
     public List<List<string>> eventsJoined = new List<List<string>>();
+
+    private void Start() {
+        Debug.Log("Starting sound labelling details");
+        saveButton.GetComponent<Button>().interactable = false;
+        consentcheckbox.SetActive(false);
+    }
 
     public void SetSoundLabelValue(string value)
     {
@@ -63,18 +69,20 @@ public class SoundLabellingDetails : MonoBehaviour
             //{
             //    saveButton.GetComponent<Button>().interactable = true;
             //}
+            consentcheckbox.SetActive(false);
         }
         else
         {
-            
+            Debug.Log("label changed");
             saveButton.GetComponent<Button>().interactable = false;
+            consentcheckbox.SetActive(true);
             eventArrow.SetActive(true);
             soundLabelArrow.SetActive(true);
             eventDropDown.gameObject.SetActive(true);
             soundLabelDropDown.gameObject.SetActive(true);
             eventDropDown.interactable = true;
             soundLabelDropDown.transform.parent.gameObject.SetActive(false);
-            customize.SetActive(false);
+            // customize.SetActive(false);
             soundLabelDropDown.interactable = true;
 
             eventsJoined = canvas.GetEventsInfo(true);
@@ -96,6 +104,8 @@ public class SoundLabellingDetails : MonoBehaviour
                 option.Add(tempData);
                 eventDropDown.AddOptions(option);
             }
+
+            consentcheckbox.SetActive(false);
         }
     }
 
@@ -103,15 +113,16 @@ public class SoundLabellingDetails : MonoBehaviour
     {
         if(eventDropDown.value > 0)
         {
-            customize.SetActive(true);
+            // customize.SetActive(true);
             saveText.SetActive(false);
             soundLabel.SetActive(true);
+            consentcheckbox.SetActive(true); // added
             StartCoroutine(GetEventDetailsFromServer(eventsJoined[0][eventDropDown.value - 1]));
            
         }
         else
         {
-            customize.SetActive(false);
+            // customize.SetActive(false);
             saveText.SetActive(true);
             saveButton.GetComponent<Button>().interactable = false;
             soundLabel.SetActive(false);
@@ -119,7 +130,7 @@ public class SoundLabellingDetails : MonoBehaviour
     }
     public void AgreetoSendData()
     {
-        if (consentcheckbox.GetComponent<Toggle>().isOn == true)
+        if (consentcheckbox.GetComponentInChildren<Toggle>().isOn == true)
         {
             saveButton.GetComponent<Button>().interactable = true;
             //saveButton.GetComponent<Button>().interactable = true;
@@ -149,6 +160,7 @@ public class SoundLabellingDetails : MonoBehaviour
 
             soundLabelDropDown.ClearOptions();
             option.Clear();
+            // consentcheckbox.SetActive(false);
             for(int i= 0; i < categoryDetails.Count; i++)
             {
                 for(int j = 0; j < categoryDetails[i].Length; j++)
