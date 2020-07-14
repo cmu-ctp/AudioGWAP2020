@@ -22,7 +22,7 @@ html(lang='en')
               a.nav-btn-container(href='#' )
                 img.search-btn(src="/images/search.png" alt="search icon")
     div.body-container
-      div.search-slogan Search place, object and scenario
+      //div.search-slogan Search place, object and scenario
       div.search-container
         form(method='get' action='/dataset/search/')
           if query && query.length > 0
@@ -33,9 +33,9 @@ html(lang='en')
             img(src="/images/search-submit.png" alt="search icon")
       div.ontology-container
         form(method="post" action="/d/" target="_blank")
-          table.table.table-condensed.table-striped
+          table.main-table
             tr
-              th
+              th.main-input
                 input(type="checkbox" name="select" class="checkAll")
               th Category
               th
@@ -45,10 +45,10 @@ html(lang='en')
             - var rowId = 0;
               each subCats, category in ontology
                 - rowId++;
-                tr
+                tr.main-row
                   td
                     input(type="checkbox" id=category class="parent")
-                  td(data-toggle="collapse" data-target="#"+rowId) #{category}
+                  td.category-col(data-toggle="collapse" data-target="#"+rowId) #{category}
                   td.expand-button(data-toggle="collapse" data-target="#"+rowId aria-expanded="false")
                     img(src="/images/arrow_drop_down.png" onmouseover="this.src='/images/black_arrow_drop_down.png'" onmouseout="this.src='/images/arrow_drop_down.png'")
                   td #{counts[category]} files
@@ -58,19 +58,21 @@ html(lang='en')
                 tr
                   td.hiddenRow(colspan="12")
                     div.collapse(id=rowId)
-                      table.table.table-condensed.table-striped
+                      table.collapsible-table
                         each subCategory in subCats
                           tr
-                            td
+                            td.indentation
+                            td.sub-input
                               input(type="checkbox" class="sub-"+category id=subCategory.sub name="d[]" value=subCategory.sub onclick="uncheck(this, '" + category + "')")
-                            td
+                            td.sub-category
                               - var categoryLink = '/dataset/search/?q=' + subCategory.sub
                               label(for=subCategory.sub)
                                 a(href=categoryLink) #{subCategory.sub}
+                            td
                             td #{subCategory.sounds.length}
                             td #{subCategory.fileSizes}
                             td #{subCategory.lastMod}
-          input(type="submit" value="Download")
+          input.download(type="submit" value="Download")
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
     script(type='text/javascript' src='/script.js')

@@ -22,7 +22,7 @@ html(lang='en')
                             a.nav-btn-container(href='#' )
                                 img.search-btn(src="/images/search.png" alt="search icon")
         div.body-container
-            div.search-slogan Search place, object and scenario
+            //div.search-slogan Search place, object and scenario
 
             div.search-container
                 form(method='get')
@@ -54,7 +54,7 @@ html(lang='en')
                                     - var down = '/d' + sound.path
                                     tr
                                         td
-                                            input(type="checkbox")
+                                            input(type="checkbox" name="d[]" id=category.sub value=category.sub)
                                         td #{rowId}
                                         td #{category.sub}
                                         td
@@ -64,7 +64,6 @@ html(lang='en')
                                         td #{sound.lastMod}
                                         td
                                             a(href=down target="_blank") Download
-<<<<<<< HEAD
                     input(type="submit" value="Download")
                     //table
                     //    thead
@@ -86,8 +85,6 @@ html(lang='en')
                     //        tr
                     //            th(colspan='3')
 
-=======
->>>>>>> ef8a65ee0e46c7b2b62460311289d5364b8828ed
                 else
                     p No results
 

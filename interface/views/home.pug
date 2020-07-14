@@ -3,10 +3,11 @@ html(lang='en')
     head
         title Audio Dataset
         link(rel="stylesheet", type="text/css", href="/style.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css")
     body
         div.nav-container
             div.nav-wrapper
-                nav
+                nav.nav-content
                     div.logo Echoes
                     ul.nav-items
                         li.active
@@ -22,5 +23,6 @@ html(lang='en')
                                 img.search-btn(src="/images/search.png" alt="search icon")
         div.body-container
 
-
-        script(type='text/javascript' src='script.js' defer='defer')
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
+    script(type='text/javascript' src='script.js' defer='defer')
