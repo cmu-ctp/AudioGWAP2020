@@ -11,6 +11,7 @@ const path = require('path');
 const maxVotes = 3;
 const majorityVotes = 2;
 const maxVotingRounds = 1;
+const maxAbuseCount = 2;
 const Noise = require('../../models/noise');
 
 module.exports = class Sound extends BaseModel {
@@ -96,28 +97,28 @@ module.exports = class Sound extends BaseModel {
       if(sound.votedLabels.length >= maxVotes){
         const labels = sound.votedLabels;
         let count = 0;
+        let abuseCount = 0;
         for(let i=0; i < labels.length; i++){
             if(labels[i].label === 'Yes'){
                 count++;
             }
+
+            if(labels[i].label === 'Abuse'){
+              abuseCount++;
+            }
         }
 
+        // If clip has been reported as abuse more than maxAbuseCount times, mark as abuse
+        if(abuseCount > maxAbuseCount){
+          sound.validatedLabel = "Abuse";
+          await this.collection.deleteOne({'sid': sound.sid});
+          await noiseModel.markAsNoise(sound);
+          return;
+        }
         // If majority votes have been reached, update db & cache
         if(count >= majorityVotes){
           console.log("Majority votes have been achieved");
-          try{
-            await this.collection.updateOne({ sid: sound.sid}, 
-            {
-              $set: {
-                isValidated: true,
-                validatedLabel: sound.meta.category
-              }
-            });
-            
-          } catch(err){
-            console.log("Unable to update the validated sound in DB");
-            console.log(err);
-          }
+          await this.updateValidatedSound(sound);
         } 
 
         // Max votes reached but no majority label found.
