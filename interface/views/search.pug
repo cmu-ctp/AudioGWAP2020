@@ -32,12 +32,12 @@ html(lang='en')
                         input.searchbox(type='text' id='q' name='q' placeholder="What sounds are you looking for?")
                     button.submit-btn(type='submit' value='Search')
                         img(src="/images/search-submit.png" alt="search icon")
-            div.result
+            div.ontology-container
                 form(method="post" action="/d/" target="_blank")
                 if results.length
                     p #{count} files found:
-                    table.table.table-condensed.table-striped
-                        tr
+                    table.main-table
+                        tr.main-row
                             th
                                 input(type="checkbox" name="select" class="checkAll")
                             th #
