@@ -12,7 +12,7 @@ const maxVotes = 3;
 const majorityVotes = 2;
 const maxVotingRounds = 1;
 const maxAbuseCount = 2;
-const Noise = require('../../models/noise');
+const Noise = require('./noise');
 
 module.exports = class Sound extends BaseModel {
   constructor(ctx) {
