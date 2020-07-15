@@ -32,6 +32,8 @@ html(lang='en')
                     button.submit-btn(type='submit' value='Search')
                         img(src="/images/search-submit.png" alt="search icon")
             div.result
+                if results.length === 1
+                    p= 'Dataset > ' + results[0].parent + ' > ' + results[0].sub
                 form(method="post" action="/d/" target="_blank")
                     if results.length
                         p #{count} files found:
