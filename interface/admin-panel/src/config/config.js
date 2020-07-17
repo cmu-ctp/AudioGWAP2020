@@ -2,7 +2,7 @@ export const CONFIG = {
   uiUrl: 'http://localhost:3000',
   serverIp: 'https://localhost/api',
   userInfo: '/users/info',
-  authLogin: '/auth/login',
+  authLogin: '/auth/adminlogin',
   authLogout: '/auth/logout',
   streamerEvents: '/streamer/events',
   streamerUpcomingEvents: '/streamer/events/upcoming',
