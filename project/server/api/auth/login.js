@@ -24,6 +24,14 @@ router.get('/auth/login', async (ctx) => {
 });
 
 /**
+ * GET /auth/adminlogin
+ * Log into the admin panel.
+ */
+router.get('/auth/adminlogin', async (ctx) => {
+  ctx.redirect('/api/connect/twitch/admin');
+});
+
+/**
  * GET /auth/logout
  * Log out from the applicatin.
  */
