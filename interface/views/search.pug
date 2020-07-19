@@ -31,11 +31,17 @@ html(lang='en')
                         input.searchbox(type='text' id='q' name='q' placeholder="What sounds are you looking for?")
                     button.submit-btn(type='submit' value='Search')
                         img(src="/images/search-submit.png" alt="search icon")
+<<<<<<< HEAD
             div.results-info
                 p Dataset > #{query}
                 p #{count} Results
 
             div.ontology-container
+=======
+            div.result
+                if results.length === 1
+                    p= 'Dataset > ' + results[0].parent + ' > ' + results[0].sub
+>>>>>>> 0f30db4ceec2d7611df2b730ad8481646d47b8b4
                 form(method="post" action="/d/" target="_blank")
                     if results.length
                         //p #{count} files found:

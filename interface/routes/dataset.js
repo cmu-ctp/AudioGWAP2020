@@ -14,13 +14,13 @@ const categoryList = ["Kitchen", "Bathroom", "Living/Bedroom", "Garage", "Ambien
  *  Searches database from the query operators in URL
  */
 router.get('/search/', async (req, res) => {
-  const { q } = req.query
+  const { q, strict } = req.query
   let results = []
   if (q && q.length > 0) {
-      results = await getResults(q)
+      results = await getResults(q, strict)
   }
   if (q) {
-      console.log('Query: ' + q)
+      console.log('Query: ' + q + ', Strict:' + strict)
   }
 
   /*somewhat hacky setup to make sure all wav files done analyzing
@@ -32,7 +32,7 @@ router.get('/search/', async (req, res) => {
   });
   let totalSize = 0
 
-  if (numFound == 0) {
+  if (numFound === 0) {
     res.render('search', {
       results: results, 
       query: q, 
@@ -70,7 +70,7 @@ router.get('/search/', async (req, res) => {
           }
           category.sounds[i] = obj
           analysisCount++
-          if (analysisCount == numFound) {
+          if (analysisCount === numFound) {
             totalSize = convertSize(totalSize)
             console.log('Rendering page!')
             res.render('search', {
@@ -117,7 +117,7 @@ router.get('/', async (req, res) => {
         }
       }
       subCat.fileSizes = convertSize(subCatFileSizes)
-      if (subCatLastMod == 0) {
+      if (subCatLastMod === 0) {
         subCat.lastMod = 'N/A'
       } else {
         let subCatModDate = new Date(categoryLastMod)
@@ -126,7 +126,7 @@ router.get('/', async (req, res) => {
     }
     fileSizes[category] = convertSize(categoryFileSizes)
     counts[category] = categoryCount
-    if (categoryLastMod == 0) {
+    if (categoryLastMod === 0) {
       lastModified[category] = 'N/A'
     } else {
       let modDate = new Date(categoryLastMod)
@@ -141,10 +141,15 @@ router.get('/', async (req, res) => {
 })
 
 //Searches sound_categories database for categories that match
-async function getResults(query) {
-  let cursor = await sound_categories.find({
-    sub: {$regex: query, $options: 'i'}
-  })
+async function getResults(query, strict) {
+  let cursor
+  if (strict == 1) {
+    cursor = await sound_categories.find({ sub: query })
+  } else {
+    cursor = await sound_categories.find({
+      sub: {$regex: query, $options: 'i'}
+    })
+  }
   return cursor.sort({
     sub: 1
   }).toArray()

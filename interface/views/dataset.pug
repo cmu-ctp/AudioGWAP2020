@@ -65,7 +65,7 @@ html(lang='en')
                             td.sub-input
                               input(type="checkbox" class="sub-"+category id=subCategory.sub name="d[]" value=subCategory.sub onclick="uncheck(this, '" + category + "')")
                             td.sub-category
-                              - var categoryLink = '/dataset/search/?q=' + subCategory.sub
+                              - var categoryLink = '/dataset/search/?q=' + subCategory.sub + '&strict=1'
                               label(for=subCategory.sub)
                                 a(href=categoryLink) #{subCategory.sub}
                             td
