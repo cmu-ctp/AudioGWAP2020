@@ -8,7 +8,7 @@ html(lang='en')
         div.nav-container
             div.nav-wrapper
                 nav.nav-content
-                    div.logo Echoes
+                    div.logo Polyphonic
                     ul.nav-items
                         li
                             a(href='/') Home
@@ -31,59 +31,43 @@ html(lang='en')
                         input.searchbox(type='text' id='q' name='q' placeholder="What sounds are you looking for?")
                     button.submit-btn(type='submit' value='Search')
                         img(src="/images/search-submit.png" alt="search icon")
-            div.result
+            div.results-info
+                p Dataset > #{query}
+                p #{count} Results
+
+            div.ontology-container
                 form(method="post" action="/d/" target="_blank")
                     if results.length
-                        p #{count} files found:
-                        table.table.table-condensed.table-striped
+                        //p #{count} files found:
+                        table.main-table
                             tr
-                                th
+                                th.main-input
                                     input(type="checkbox" name="select" class="checkAll")
-                                th #
+                                th.count #
                                 th Label
-                                th Audio
+                                th.audio-col Audio
                                 th Duration
                                 th File Size
-                                th Last Updated
+                                th Update
                                 th Download
                                 each category in results
                                     -var rowId = 0;
                                     each sound in category.sounds
                                         - rowId++;
                                         - var down = '/d' + sound.path
-                                        tr
-                                            td
+                                        tr.main-row
+                                            td.sub-input
                                                 input(type="checkbox" name="d[]" id=category.sub value=category.sub onclick="globalCheck()")
-                                            td #{rowId}
-                                            td #{category.sub}
-                                            td
+                                            td.count #{rowId}
+                                            td.category-col #{category.sub}
+                                            td.audio-col
                                                 audio(controls preload='none' src=sound.path)
                                             td #{sound.duration}
                                             td #{sound.fileSize}
                                             td #{sound.lastMod}
                                             td
                                                 a(href=down target="_blank") Download
-                        input(type="submit" value="Download")
-                        //-
-                            table
-                            thead
-                                tr
-                                    th Label
-                                    th Audio
-                                    th
-                            tbody
-                                each category in results
-                                    each sound in category.sounds
-                                        - var down = '/d' + sound
-                                        tr
-                                            td #{category.sub}
-                                            td
-                                                audio(controls preload='none' src=sound)
-                                            td
-                                                a(href=down target="_blank") Download
-                            tfoot
-                                tr
-                                    th(colspan='3')
+                        input.download(type="submit" value="Download")
                     else
                         p No results
 

@@ -100,7 +100,7 @@ img.search-btn {
 /*}*/
 .search-container {
     margin-top: 80px;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -167,10 +167,9 @@ td[aria-expanded=true] img {
     align-items: center;
     justify-content: center;
     text-align: center;
-
-
 }
 .main-table{
+    margin-top: 50px;
     border-collapse: collapse;
     width: 100%;
     text-align: center;
@@ -192,6 +191,8 @@ th {
     line-height: 21px;
     /* identical to box height */
     color: #9A9A9A;
+    position: relative;
+    transform: perspective(1px) translateY(-30%);
 
 }
 th.main-input{
@@ -208,7 +209,7 @@ td {
     color: #9A9A9A;
 }
 tr.main-row {
-    height: 40px;
+    height: 50px;
 }
 .main-table th, td {
     text-align: left;
@@ -228,7 +229,7 @@ td.indentation {
 td.sub-category {
     width: 130px;
 }
-input.download {
+.download {
     margin-top: 40px;
     background-color: black;
     color: #FFFFFF;
@@ -237,4 +238,81 @@ input.download {
     height: 30px;
 
 }
+td.count, th.count {
+    width: 40px;
+}
+audio {
+    height: 36px;
+    width: 280px;
 
+}
+audio::-webkit-media-controls-panel{
+}
+
+audio::-webkit-media-controls-mute-button{
+}
+
+audio::-webkit-media-controls-play-button{
+}
+
+audio::-webkit-media-controls-timeline-container{
+
+}
+
+audio::-webkit-media-controls-current-time-display{
+
+}
+
+audio::-webkit-media-controls-time-remaining-display{
+
+}
+
+audio::-webkit-media-controls-timeline{
+
+}
+
+audio::-webkit-media-controls-volume-slider-container{
+}
+
+audio::-webkit-media-controls-volume-slider{
+}
+
+audio::-webkit-media-controls-seek-back-button{
+
+}
+
+audio::-webkit-media-controls-seek-forward-button{
+
+}
+
+audio::-webkit-media-controls-fullscreen-button{
+
+}
+
+audio::-webkit-media-controls-rewind-button{
+
+}
+
+audio::-webkit-media-controls-return-to-realtime-button{
+
+}
+
+audio::-webkit-media-controls-toggle-closed-captions-button{
+
+}
+th.audio-col {
+    text-align: center;
+}
+td.audio-col{
+    width: 300px;
+    position: relative;
+    transform: perspective(1px) translateY(14%);
+}
+div.results-info {
+    margin: 0 auto;
+    width: 615px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
