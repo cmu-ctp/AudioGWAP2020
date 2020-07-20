@@ -143,10 +143,12 @@ router.post('/events', async (ctx) => {
   try {
     eventData = await eventSchema.validateAsync(eventData);
   } catch (err) {
+    console.log("Invalid event object format");
     ctx.throw(400, err);
   }
 
   eventData.uid = uid;
+  eventData.unvalidatedSound = 0;
   
   const model = new Event(ctx);
   const newItem = await model.create(eventData);
