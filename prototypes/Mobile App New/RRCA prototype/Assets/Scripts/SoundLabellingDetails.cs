@@ -30,7 +30,12 @@ public class SoundLabellingDetails : MonoBehaviour
     private void Start() {
         Debug.Log("Starting sound labelling details");
         saveButton.GetComponent<Button>().interactable = false;
-        consentcheckbox.SetActive(false);
+        // consentcheckbox.SetActive(false);
+        saveButton.GetComponent<Button>().onClick.AddListener(SaveAudio);
+    }
+
+    public void SaveAudio() {
+        Debug.Log("Save button clicked");
     }
 
     public void SetSoundLabelValue(string value)
@@ -47,6 +52,7 @@ public class SoundLabellingDetails : MonoBehaviour
     {
         if(soundLabelValue != "" && eventNameValue != "")
         {
+            Debug.LogError("if true");
             saveButton.GetComponent<Button>().interactable = false;
             //saveButton.GetComponent<Button>().interactable = true;
             eventArrow.SetActive(false);
@@ -69,11 +75,11 @@ public class SoundLabellingDetails : MonoBehaviour
             //{
             //    saveButton.GetComponent<Button>().interactable = true;
             //}
-            consentcheckbox.SetActive(false);
+            consentcheckbox.SetActive(true);
         }
         else
         {
-            Debug.Log("label changed");
+            Debug.Log("if not true");
             saveButton.GetComponent<Button>().interactable = false;
             consentcheckbox.SetActive(true);
             eventArrow.SetActive(true);

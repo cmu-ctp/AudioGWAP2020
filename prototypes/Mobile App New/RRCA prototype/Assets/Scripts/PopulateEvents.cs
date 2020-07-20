@@ -30,6 +30,8 @@ public class PopulateEvents : MonoBehaviour
     public int populatedNumber, eventNumber;
     private bool isPopulated = false;
 
+    public bool updatedEvents = false;
+
     public void UpdateJoinedEvents() {
        
         getEvents.UpdateJoinedEvents();
@@ -98,7 +100,8 @@ public class PopulateEvents : MonoBehaviour
                 // Debug.Log("Check in in joined is true");
                 if(eventParent.transform.GetChild(i).gameObject.activeSelf)
                 {
-                    eventParent.transform.GetChild(i).gameObject.SetActive(false); /*.GetChild(5)*/
+                    /* eventParent.transform.GetChild(i).GetChild(5).gameObject is the join button on the event card */
+                    eventParent.transform.GetChild(i).gameObject.SetActive(false); 
                     eventParent.GetComponent<RectTransform>().sizeDelta -= new Vector2(0, eventItemData[2].Value);
                 }
             }
@@ -127,7 +130,7 @@ public class PopulateEvents : MonoBehaviour
         Debug.Log("in CheckIfInJoined");
         for(int i = 0; i < joinedEventIds.Value.Count; i++)
         {
-            Debug.Log("id : " + id + " , " + "joinedid : " + joinedEventIds.Value[i]);
+            // Debug.Log("id : " + id + " , " + "joinedid : " + joinedEventIds.Value[i]);
             if(id == joinedEventIds.Value[i])
             {
                 return true;
@@ -139,6 +142,7 @@ public class PopulateEvents : MonoBehaviour
     public void UpdateEvents()
     {
         Debug.Log("in UpdateEvents");
+        // updatedEvents = false;
         if(isJoinedEvents)
         {
             // Debug.Log("update joined events");
@@ -146,9 +150,9 @@ public class PopulateEvents : MonoBehaviour
         }
         else
         {
-            // Debug.Log("update all events join button");
+            Debug.Log("update all events join button");
             getEvents.UpdateEvents();
-            UpdateAllEventsJoinButtonInitial();
+                
         }
     }
 
@@ -213,12 +217,17 @@ public class PopulateEvents : MonoBehaviour
             e.transform.GetChild(3).gameObject.GetComponent<Text>().text = getEvents.GetEventsInfo(isJoinedEvents)[4][populatedNumber];
             e.transform.GetChild(4).gameObject.GetComponent<Text>().text = getEvents.GetEventsInfo(isJoinedEvents)[3][populatedNumber];
 
+            Debug.Log("eventItemData[0].Value: "+eventItemData[0].Value);
+            Debug.Log("eventItemData[1].Value: "+eventItemData[1].Value);
+            Debug.Log("populatedNumber: "+populatedNumber);
             int yPos = eventItemData[0].Value + eventItemData[1].Value * populatedNumber;
             populatedNumber++;
             e.transform.localScale = new Vector3(1.3f, 1.3f, 1);
             e.transform.localPosition = new Vector3(275, yPos, 0);
             Debug.Log("position: " + e.transform.localPosition);
 
+            /* expands the scroll view (expanding it double the amount needed for wiggle room)*/
+            eventParent.GetComponent<RectTransform>().sizeDelta += new Vector2(0, eventItemData[2].Value);
             eventParent.GetComponent<RectTransform>().sizeDelta += new Vector2(0, eventItemData[2].Value);
         }
     }

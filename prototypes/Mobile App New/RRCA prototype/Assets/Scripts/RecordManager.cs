@@ -251,9 +251,10 @@ public class RecordManager : MonoBehaviour
         string serverCategory = tempLabel;
         string soundCustomLabel = "";
         OnSoundLabelOptionChange(soundLabelDropDown);
-        
+
         if(audioClip != null)
         {
+            Debug.Log("Audio clip not null");
             if(isCustomSoundLabel)
             {
                 if(customSoundLabelText == "")
@@ -269,6 +270,7 @@ public class RecordManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("not custom label");
                 if(soundLabelText == "")
                 {
                     tempLabel = randomFileNameNumber.Value.ToString();
@@ -276,12 +278,23 @@ public class RecordManager : MonoBehaviour
                 }
                 else
                 {
+                    if (soundLabelIndex < 0) {
+                        Debug.Log("soundLabelIndex: "+soundLabelIndex);
+                        soundLabelIndex = 0;
+                    }
                     serverCategory = soundLabelText;
                     tempLabel = soundLabelText + soundLabelNumbers.Value[soundLabelIndex]++;
+                    Debug.Log("after setting sound label index");
                     //randomFileNameNumber.Value++;
                 }
             }
 
+            Debug.Log("gamePieces.Count: "+gamePieces.Value.Count);
+            Debug.Log("chosen game piece index: "+chosenGamePieceIndex.Value);
+            /* if the game piece has not been set, choose the default */
+            if (chosenGamePieceIndex.Value < 0) {
+                chosenGamePieceIndex.Value = 0;
+            }
             string saveLabel = username.text + "_" + gamePieces.Value[chosenGamePieceIndex.Value] + "_" + tempLabel;
             recordedAudioData = SaveAudio.Save(saveLabel, audioClip, fileType.Value);
             int countTemp;
@@ -308,6 +321,7 @@ public class RecordManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("indexinFile: "+indexInFile);
                 countTemp = indexInFile;
                 updatedIndex.Value = indexInFile;
                 audioLengthFile.Value[indexInFile] = recordingTimerText.text;

@@ -49,9 +49,16 @@ public class TagManager : MonoBehaviour
     [SerializeField]
     private Image NoSoundPopUp;
 
+    [SerializeField]
+    private GameObject confirmReportScreen;
+
+    [SerializeField]
+    private Button reportYes, reportNo;
+
     
     // Start is called before the first frame update
 
+    /* not used */
     public void generateTagList()
     {
         Debug.Log("generating tag list");
@@ -67,6 +74,9 @@ public class TagManager : MonoBehaviour
         tagmanager = new List<string>(labelinput);
 
     }
+
+    /* not used */
+
     public void loadTagList(string t)
     {
         Debug.Log("loading tag list");
@@ -86,6 +96,7 @@ public class TagManager : MonoBehaviour
 
         target = t;
     } 
+    /* not used */
 
     void randomMnumber(int m, int n)
     {
@@ -105,24 +116,19 @@ public class TagManager : MonoBehaviour
 
     void OnClickButton0()
     {
-        Debug.Log("Yes button clicked");
         optionButtons[8].interactable = true;
-        // userchoosetag = chosentag[0];
         tag = "Yes";
-        Debug.Log("tag: "+tag);
+        // Debug.Log("tag: "+tag);
 
     }
     void OnClickButton1()
     {
-        Debug.Log("button one clicked!");
-        // userchoosetag = chosentag[1];
         optionButtons[8].interactable = true;
         tag = "No";
 
     }
     void OnClickButton2()
     {
-        // userchoosetag = chosentag[2];
         optionButtons[8].interactable = true;
         tag = "Neither";
        
@@ -135,12 +141,21 @@ public class TagManager : MonoBehaviour
     
     void ReportQuestion()
     {
+        tag = "Abuse";
+        confirmReportScreen.SetActive(true); 
         
-        SkipAudio();
-        //UpdateAudio();
-        // send response to server to report 
     }
 
+    public void OnClickReportNo() {
+        confirmReportScreen.SetActive(false);
+    }
+
+    public void OnClickReportYes() {
+        
+        Debug.Log("Yes report this sound");
+        confirmReportScreen.SetActive(false);
+        SaveAudio();
+    }
 
 
     void UpdateAudio()
@@ -148,22 +163,17 @@ public class TagManager : MonoBehaviour
         CompareTag();
         StopAudio();
 
-        DownLoadPack downLoadPackToDelete = crossAudioList.ClipDownLoaded[0];
-        //AudioClip clipToDelete = crossAudioList.clips[audioindex];
-        //string lableToDelete = crossAudioList.labelnames[audioindex];
-        //crossAudioList.clips.Remove(clipToDelete);
-        //crossAudioList.labelnames.Remove(lableToDelete);
+        DownLoadPack downLoadPackToDelete = crossAudioList.newClip;
 
         crossAudioList.ClipDownLoaded.Remove(downLoadPackToDelete);
         ClipAmountsDid++;
-
 
         Debug.Log(crossAudioList.sounds.Count);
         if (ClipAmountsDid <= crossAudioList.sounds.Count)
         {
             //completepage.SetActive(false);
             loadTagList(crossAudioList.ClipDownLoaded[0].labelnames);
-            UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            UpdateTime(crossAudioList.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
 
         }
         else
@@ -184,8 +194,10 @@ public class TagManager : MonoBehaviour
         if (crossAudioList.ClipDownLoaded[0].downloadclips == null) {
             Debug.Log("sound clip is null");
         }
-        UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
-        Camera.main.GetComponent<AudioSource>().clip = crossAudioList.ClipDownLoaded[0].downloadclips; //audioclip from server
+        Debug.Log(crossAudioList.newClip.downloadclips);
+        UpdateTime(crossAudioList.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+        // UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+        Camera.main.GetComponent<AudioSource>().clip = crossAudioList.newClip.downloadclips; // crossAudioList.ClipDownLoaded[0].downloadclips; //audioclip from server
         Camera.main.GetComponent<AudioSource>().Play();
 
     }
@@ -204,7 +216,6 @@ public class TagManager : MonoBehaviour
     
     private void UpdateTime(float rawTime)
     {
-        // Debug.Log("In UpdateTime()");
         int millisecond = Mathf.FloorToInt(rawTime * 1000) % 1000;
         int time = Mathf.FloorToInt(rawTime);
         audioTime.text = $"{time / 60:D2}:{time % 60:D2}:{millisecond / 15:D2}";
@@ -226,7 +237,7 @@ public class TagManager : MonoBehaviour
             
             loadTagList(crossAudioList.ClipDownLoaded[0].labelnames);
             //StartCoroutine("DownloadAudioFromServer");
-            UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            UpdateTime(crossAudioList.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
 
         }
         else
@@ -239,8 +250,6 @@ public class TagManager : MonoBehaviour
 
     public void SaveAudio() {
         Debug.Log("save button clicked!");
-        // Debug.Log("sound path in TM: "+crossAudioList.sound.path);
-        // optionButtons[6].interactable = false;
         StartCoroutine(UpdateAudioInServer());
     }
 
@@ -285,7 +294,6 @@ public class TagManager : MonoBehaviour
             Debug.Log(www.error + " : " + www.downloadHandler.text);
         }
         else {
-            //Debug.Log(RecordTimestamp);
             Debug.LogError("Upload complete!");
             getNext = true;
             
@@ -300,24 +308,8 @@ public class TagManager : MonoBehaviour
     void Start()
     {
         
-        // generateTagList(); 
-        /* no longer need to generate tag list with a guideline based system */
-
-        // loadTagList(crossAudioList.ClipDownLoaded[0].labelnames);
-        Debug.LogError("Tag Manager Started");
-        // crossAudioList.GetSound();
-        // Debug.Log("clip downloaded length after next:" + crossAudioList.ClipDownLoaded.Count);
+        Debug.Log("Tag Manager Started");
         Debug.Log("clip downloaded length (in tm):" + crossAudioList.ClipDownLoaded.Count);
-
-        /*
-        if (crossAudioList.ClipDownLoaded[0].downloadclips == null) {
-            Debug.Log("sound clip is null");
-        }
-        else {
-            Debug.Log("sound clip is not null");
-        }
-        */
-        // UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
 
         Debug.Log("Setting button listeners");
         optionButtons[0].onClick.AddListener(OnClickButton0);
@@ -331,16 +323,10 @@ public class TagManager : MonoBehaviour
         optionButtons[7].onClick.AddListener(SkipAudio);
         optionButtons[8].onClick.AddListener(SaveAudio); // NextAudio
         optionButtons[8].interactable = false;
-        // optionButtons[8].GetComponent<Image>().color = new Color(115, 115, 115);
-        Debug.Log("clip downloaded length 2 (in tm):" + crossAudioList.ClipDownLoaded.Count);
-        /*
-        if (optionButtons[8].enabled) {
-            Debug.LogError("next button enabled");
-        }
-        else {
-            Debug.Log("next button not enabled");
-        }
-        */
+        reportYes.onClick.AddListener(OnClickReportYes);
+        reportNo.onClick.AddListener(OnClickReportNo);
+        // Debug.Log("clip downloaded length 2 (in tm):" + crossAudioList.ClipDownLoaded.Count);
+        
         if (crossAudioList.setPopUp) {
             NoSoundScreen.gameObject.SetActive(true); 
             NoSoundPopUp.gameObject.SetActive(true);
@@ -371,7 +357,7 @@ public class TagManager : MonoBehaviour
         if (Camera.main.GetComponent<AudioSource>().isPlaying)
         {
             if (crossAudioList.ClipDownLoaded.Count != 0) {
-                UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+                UpdateTime(crossAudioList.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
             }
         }
         else
@@ -379,7 +365,7 @@ public class TagManager : MonoBehaviour
             playaudiobutton.SetActive(true);
             pauseaudiobutton.SetActive(false);
             if (crossAudioList.ClipDownLoaded.Count != 0) {
-                UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+                UpdateTime(crossAudioList.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
             }
         }
 

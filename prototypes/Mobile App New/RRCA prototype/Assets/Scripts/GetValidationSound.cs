@@ -22,6 +22,8 @@ public class GetValidationSound : MonoBehaviour
 
     public bool setPopUp = false;
 
+    public DownLoadPack newClip;
+
     void Start()
     {
         Debug.Log("Start requesting validation sound");
@@ -103,11 +105,9 @@ public class GetValidationSound : MonoBehaviour
                 path = "https://hcii-gwap-01.andrew.cmu.edu" + sound.path;
                 Debug.Log(path);
                 labelName = sound.meta.category; //sound.game_meta.sound_label;
-                // id = sound.id;
                 label = "Is this the sound of a(n) " + labelName + "?";
                 votedLabels = sound.votedLabels;
             
-                // Debug.Log("_id"+sound._id);
                 Debug.Log("voting round: "+sound.votingRound);
             
                 Debug.Log("guideline text: "+label);
@@ -146,7 +146,7 @@ public class GetValidationSound : MonoBehaviour
             else {
                 Debug.Log("No error downloading audio file");
             }
-            DownLoadPack newClip = new DownLoadPack();
+            newClip = new DownLoadPack();
             newClip.downloadclips = DownloadHandlerAudioClip.GetContent(req);
             newClip.labelnames = labelName;
 

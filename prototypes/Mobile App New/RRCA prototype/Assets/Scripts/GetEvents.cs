@@ -74,6 +74,7 @@ public class GetEvents : MonoBehaviour
                 numberOfEvents.Value = total;
                 populateEvents.StartPopulating();
             }
+            populateEvents.UpdateAllEventsJoinButtonInitial();
         }
     }
 
