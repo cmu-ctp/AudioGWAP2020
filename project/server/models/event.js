@@ -184,6 +184,16 @@ module.exports = class Event extends BaseModel {
     });
   }
 
+  async updateUnvalidatedSounds(id){
+    try{
+      await this.collection.updateOne({ _id: id},
+        {
+          $inc: {unvalidatedSound : 1}
+        })
+    } catch(err){
+      console.log("Unable to update the count of unvalidated sounds for event id "+ id);
+    }
+  }
   async forceRemoveAll() {
     await this.collection.deleteMany();
   }

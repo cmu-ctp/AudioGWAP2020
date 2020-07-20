@@ -148,7 +148,7 @@ router.post('/events', async (ctx) => {
   }
 
   eventData.uid = uid;
-  eventData.unvalidatedSound = 0;
+  eventData.unvalidatedSounds = 0;
   
   const model = new Event(ctx);
   const newItem = await model.create(eventData);

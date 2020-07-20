@@ -407,6 +407,9 @@ router.post('/events/:id/sound', async (ctx) => {
   const soundItem = await soundModel.create(soundData);
   console.log("Successfully saved uploaded sound");
 
+  // Update corresponding event
+  await eventModel.updateUnvalidatedSounds(soundData.event_id);
+
   ctx.body = {
     'msg': 'success',
     'result': {
