@@ -81,12 +81,12 @@ module.exports = class Sound extends BaseModel {
     console.log("Total evnets fetched:" + eventArray.length);
 
     for(let event of eventArray){
-      console.log("checking available sound for id:"+getObjectId(event._id));
+      console.log("checking available sound for id:"+ eventModel.getObjectId(event._id));
       var query = {
         uid: { $ne: uid},
         'votedLabels.uid': { $ne: uid},
         isValidated: { $eq: false },
-        event_id: { $eq: getObjectId(event._id)}
+        event_id: { $eq: eventModel.getObjectId(event._id)}
       }
       const sound = await this.collection.findOne(query);
       if( sound != null && !(sound))
