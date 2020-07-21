@@ -1,0 +1,82 @@
+doctype html
+html(lang='en')
+    head
+        title Audio Dataset
+        link(rel="stylesheet", type="text/css", href="/style.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css")
+    body
+        div.nav-container
+            div.nav-wrapper
+                nav.nav-content
+                    div.logo Polyphonic
+                    ul.nav-items
+                        li
+                            a(href='/') Home
+                        li.active
+                            a(href='/dataset') Dataset
+                        li
+                            a(href='/people') People
+                        li
+                            a(href='/future') Future
+                        li
+                            a.nav-btn-container(href='#' )
+                                img.search-btn(src="/images/search.png" alt="search icon")
+        div.body-container
+            //div.search-slogan Search place, object and scenario
+            div.search-container
+                form(method='get')
+                    if query && query.length > 0
+                        input.searchbox(type='text' id='q' name='q' value=query)
+                    else
+                        input.searchbox(type='text' id='q' name='q' placeholder="What sounds are you looking for?")
+                    button.submit-btn(type='submit' value='Search')
+                        img(src="/images/search-submit.png" alt="search icon")
+
+            div.results-info
+                p Dataset > #{query}
+                p #{count} Results
+
+            div.ontology-container
+
+            div.result
+                if results.length === 1
+                    p= 'Dataset > ' + results[0].parent + ' > ' + results[0].sub
+
+                form(method="post" action="/d/" target="_blank")
+                    if results.length
+                        //p #{count} files found:
+                        table.main-table
+                            tr
+                                th.main-input
+                                    input(type="checkbox" name="select" class="checkAll")
+                                th.count #
+                                th Label
+                                th.audio-col Audio
+                                th Duration
+                                th File Size
+                                th Update
+                                th Download
+                                each category in results
+                                    -var rowId = 0;
+                                    each sound in category.sounds
+                                        - rowId++;
+                                        - var down = '/d' + sound.path
+                                        tr.main-row
+                                            td.sub-input
+                                                input(type="checkbox" name="d[]" id=category.sub value=category.sub onclick="globalCheck()")
+                                            td.count #{rowId}
+                                            td.category-col #{category.sub}
+                                            td.audio-col
+                                                audio(controls preload='none' src=sound.path)
+                                            td #{sound.duration}
+                                            td #{sound.fileSize}
+                                            td #{sound.lastMod}
+                                            td
+                                                a(href=down target="_blank") Download
+                        input.download(type="submit" value="Download")
+                    else
+                        p No results
+
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
+    script(type='text/javascript' src='/script.js' defer='defer')
