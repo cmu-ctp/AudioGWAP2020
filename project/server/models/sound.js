@@ -60,6 +60,10 @@ module.exports = class Sound extends BaseModel {
           validatedLabel: sound.validatedLabel
         }
       });
+
+      // Update the count of unvalidated sound in events collection
+      const eventModel = new Event(ctx);
+      await eventModel.updateUnvalidatedSounds(sound.event_id, -1);
       
     } catch(err){
       console.log("Unable to update the validated sound in DB");
@@ -71,10 +75,16 @@ module.exports = class Sound extends BaseModel {
     const uid = ctx.user.uid;
     console.log("Fetching data from database");
 
+    //Find event with least validated sound
+    const eventModel = new Event(ctx);
+    const event_id = await eventModel.findEventWithMinValidatedSound();
+    console.log("Event found with max unvalidated sounds is "+event_id);
+
     var query = {
       uid: { $ne: uid},
       'votedLabels.uid': { $ne: uid},
-      isValidated: { $eq: false }
+      isValidated: { $eq: false },
+      event_id: { $eq: event_id}
     }
 
     const sound = await this.collection.findOne(query);
