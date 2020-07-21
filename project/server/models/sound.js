@@ -89,9 +89,10 @@ module.exports = class Sound extends BaseModel {
         event_id: { $eq: event._id}
       }
       const sound = await this.collection.findOne(query);
-      if(!sound)
+      if( sound != null && !(sound))
         return sound;
-    }  
+    }
+    return null;  
   }
 
   async updateLabel(ctx){
