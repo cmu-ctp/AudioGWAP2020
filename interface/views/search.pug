@@ -33,15 +33,13 @@ html(lang='en')
                         img(src="/images/search-submit.png" alt="search icon")
 
             div.results-info
-                p Dataset > #{query}
+                if results.length === 1
+                    p= 'Dataset > ' + results[0].parent + ' > ' + results[0].sub
                 p #{count} Results
 
             div.ontology-container
 
             div.result
-                if results.length === 1
-                    p= 'Dataset > ' + results[0].parent + ' > ' + results[0].sub
-
                 form(method="post" action="/d/" target="_blank")
                     if results.length
                         //p #{count} files found:
