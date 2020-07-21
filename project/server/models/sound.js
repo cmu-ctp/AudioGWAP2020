@@ -77,18 +77,19 @@ module.exports = class Sound extends BaseModel {
 
     //Find event with least validated sound
     const eventModel = new Event(ctx);
-    const event_id = await eventModel.findEventWithMinValidatedSound();
-    console.log("Event found with max unvalidated sounds is "+event_id);
-
-    var query = {
-      uid: { $ne: uid},
-      'votedLabels.uid': { $ne: uid},
-      isValidated: { $eq: false },
-      event_id: { $eq: event_id}
-    }
-
-    const sound = await this.collection.findOne(query);
-    return sound;
+    const eventArray = await eventModel.findEventWithMinValidatedSound();
+    
+    for(let event in eventArray){
+      var query = {
+        uid: { $ne: uid},
+        'votedLabels.uid': { $ne: uid},
+        isValidated: { $eq: false },
+        event_id: { $eq: event.event_id}
+      }
+      const sound = await this.collection.findOne(query);
+      if(!sound)
+        return sound;
+    }  
   }
 
   async updateLabel(ctx){
