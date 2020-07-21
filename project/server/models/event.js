@@ -198,7 +198,7 @@ module.exports = class Event extends BaseModel {
 
   async findEventWithMinValidatedSound(){
     try{
-      const eventArray = await this.collection.findMany().sort({ unvalidatedSound: -1}).toArray();
+      const eventArray = await this.collection.findAll().sort({ unvalidatedSound: -1}).toArray();
       return eventArray;
     } catch (err){
       console.log("Unable to query sound collection to find event with max unvalidated sounds");
