@@ -188,7 +188,7 @@ module.exports = class Event extends BaseModel {
     try{
       await this.collection.updateOne({ _id: id},
         {
-          $inc: {unvalidatedSound : count}
+          $inc: {unvalidatedSounds : count}
         })
     } catch(err){
       console.log("Unable to update the count of unvalidated sounds for event id "+ id);
