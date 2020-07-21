@@ -80,8 +80,8 @@ module.exports = class Sound extends BaseModel {
     const eventArray = await eventModel.findEventWithMinValidatedSound();
     console.log("Total evnets fetched:" + eventArray.length);
 
-    for(let event in eventArray){
-      console.log("checking available sound for event_id:"+event._id);
+    for(let event of eventArray){
+      console.log("checking available sound for id:"+event._id);
       var query = {
         uid: { $ne: uid},
         'votedLabels.uid': { $ne: uid},
