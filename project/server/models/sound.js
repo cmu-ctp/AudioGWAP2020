@@ -81,7 +81,7 @@ module.exports = class Sound extends BaseModel {
     console.log("Total events fetched:" + eventArray.length);
 
     for(let event of eventArray){
-      eventId = eventModel.getObjectId(event._id);
+      const eventId = eventModel.getObjectId(event._id);
       console.log("checking available sound for id:"+ eventId);
       var query = {
         uid: { $ne: uid},
