@@ -87,8 +87,8 @@ module.exports = class Sound extends BaseModel {
         uid: { $ne: uid},
         'votedLabels.uid': { $ne: uid},
         isValidated: { $eq: false },
-        event_id: { $eq: eventId}
       }
+      // event_id: { $eq: eventId}
       const sound = await this.collection.findOne(query);
       if( sound != null && !(sound))
         return sound;
