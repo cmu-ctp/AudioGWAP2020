@@ -78,15 +78,16 @@ module.exports = class Sound extends BaseModel {
     //Find event with least validated sound
     const eventModel = new Event(ctx);
     const eventArray = await eventModel.findEventWithMinValidatedSound();
-    console.log("Total evnets fetched:" + eventArray.length);
+    console.log("Total events fetched:" + eventArray.length);
 
     for(let event of eventArray){
-      console.log("checking available sound for id:"+ eventModel.getObjectId(event._id));
+      eventId = eventModel.getObjectId(event._id);
+      console.log("checking available sound for id:"+ eventId);
       var query = {
         uid: { $ne: uid},
         'votedLabels.uid': { $ne: uid},
         isValidated: { $eq: false },
-        event_id: { $eq: eventModel.getObjectId(event._id)}
+        event_id: { $eq: eventId}
       }
       const sound = await this.collection.findOne(query);
       if( sound != null && !(sound))
