@@ -76,3 +76,4 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
