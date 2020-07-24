@@ -57,7 +57,7 @@ router.get('/auth/twitch/admin', async (ctx) => {
   tokenInfo.access_token = ctx.query.access_token || '';
   tokenInfo.refresh_token = ctx.query.refresh_token || '';
   if (!tokenInfo.access_token) {
-    ctx.throw(400, 'Server error on logging in. Please try again.' + ctx.query.access_token);
+    ctx.throw(400, 'Server error on logging in. Please try again.');
   }
 
   const twitch = new Twitch(tokenInfo);

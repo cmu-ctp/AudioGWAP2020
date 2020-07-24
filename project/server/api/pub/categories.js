@@ -30,11 +30,11 @@ router.get('/categories', async (ctx) => {
  * If parent category doesn't exist, throws a 404 error.
  */
 router.get('/categories/:parent', async (ctx) => {
-  const parent = ctx.params.parent;
   const CategoryModel = new Category(ctx);
+  const parent = CategoryModel.convertCase(ctx.params.parent);
   const categoryInfo = await CategoryModel.findByParent(parent);
 
-  if (categoryInfo === null) {
+  if (categoryInfo.length === 0) {
     ctx.throw(404, 'Parent category not found')
   }
 

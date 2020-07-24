@@ -45,4 +45,17 @@ module.exports = class SoundCategory extends BaseModel {
     });
     return categoriesObj;
   }
+
+  convertCase(s) {
+    if (typeof s !== 'string') {
+      return '';
+    }
+    let uc = s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+    let slash = uc.indexOf('/');
+    if (slash !== -1) {
+      slash += 1;
+      uc = uc.slice(0, slash) + uc.charAt(slash).toUpperCase() + uc.slice(slash + 1);
+    }
+    return uc;
+  }
 };
