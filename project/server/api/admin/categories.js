@@ -1,18 +1,19 @@
 /**
- * test.js
- * Test routes to ensure authentication works correctly.
+ * categories.js
+ * Routes for editing categories
  */
 
 const Router = require('koa-router');
-const User = require('../../models/user');
+const Category = require('../../models/sound_category');
 
 const userAuth = require('../../lib/session').authRole;
 
 const router = new Router();
 
-router.use(userAuth({ blockRequest: true, roleRequired: 2 }));
+router.use(userAuth({ blockRequest: true, roleRequired: 1 }));
 
-router.get('/test', async (ctx) => {
+//TODO: Add routes for editing categories (Add category, edit category)
+router.get('/', async (ctx) => {
   const uid = ctx.user.uid;
 
   const userModel = new User(ctx);
