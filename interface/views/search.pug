@@ -33,12 +33,14 @@ html(lang='en')
                         img(src="/images/search-submit.png" alt="search icon")
 
             div.results-info
-                if results.length === 1
+
                 div.catalog
                     a(href="/dataset") Dataset &nbsp;
                     | > &nbsp;
-                    a(href="/dataset") #{results[0].parent} &nbsp;
-                    | > &nbsp;
+                    if results.length === 1
+
+                        a(href="/dataset") #{results[0].parent} &nbsp;
+                        | > &nbsp;
                     | #{results[0].sub}
                 | #{count} Results
 

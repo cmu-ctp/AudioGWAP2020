@@ -170,6 +170,7 @@ td[aria-expanded=true] img {
 }
 .main-table{
     margin-top: 50px;
+    margin-bottom: 40px;
     border-collapse: collapse;
     width: 100%;
     text-align: center;
@@ -230,13 +231,71 @@ td.sub-category {
     width: 130px;
 }
 .download {
-    margin-top: 40px;
+    margin-top: 5px;
     background-color: black;
     color: #FFFFFF;
     border: none;
     width: 80px;
     height: 30px;
 
+}
+.cancel {
+    margin-top: 5px;
+    border: none;
+    width: 60px;
+    height: 30px;
+}
+
+div.modal-dialog.modal-sm {
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    margin-top: 340px;
+}
+div.modal-content {
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+p.header {
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 16px;
+    text-align: left;
+}
+p.curl-link {
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+}
+.modal-body {
+    text-align: left;
+    border: none;
+}
+.modal-footer {
+    height: 70px;
+}
+input.curl-link-box {
+    width: 266px;
+    height: 40px;
+    background: #F8F8F8;
+    border: 1px solid #E6E6E6;
+    box-sizing: border-box;
+    border-radius: 2px;
+    color: #9A9A9A;
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 19px;
 }
 td.count, th.count {
     width: 40px;
