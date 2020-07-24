@@ -21,6 +21,7 @@ html(lang='en')
             li
               a.nav-btn-container(href='#' )
                 img.search-btn(src="/images/search.png" alt="search icon")
+          button.sign-up-log-in Log in / Sign Up
     div.body-container
       //div.search-slogan Search place, object and scenario
       div.search-container
@@ -30,7 +31,7 @@ html(lang='en')
           else
             input.searchbox(type='text' id='q' name='q' placeholder="Search Dataset")
           button.submit-btn(type='submit' value='Search')
-            img(src="/images/search-submit.png" alt="search icon")
+            img.search-submit(src="/images/search-submit.png" alt="search icon")
       div.ontology-container
         form(method="post" action="/d/" target="_blank")
           table.main-table

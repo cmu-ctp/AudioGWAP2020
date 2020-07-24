@@ -30,7 +30,7 @@ nav ul {
 }
 nav .logo {
     margin-top: -10px;
-    margin-left: 40px;
+    margin-left: 100px;
     font-family: "Poppins", sans-serif;
     font-style: normal;
     font-weight: 800;
@@ -52,9 +52,9 @@ nav .logo {
     color: #FFFFFF;
 }
 
-.nav-items li:nth-last-of-type(1) {
-    margin: 0;
-}
+/*.nav-items li:nth-last-of-type(1) {*/
+/*    margin: 0;*/
+/*}*/
 .nav-items li a {
     width: 150px;
     height: 80px;
@@ -381,4 +381,51 @@ div.catalog {
     justify-content: space-between;
     align-items: center;
 
+}
+button.sign-up-log-in {
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 21px;
+    /* identical to box height */
+    background-color: white;
+    color: #000000;
+    margin-right: 100px;
+    border: 0.5px solid #000000;
+    box-sizing: border-box;
+    border-radius: 2px;
+    height: 40px;
+    width: 145px;
+    margin-bottom: 5px;
+
+}
+img.search-submit {
+    margin-bottom: 3px;
+
+}
+div.image-one {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*width: 1920px;*/
+    background-color: black;
+    height: 718px;
+}
+img.human {
+    
+
+    background: linear-gradient(to right, rgba(255,255,255,0) 100%,rgba(255,255,255,1) 100%);
+
+}
+p.slogan {
+    font-family: "Source Code Pro", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 80px;
+    line-height: 120px;
+    /* or 150% */
+    color: #FFFFFF;
+    width: 600px;
+    margin-left: 100px;
 }
