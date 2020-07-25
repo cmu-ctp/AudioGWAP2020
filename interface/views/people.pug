@@ -4,6 +4,8 @@ html(lang='en')
         title Audio Dataset
         link(rel="stylesheet", type="text/css", href="/style.css")
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css")
+        link(href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
     body
         div.nav-container
             div.nav-wrapper
@@ -16,13 +18,90 @@ html(lang='en')
                             a(href='/dataset') Dataset
                         li.active
                             a(href='/people') People
-                        li
-                            a(href='/future') Future
+                        //li
+                        //    a(href='/future') Future
                         li
                             a.nav-btn-container(href='#' )
                                 img.search-btn(src="/images/search.png" alt="search icon")
                     button.sign-up-log-in Log in / Sign Up
         div.body-container
+            div.core-team
+                p.core-team-title Core Team
+                div.core-team-content
+                    div.text-part
+                        p.core-team-header Who are we
+                        p.core-team-text Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae. Vel fringilla est ullamcorper eget nulla facilisi etiam.
+                    div.avatar-part
+                        a.avatar(href="#")
+                            img(src="/images/avatar.png" onmouseover="this.src='/images/avatar-after.png'" onmouseout="this.src='/images/avatar.png'")
+                        a.avatar(href="#")
+                            img(src="/images/avatar.png" onmouseover="this.src='/images/avatar-after.png'" onmouseout="this.src='/images/avatar.png'")
+                        a.avatar(href="#")
+                            img(src="/images/avatar.png" onmouseover="this.src='/images/avatar-after.png'" onmouseout="this.src='/images/avatar.png'")
+                div.core-team-content
+                    div.text-part
+                        p.core-team-header Our Goal
+                        p.core-team-text Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae. Vel fringilla est ullamcorper eget nulla facilisi etiam.
+                    div.avatar-part
+                        a.avatar(href="#")
+                            img(src="/images/avatar.png" onmouseover="this.src='/images/avatar-after.png'" onmouseout="this.src='/images/avatar.png'")
+                        a.avatar(href="#")
+                            img(src="/images/avatar.png" onmouseover="this.src='/images/avatar-after.png'" onmouseout="this.src='/images/avatar.png'")
+                        a.avatar(href="#")
+                            img(src="/images/avatar.png" onmouseover="this.src='/images/avatar-after.png'" onmouseout="this.src='/images/avatar.png'")
+            div.contributors
+                p.contributor-title Contributors
+                div.each-contributor
+                    a(href="#")
+                        img.contributor(src="/images/contributor.png")
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/contributor.png" )
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/contributor.png" )
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/contributor.png" )
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/contributor.png" )
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/contributor.png" )
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/contributor.png" )
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/contributor.png" )
+                        p First, Last Name
+                div.each-contributor
+                    a(href="#")
+                        img.contributor(src="/images/contributor.png")
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/contributor.png" )
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/contributor.png" )
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/contributor.png" )
+                        p First, Last Name
+    footer
+        div
+            p.footer-text Made possible with the help of Philips & Bosch Corporation
+            p.footer-text Copyright © 2020
+            div
+                p.footer-text Privacy
+                p.footer-text Support
+                p.footer-text Contact
+
+
+
+
+
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
     script(type='text/javascript' src='script.js' defer='defer')

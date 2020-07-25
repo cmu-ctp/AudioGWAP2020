@@ -2,10 +2,13 @@
     box-sizing: border-box;
     margin: 0;
 }
+html, body {
+    height: 100%;
+    margin: 0;
+}
 
-body {
-    font-family: "Roboto", sans-serif;
-
+div.body-container {
+    min-height: 100%;
 }
 .nav-container {
     height: 80px;
@@ -80,32 +83,17 @@ img.search-btn {
     width:30px;
     height:30px;
 }
-.body-container {
-    height: 1200px;
 
-}
-
-/*.search-slogan {*/
-/*    margin-top: 100px;*/
-/*    margin-left: auto;*/
-/*    margin-right: auto;*/
-/*    text-align: center;*/
-/*    font-family: "Lato", sans-serif;*/
-/*    font-style: normal;*/
-/*    font-weight: normal;*/
-/*    font-size: 24px;*/
-/*    line-height: 29px;*/
-/*    !* identical to box height *!*/
-/*    color: #000000;*/
-/*}*/
 .search-container {
-    margin-top: 80px;
-    margin-bottom: 20px;
+    margin-top: 100px;
+    margin-bottom: 40px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
 .searchbox {
+
+    padding-bottom: 5px;
 
     width: 559px;
     height: 56px;
@@ -413,19 +401,287 @@ div.image-one {
     height: 718px;
 }
 img.human {
-    
 
     background: linear-gradient(to right, rgba(255,255,255,0) 100%,rgba(255,255,255,1) 100%);
 
 }
 p.slogan {
-    font-family: "Source Code Pro", sans-serif;
+    font-family: 'Source Code Pro', monospace;
     font-style: normal;
     font-weight: normal;
     font-size: 80px;
     line-height: 120px;
     /* or 150% */
     color: #FFFFFF;
-    width: 600px;
+    width: 800px;
     margin-left: 100px;
+
+}
+div.info {
+    display: flex;
+    /*justify-content: space-between;*/
+    align-items: center;
+    margin-bottom: 100px;
+}
+p.project-name {
+    font-family: 'Source Code Pro', monospace;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 48px;
+    margin-left: 100px;
+    margin-top: 110px;
+    margin-bottom: 80px;
+}
+p.content {
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 27px;
+    /* or 150% */
+    color: #3F3F3F;
+
+    width: 400px;
+    margin-left: 100px;
+}
+a.our-team {
+    margin-left: 100px;
+}
+div.dataset {
+    display: flex;
+    align-items: center;
+    background-color: #000000;
+}
+p.dataset-title {
+    display: flex;
+    align-items: center;
+    font-family: 'Source Code Pro', monospace;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 48px;
+    /* identical to box height, or 133% */
+
+
+    color: #FFFFFF;
+}
+p.data {
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 80px;
+    line-height: 27px;
+    /* identical to box height, or 34% */
+
+
+    color: #FFFFFF;
+
+}
+span.label {
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 27px;
+}
+div.dataset-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+div.info-rows{
+    width: 1150px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 40px;
+}
+footer {
+    width:100%;
+}
+footer div {
+    margin-left: 100px;
+    margin-right: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 140px;
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+footer div div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+}
+div.audio-collection {
+    background-color: black;
+}
+p.audio-text{
+    margin-left: 100px;
+    padding-top: 110px;
+    padding-bottom: 60px;
+
+
+    font-family: 'Source Code Pro', monospace;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    color: white;
+}
+
+p.header {
+    margin-bottom: 30px;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 27px;
+    /* identical to box height, or 112% */
+
+
+    color: #FFFFFF;
+
+
+}
+p.intro {
+    width: 420px;
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 27px;
+    /* or 150% */
+
+
+    color: #FFFFFF;
+
+}
+div.line {
+    margin-bottom: 70px;
+    border: 0.5px solid rgba(255, 255, 255, 0.5);
+    height: 320px;
+}
+.arrow {
+    margin-top: 30px;
+    margin-bottom: 80px;
+    height: 35px;
+    width: 35px;
+    border: black;
+}
+div.details {
+
+
+}
+p.details-text {
+    margin-left: 100px;
+    margin-top: 110px;
+    margin-bottom: 60px;
+    font-family: 'Source Code Pro', monospace;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 48px;
+    /* identical to box height, or 133% */
+}
+div.audio-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+div.core-team {
+    padding-left: 100px;
+}
+p.core-team-title{
+    padding-top: 80px;
+    padding-bottom: 100px;
+    font-family: 'Source Code Pro', monospace;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 48px;
+    /* identical to box height, or 133% */
+    color: #3F3F3F;
+
+}
+p.core-team-header {
+    margin-bottom: 30px;
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+    /* or 150% */
+    color: #3F3F3F;
+
+}
+p.core-team-text {
+    width: 600px;
+
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 27px;
+    /* or 150% */
+    color: #3F3F3F;
+}
+div.core-team-content {
+    display: flex;
+    margin-bottom: 100px;
+
+}
+div.avatar-part {
+    width: 1300px;
+    display: flex;
+}
+a.avatar {
+    margin-left: 80px;
+}
+div.contributors{
+    padding-left: 100px;
+    background: #E5E5E5;
+}
+p.contributor-title {
+    padding-top: 80px;
+
+    font-family: 'Source Code Pro', monospace;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 48px;
+    /* identical to box height, or 133% */
+    color: #3F3F3F;
+}
+div.each-contributor {
+    padding-top: 40px;
+    padding-bottom: 20px;
+    display: flex;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 27px;
+    /* identical to box height, or 169% */
+
+
+    color: #3F3F3F;
+
+}
+img.contributor{
+    padding-bottom: 16px;
+    padding-right: 60px;
 }

@@ -4,6 +4,8 @@ html(lang='en')
         title Audio Dataset
         link(rel="stylesheet", type="text/css", href="/style.css")
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css")
+        link(href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
     body
         div.nav-container
             div.nav-wrapper
@@ -16,8 +18,8 @@ html(lang='en')
                             a(href='/dataset') Dataset
                         li
                             a(href='/people') People
-                        li
-                            a(href='/future') Future
+                        //li
+                        //    a(href='/future') Future
                         li
                             a.nav-btn-container(href='#' )
                                 img.search-btn(src="/images/search.png" alt="search icon")
@@ -79,6 +81,14 @@ html(lang='en')
                         input.download(type="submit" value="Download")
                     else
                         p No results
+    footer
+        div
+            p.footer-text Made possible with the help of Philips & Bosch Corporation
+            p.footer-text Copyright © 2020
+            div
+                p.footer-text Privacy
+                p.footer-text Support
+                p.footer-text Contact
 
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
