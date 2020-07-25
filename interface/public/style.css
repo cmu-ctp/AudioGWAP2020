@@ -249,7 +249,7 @@ div.modal-content {
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
     border-radius: 2px;
 }
-p.header {
+p.popup-header {
     font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: bold;
@@ -422,7 +422,10 @@ div.info {
     /*justify-content: space-between;*/
     align-items: center;
     margin-bottom: 100px;
+    margin-right: 100px;
+    justify-content: space-between;
 }
+
 p.project-name {
     font-family: 'Source Code Pro', monospace;
     font-style: normal;
@@ -497,7 +500,8 @@ div.info-rows{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-left: 40px;
+    margin-left: 20px;
+    margin-right: 100px;
 }
 footer {
     width:100%;
@@ -629,7 +633,7 @@ p.core-team-header {
 
 }
 p.core-team-text {
-    width: 600px;
+    width: 500px;
 
     font-family: "Lato", sans-serif;
     font-style: normal;
@@ -642,10 +646,11 @@ p.core-team-text {
 div.core-team-content {
     display: flex;
     margin-bottom: 100px;
+    margin-right: 100px;
 
 }
 div.avatar-part {
-    width: 1300px;
+    width: 1200px;
     display: flex;
 }
 a.avatar {
@@ -684,4 +689,83 @@ div.each-contributor {
 img.contributor{
     padding-bottom: 16px;
     padding-right: 60px;
+}
+
+dl {
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+    padding: 20px;
+}
+
+dt {
+    align-self: flex-start;
+    width: 100%;
+    font-weight: 700;
+    display: block;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    margin-left: 130px;
+}
+
+.text {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 130px;
+    background-color: white;
+    position: absolute;
+    left: 0;
+    justify-content: flex-end;
+}
+
+.percentage {
+    font-size: .8em;
+    line-height: 1;
+    text-transform: uppercase;
+    width: 100%;
+    height: 40px;
+    margin-left: 130px;
+    background: repeating-linear-gradient(
+            to right,
+            #ddd,
+            #ddd 1px,
+            #fff 1px,
+            #fff 5%
+    );
+}
+
+.percentage :after {
+     content: "";
+     display: block;
+     background-color: #3d9970;
+     width: 50px;
+     margin-bottom: 10px;
+     height: 90%;
+     position: relative;
+     top: 50%;
+     transform: translateY(-50%);
+     transition: background-color .3s ease;
+     cursor: pointer;
+ }
+.percentage :hover, :focus
+:after {
+     background-color: #aaa;
+ }
+}
+}
+
+@for $i from 1 through 100 {
+    .percentage-#{$i} {
+&:after {
+     $value: ($i * 1%);
+     width: $value;
+ }
+}
 }

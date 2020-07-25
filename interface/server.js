@@ -9,9 +9,11 @@ app.use('/upload', express.static('../project/server/upload'))
 
 mongo.dbConnect(err => {
   const datasetRouter = require('./routes/dataset')
+  const homeRouter = require('./routes/home')
   const downloadRouter = require('./routes/download')
   app.use('/dataset', datasetRouter)
   app.use('/d', downloadRouter)
+  app.use('/', homeRouter)
 
   app.get('/people', async (req, res) => {
     res.render('people')

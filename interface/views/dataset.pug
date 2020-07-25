@@ -82,12 +82,12 @@ html(lang='en')
                 div.modal-content
                   div.modal-header
                     button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
-                    p.header(class="modal-title" id="myModalLabel") Download
+                    p.popup-header(class="modal-title" id="myModalLabel") Download
                   div.modal-body
                     p.curl-link Curl Link
                     input.curl-link-box(type="text" value = "https://")
                   div.modal-footer
-                    button.cancel(type="button" id="copy-button" data-toggle="tooltip" data-placement="button" title="Copy to Clipboard") Cancel
+                    button.cancel(type="button" data-dismiss="modal" aria-hidden="true") Cancel
                     input.download(type="submit" value="Download")
     footer
       div
