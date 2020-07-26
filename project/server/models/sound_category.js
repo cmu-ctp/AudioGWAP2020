@@ -22,7 +22,20 @@ module.exports = class SoundCategory extends BaseModel {
     return await super.findQuery({ parent: parent });
   }
 
+  //returns true if a given category already exists.
+  async checkExists(parent, categoryName) {
+    let query = {
+      parent: parent,
+      sub: categoryName
+    };
+    let results = await super.findQuery(query);
+    return results.length > 0;
+  }
+
   async addCategory(parent, categoryName) {
+    if (await this.checkExists(parent, categoryName)) {
+      return null;
+    }
     let data = {
       parent: parent,
       sub: categoryName,
@@ -57,5 +70,13 @@ module.exports = class SoundCategory extends BaseModel {
       uc = uc.slice(0, slash) + uc.charAt(slash).toUpperCase() + uc.slice(slash + 1);
     }
     return uc;
+  }
+
+  async update(id, data) {
+    await super.update(id, data);
+  }
+
+  async remove(id) {
+    await super.remove(id);
   }
 };
