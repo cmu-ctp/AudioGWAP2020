@@ -51,7 +51,7 @@ module.exports = class Sound extends BaseModel {
     return this.filterResult(sounds);
   }
 
-  async updateValidatedSound(sound){
+  async updateValidatedSound(sound, ctx){
     try{
       const labels = sound.votedLabels;
       labels[(labels.length)-1].uid = ctx.user.uid;
@@ -138,7 +138,7 @@ module.exports = class Sound extends BaseModel {
         // If majority votes have been reached, update db & cache
         if(count >= majorityVotes){
           console.log("Majority votes have been achieved");
-          await this.updateValidatedSound(sound);
+          await this.updateValidatedSound(sound, ctx);
         } 
 
         // Max votes reached but no majority label found.
