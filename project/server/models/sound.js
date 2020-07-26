@@ -53,11 +53,14 @@ module.exports = class Sound extends BaseModel {
 
   async updateValidatedSound(sound){
     try{
+      const labels = sound.votedLabels;
+      labels[(labels.length)-1].uid = ctx.user.uid;
       await this.collection.updateOne({ sid: sound.sid}, 
       {
         $set: {
           isValidated: true,
-          validatedLabel: sound.validatedLabel
+          validatedLabel: sound.meta.category,
+          votedLabels: sound.votedLabels
         }
       });
 
