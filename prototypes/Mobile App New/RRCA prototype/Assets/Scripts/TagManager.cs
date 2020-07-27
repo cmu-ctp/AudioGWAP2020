@@ -55,6 +55,12 @@ public class TagManager : MonoBehaviour
     [SerializeField]
     private Button reportYes, reportNo;
 
+    [SerializeField]
+    private GameObject ErrorScreen;
+    
+    [SerializeField]
+    private Image ErrorPopUp;
+
     
     // Start is called before the first frame update
 
@@ -131,6 +137,8 @@ public class TagManager : MonoBehaviour
     {
         optionButtons[8].interactable = true;
         tag = "Neither";
+        // ErrorScreen.gameObject.SetActive(true);
+        // ErrorPopUp.gameObject.SetActive(true);
        
     }
 
@@ -296,6 +304,8 @@ public class TagManager : MonoBehaviour
         if (www.isNetworkError || www.isHttpError) {
             Debug.Log("Error uploading sound to the server");
             Debug.Log(www.error + " : " + www.downloadHandler.text);
+            // ErrorScreen.gameObject.SetActive(true);
+            // ErrorPopUp.gameObject.SetActive(true);
         }
         else {
             Debug.LogError("Upload complete!");
@@ -339,6 +349,9 @@ public class TagManager : MonoBehaviour
             NoSoundScreen.gameObject.SetActive(false);
             NoSoundPopUp.gameObject.SetActive(false);
         }
+
+        // ErrorScreen.gameObject.SetActive(false);
+        // ErrorPopUp.gameObject.SetActive(false);
 
     }
 
