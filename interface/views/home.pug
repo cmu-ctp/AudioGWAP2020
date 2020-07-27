@@ -6,6 +6,7 @@ html(lang='en')
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css")
         link(href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet")
         link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet")
     body
         div.body-container
             div.nav-container
@@ -52,10 +53,21 @@ html(lang='en')
                             img(src="/images/explore-dataset-before.png" onmouseover="this.src='/images/explore-dataset-after.png'" onmouseout="this.src='/images/explore-dataset-before.png'")
                 div.details
                     p.details-text Details
+
+                            //p #{category}
+                            //each subCategory in subCats
+                            //    p #{subCategory.sub}
+
+                    dl
                         each subCats, category in ontology
-                            p #{category}
-                            each subCategory in subCats
-                                p #{subCategory.sub}
+                            div.each-chart
+                                p.bar-title #{category}
+                                each subCategory in subCats
+                                    dd(class="bar-count bar-count-"+ subCategory.sounds.length)
+                                        span(class="text") #{subCategory.sub}
+
+
+
 
 
                 div.audio-collection
