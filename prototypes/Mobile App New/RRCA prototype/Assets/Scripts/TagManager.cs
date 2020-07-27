@@ -191,15 +191,18 @@ public class TagManager : MonoBehaviour
     {
         Debug.Log("PlayAudio()");
         Debug.Log("clip downloaded num (in play audio):" + crossAudioList.ClipDownLoaded.Count);
-        if (crossAudioList.ClipDownLoaded[0].downloadclips == null) {
+        if (crossAudioList.newClip.downloadclips == null) {
             Debug.Log("sound clip is null");
+            /* have an error message display here */
         }
-        Debug.Log(crossAudioList.newClip.downloadclips);
-        UpdateTime(crossAudioList.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
-        // UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
-        Camera.main.GetComponent<AudioSource>().clip = crossAudioList.newClip.downloadclips; // crossAudioList.ClipDownLoaded[0].downloadclips; //audioclip from server
-        Camera.main.GetComponent<AudioSource>().Play();
-
+        else {
+            Debug.Log(crossAudioList.newClip.downloadclips);
+            UpdateTime(crossAudioList.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            // UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            Camera.main.GetComponent<AudioSource>().clip = crossAudioList.newClip.downloadclips; // crossAudioList.ClipDownLoaded[0].downloadclips; //audioclip from server
+            Camera.main.GetComponent<AudioSource>().Play();
+        }
+        
     }
 
     public void PauseAudio()
@@ -265,6 +268,7 @@ public class TagManager : MonoBehaviour
 
         SoundData updatedSound = crossAudioList.sound;
         Debug.Log("new sound: "+updatedSound.path); 
+        
         // from RecordManager.cs 
     
         List<JsonVotedLabel> votedLabels = updatedSound.votedLabels;
@@ -289,15 +293,15 @@ public class TagManager : MonoBehaviour
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
         yield return www.SendWebRequest();
 
-        if(www.isNetworkError || www.isHttpError) {
+        if (www.isNetworkError || www.isHttpError) {
             Debug.Log("Error uploading sound to the server");
             Debug.Log(www.error + " : " + www.downloadHandler.text);
         }
         else {
             Debug.LogError("Upload complete!");
-            getNext = true;
-            
+            // getNext = true; 
         }
+        getNext = true;
         // optionButtons[8].interactable = true;
         
         
@@ -325,7 +329,7 @@ public class TagManager : MonoBehaviour
         optionButtons[8].interactable = false;
         reportYes.onClick.AddListener(OnClickReportYes);
         reportNo.onClick.AddListener(OnClickReportNo);
-        // Debug.Log("clip downloaded length 2 (in tm):" + crossAudioList.ClipDownLoaded.Count);
+        Debug.Log("clip downloaded length 2 (in tm):" + crossAudioList.ClipDownLoaded.Count);
         
         if (crossAudioList.setPopUp) {
             NoSoundScreen.gameObject.SetActive(true); 

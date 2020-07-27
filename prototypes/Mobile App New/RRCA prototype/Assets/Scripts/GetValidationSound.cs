@@ -151,8 +151,9 @@ public class GetValidationSound : MonoBehaviour
             newClip.labelnames = labelName;
 
             Debug.Log("Audio clip successfully downloaded");
-            ClipDownLoaded.Add(newClip);
             
+            /* not used in TagManager */
+            ClipDownLoaded.Add(newClip);
             Debug.Log("clip downloaded count: "+ClipDownLoaded.Count);
 
             
