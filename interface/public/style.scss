@@ -783,13 +783,29 @@ p.bar-title {
   }
 }
 
+//@function max-count() {
+//  $max-value: 0;
+//  @for $i from 0 through 1000 {
+//    @if .bar-count-#{$i}
+//  }
+//
+//}
+$max-value: -1;
+@for $i from 0 through 1000 {
+  .bar-count-#{$i} {
+      @if $i > $max-value {
+        $max-value: $i
+      }
+  }
+}
+
+
 @for $i from 0 through 1000 {
   .bar-count-#{$i} {
     &:after {
       @if $i != 0 {
         content: $i + "\00a0\00a0";
       }
-
       $value: ($i * 3%);
       width: $value;
     }
