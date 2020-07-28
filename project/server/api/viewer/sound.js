@@ -15,9 +15,16 @@ const config = require('../../config');
 
 const Event = require('../../models/event');
 const Sound = require('../../models/sound');
+//const Cache = require('../../models/cachedData');
 
 const router = new Router();
 
+const votedLabel = Joi.object(
+  {
+    uid: Joi.string(),
+    label: Joi.string()
+  }
+);
 const soundSchema = Joi.object({
   game_meta: Joi.object({
     model: Joi.string()
@@ -25,7 +32,12 @@ const soundSchema = Joi.object({
   meta: Joi.object({
     category: Joi.string().required(),
     label: Joi.string().allow(null)
-  })
+  }),
+  sid: Joi.string().allow(null),
+  isValidated: Joi.boolean(),
+  votingRound: Joi.number(),
+  votedLabels: Joi.array().items(votedLabel).allow(null),
+  validatedLabel: Joi.string().allow(null)
 });
 
 function getUploadDir() {
@@ -39,6 +51,65 @@ function getUploadUrlPrefix() {
 function getTime() {
   return moment().format('YYYYMMDD_HHmmss');
 }
+
+/**
+ * GET /viewer/consent/revoke
+ */
+router.get('/consent/revoke', async (ctx) => {  
+  const uid = ctx.user.uid;
+  console.log(`Uid ${uid}`);
+  const soundModel = new Sound(ctx);
+  const totalSounds = await soundModel.deleteUserSound(uid);
+  ctx.body = {
+    'msg': 'Success',
+  };
+});
+
+/**
+ * GET viewer/sound/retrieve
+ */
+
+router.get('/sound/retrieve', async (ctx) => { 
+  console.log("Request made to fetch sound");
+  //const cache = new Cache(ctx);
+  //const soundObj = await cache.getUnvalidatedSound(ctx);  
+  const soundModel = new Sound(ctx);
+  const soundObj = await soundModel.getUnvalidatedSound(ctx);
+
+  console.log("Sound object being sent for labelling:"+JSON.stringify(soundObj));
+  if(soundObj === null){
+    ctx.body = {
+      'msg': 'There are currently no new sounds for validation',
+      'result': null
+    }; 
+    return;
+  }
+  
+  ctx.body = {
+    'msg': 'Success',
+    'result': soundObj
+  };
+
+});
+
+router.post('/label/submit', async (ctx) => {
+  try{
+    console.log("Request made to submit label");
+    // const cache = new Cache(ctx);
+    // await cache.updateCache(ctx);
+    const soundModel = new Sound(ctx);
+    await soundModel.updateLabel(ctx);
+    console.log("Label successfully submitted.")
+    ctx.body = {
+      'msg': 'Label sucessfully added',
+    }
+  } catch (err) {
+    console.log("Label was not submitted");
+    console.log(err);
+    ctx.throw(400, err);
+  }
+});
+
 
 /**
  * GET /viewer/sound
@@ -58,10 +129,12 @@ router.get('/sound', async (ctx) => {
   };
 });
 
+
 /**
  * GET /viewer/event/:id/sound
  */
 router.get('/events/:id/sound', async (ctx) => {  
+  
   const eventId = ctx.params.id;
   const eventModel = new Event(ctx);
   eventModel.hideUnpublishedEvents();
@@ -209,6 +282,8 @@ router.post('/events/fake/sound', async (ctx) => {
  * POST /viewer/event/:id/sound
  */
 router.post('/events/:id/sound', async (ctx) => {  
+
+  console.log("Initially recorded sound object: "+ctx.request.body.sound);
   const eventId = ctx.params.id;
   const eventModel = new Event(ctx);
   eventModel.hideUnpublishedEvents();
@@ -253,6 +328,7 @@ router.post('/events/:id/sound', async (ctx) => {
     ctx.throw(400, 'Sound info required');
   }
 
+  console.log("Successfully found sound info and created directory to upload sound");
   let soundInfo;
   try {
     soundInfo = JSON.parse(ctx.request.body.sound);
@@ -265,7 +341,7 @@ router.post('/events/:id/sound', async (ctx) => {
     console.log(e);
     ctx.throw(400, 'Invalid sound info format');
   }
-  
+   
   // Remove empty label
   if (!soundInfo.meta.label) {
     delete soundInfo.meta.label;
@@ -277,6 +353,8 @@ router.post('/events/:id/sound', async (ctx) => {
   } catch (err) {
     ctx.throw(400, err);
   }
+
+  console.log("Successfully validated uploaded sound");
 
   if (!['audio/wav', 'audio/wave', 'audio/x-wav'].includes(file.type) ||
       !file.name.endsWith('.wav')) {
@@ -319,8 +397,15 @@ router.post('/events/:id/sound', async (ctx) => {
   soundData.event_id = soundModel.getObjectId(eventId);
   soundData.path = fileUrl;
   soundData._id = soundId;
+  soundData.sid = soundId.toString();
+  soundData.votingRound = 0;
+  soundData.votedLabels = null;
+  soundData.isValidated = false;
+  soundData.validatedLabel = null;
 
+  console.log("Sound being saved:"+ JSON.stringify(soundData));
   const soundItem = await soundModel.create(soundData);
+  console.log("Successfully saved uploaded sound");
 
   ctx.body = {
     'msg': 'success',

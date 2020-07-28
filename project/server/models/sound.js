@@ -6,6 +6,13 @@
 const BaseModel = require('./base');
 const Event = require('./event');
 const User = require('./user');
+const fs = require('fs');
+const path = require('path');
+const maxVotes = 3;
+const majorityVotes = 2;
+const maxVotingRounds = 1;
+const maxAbuseCount = 2;
+const Noise = require('./noise');
 
 module.exports = class Sound extends BaseModel {
   constructor(ctx) {
@@ -13,6 +20,150 @@ module.exports = class Sound extends BaseModel {
     this.includeUnpublishedEvents = true;
   }
 
+  async deleteUserSound(uid){
+    var query = { uid: uid };
+    const userSounds = await this.collection.find(query).toArray();
+
+    for(let usersound of userSounds){
+      const soundPath = path.resolve(__dirname + '/..' + usersound.path);
+      try {
+        fs.unlinkSync(soundPath);
+        console.log("All .wav files successfully removed from server");
+      } catch(err) {
+        console.log("Unable to delete .wav file");
+        console.error(err);
+      }
+    }
+    try{
+      await this.collection.deleteMany(query);
+      console.log("All file removed from DB");
+    } catch(err) {
+      console.log("Unable to delete sound from DB");
+      console.log(err);
+    }
+  }
+
+  async fetchSound(){
+    var query = { 
+      isValidated: { $eq: false },
+    };
+    const sounds = await this.collection.find(query).toArray();
+    return this.filterResult(sounds);
+  }
+
+  async updateValidatedSound(sound){
+    try{
+      await this.collection.updateOne({ sid: sound.sid}, 
+      {
+        $set: {
+          isValidated: true,
+          validatedLabel: sound.validatedLabel
+        }
+      });
+      
+    } catch(err){
+      console.log("Unable to update the validated sound in DB");
+      console.log(err);
+    }
+  }
+
+  async getUnvalidatedSound(ctx){
+    const uid = ctx.user.uid;
+    console.log("Fetching data from database");
+
+    var query = {
+      uid: { $ne: uid},
+      'votedLabels.uid': { $ne: uid},
+      isValidated: { $eq: false }
+    }
+
+    const sound = await this.collection.findOne(query);
+    return sound;
+  }
+
+  async updateLabel(ctx){
+    try{
+      const uid = ctx.user.uid;
+      const noiseModel = new Noise(ctx);
+      const sound = JSON.parse(ctx.request.body.sound);
+
+      if(!sound) {
+        ctx.throw(400, "Post object cannot be null")
+      }
+
+      console.log("Initially received sound object with label"+JSON.stringify(sound));
+
+      // Check for majority on reaching max labels
+      if(sound.votedLabels.length >= maxVotes){
+        const labels = sound.votedLabels;
+        let count = 0;
+        let abuseCount = 0;
+        for(let i=0; i < labels.length; i++){
+            if(labels[i].label === 'Yes'){
+                count++;
+            }
+
+            if(labels[i].label === 'Abuse'){
+              abuseCount++;
+            }
+        }
+
+        // If clip has been reported as abuse more than maxAbuseCount times, mark as abuse
+        if(abuseCount > maxAbuseCount){
+          sound.validatedLabel = "Abuse";
+          await this.collection.deleteOne({'sid': sound.sid});
+          await noiseModel.markAsNoise(sound);
+          return;
+        }
+        // If majority votes have been reached, update db & cache
+        if(count >= majorityVotes){
+          console.log("Majority votes have been achieved");
+          await this.updateValidatedSound(sound);
+        } 
+
+        // Max votes reached but no majority label found.
+        else {
+          sound.votingRound = sound.votingRound + 1;
+
+          //Max number of voting rounds reached. Mark sound as noise and remove from sound collection.
+          if(sound.votingRound > maxVotingRounds){
+            sound.validatedLabel = "Noise";
+            await this.collection.deleteOne({'sid': sound.sid});
+            await noiseModel.markAsNoise(sound);
+          } 
+          else {
+            sound.votedLabels = null;
+            await this.collection.updateOne({ sid: sound.sid}, 
+              {
+                $set: {
+                  votingRound: sound.votingRound + 1,
+                  votedLabels: null
+                }
+              });
+          }
+          
+        }
+      } 
+      // Max votes not reached. Append the label submitted to existing list of labels.
+      else {
+        const labels = sound.votedLabels;
+        labels[(labels.length)-1].uid = ctx.user.uid;
+        console.log("Final updated sound object being resaved in cache:" + JSON.stringify(sound));
+        await this.collection.updateOne({ sid: sound.sid},
+        {
+            $set: {
+                votedLabels: sound.votedLabels
+            }
+
+        });
+      }
+
+    } catch (err) {
+      console.log("Error occured while processing post object with label");
+      console.log(err);
+    }
+  }
+  
   async find(id) {
     let result = await this.collection.findOne(this.filterQuery({
       _id: this.getObjectId(id)
