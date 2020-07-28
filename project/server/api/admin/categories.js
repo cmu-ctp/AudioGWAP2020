@@ -6,7 +6,6 @@
 const Router = require('koa-router');
 const Category = require('../../models/sound_category');
 const Joi = require('@hapi/joi');
-const bodyParser = require('koa-body');
 
 const userAuth = require('../../lib/session').authRole;
 
@@ -33,8 +32,7 @@ router.use(userAuth({ blockRequest: true, roleRequired: 1 }));
  * sub='name of subcategory'
  */
 router.post('/categories', async (ctx) => {
-  // const uid = ctx.user.uid;
-  console.log(ctx.request.body);
+  // console.log(ctx.request.body);
   let categoryData = Object.create(ctx.request.body);
 
   try {
@@ -43,7 +41,7 @@ router.post('/categories', async (ctx) => {
     ctx.throw(400, err);
   }
 
-  console.log(categoryData);
+  // console.log(categoryData);
   
   const CategoryModel = new Category(ctx);
   try {
@@ -53,7 +51,7 @@ router.post('/categories', async (ctx) => {
       ctx.throw(400, 'Category already exists');
     }
     console.log('Successfully added!');
-    console.log(idObj);
+    // console.log(idObj);
     ctx.body = {
       'msg': 'Success',
       'id': idObj.id
@@ -78,7 +76,7 @@ router.post('/categories', async (ctx) => {
  */
 router.put('/categories/:id', async (ctx) => {
   const id = ctx.params.id;
-  console.log(ctx.request.body);
+  // console.log(ctx.request.body);
   let categoryData = Object.create(ctx.request.body);
   let CategoryModel = new Category(ctx);
   const category = await CategoryModel.find(id);

@@ -40,12 +40,19 @@ class App extends React.Component {
 
   render() {
     console.log(this.state)
-
+    const reqBody = {
+      user: 'teamechoesetc',
+      role: 1
+    }
     //This example will update the category with id: 5f1cadf6b4b8600e8bc05f0f
     let testInit = {
-      method: 'GET',
+      method: 'PUT',
       mode: 'cors',
       credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(reqBody)
     }
     if (this.state.role > 0) {
       return (
@@ -60,7 +67,7 @@ class App extends React.Component {
             <input type="text" id="sub" name="sub"/>
             <input type="Submit" value="Add Category"/>
           </form>
-          <TestButton url={CONFIG.serverIp + '/pub/categories'} init={testInit}/>
+          <TestButton url={CONFIG.serverIp + '/admin/mgmt'} init={testInit}/>
         </div>
       )
     } else {

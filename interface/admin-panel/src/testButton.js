@@ -1,7 +1,6 @@
 import React from 'react';
 //import logo from './logo.svg';
 import './App.css';
-import { CONFIG } from './config/config'
 
 class TestButton extends React.Component {
   constructor(props) {
