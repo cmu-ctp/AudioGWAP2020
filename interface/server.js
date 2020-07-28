@@ -3,15 +3,16 @@ const app = express()
 const mongo = require('./lib/mongo')
 require('dotenv').config()
 
-var sass = require('node-sass-middleware');
-
- app.use(
-     sass({
-         src: './public',    // Input SASS files
-         dest: './public', // Output CSS
-         debug: true
-     })
- );
+// use sass/scss
+// var sass = require('node-sass-middleware');
+//
+//  app.use(
+//      sass({
+//          src: './public',    // Input SASS files
+//          dest: './public', // Output CSS
+//          debug: true
+//      })
+//  );
 
 app.set('view engine', 'pug')
 app.use(express.static('public'))
