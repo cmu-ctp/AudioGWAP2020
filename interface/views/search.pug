@@ -39,17 +39,15 @@ html(lang='en')
             div.results-info
 
                 div.catalog
-                    a(href="/dataset") Dataset &nbsp;
-                    | > &nbsp;
+                    a(href="/dataset") Dataset
                     if results.length === 1
-
-                        a(href="/dataset") #{results[0].parent} &nbsp;
-                        | > &nbsp;
-                    | #{results[0].sub}
+                        | &nbsp; > &nbsp;
+                        a(href="/dataset") #{results[0].parent}
+                        | &nbsp; > &nbsp; #{results[0].sub}
                 | #{count} Results
 
             div.ontology-container
-                form(method="post" action="/d/" target="_blank")
+                form(method="post" action="/d/sounds" target="_blank")
                     if results.length > 0
                         table.main-table
                             tr
@@ -69,7 +67,8 @@ html(lang='en')
                                         - var down = '/d' + sound.path
                                         tr.main-row
                                             td.sub-input
-                                                input(type="checkbox" name="d[]" id=category.sub value=category.sub onclick="globalCheck()")
+                                                - var checkName = category.sub + "[]"
+                                                input(type="checkbox" name=checkName id=category.sub value=sound.path onclick="globalCheck()")
                                             td.count #{rowId}
                                             td.category-col #{category.sub}
                                             td.audio-col
@@ -79,7 +78,7 @@ html(lang='en')
                                             td #{sound.lastMod}
                                             td
                                                 a(href=down target="_blank") Download
-                        input.download(type="submit" value="Download")
+                        input.download(type="submit" value="Bulk Download")
                     else
                         p No results
     footer
