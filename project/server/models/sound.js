@@ -66,8 +66,9 @@ module.exports = class Sound extends BaseModel {
 
       // Update the count of unvalidated sound in events collection
       const eventModel = new Event(ctx);
-      console.log("sound being sent to event DB "+JSON.stringify(sound));
-      await eventModel.updateUnvalidatedSounds(sound.event_id, -1);
+      const soundData = await this.collection.findOne({ sid: sound.sid});
+      console.log("sound being sent to event DB "+JSON.stringify(soundData));
+      await eventModel.updateUnvalidatedSounds(soundData.event_id, -1);
       
     } catch(err){
       console.log("Unable to update the validated sound in DB");
