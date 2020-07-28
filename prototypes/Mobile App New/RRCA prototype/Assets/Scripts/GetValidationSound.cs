@@ -22,6 +22,8 @@ public class GetValidationSound : MonoBehaviour
 
     public bool setPopUp = false;
 
+    public bool showErrorMessage = false;
+
     public DownLoadPack newClip;
 
     void Start()
@@ -35,6 +37,7 @@ public class GetValidationSound : MonoBehaviour
     public void GetSound()
     {
         Debug.Log("Get sound");
+        showErrorMessage = false;
         StartCoroutine(RequestSoundList());
     }
 

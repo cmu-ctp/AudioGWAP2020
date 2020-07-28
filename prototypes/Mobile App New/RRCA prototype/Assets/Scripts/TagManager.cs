@@ -36,6 +36,8 @@ public class TagManager : MonoBehaviour
     public GameObject playaudiobutton;
     public GameObject pauseaudiobutton;
 
+    public bool showErrorMessage;
+
 
     [SerializeField]
     private Button[] optionButtons;
@@ -137,8 +139,7 @@ public class TagManager : MonoBehaviour
     {
         optionButtons[8].interactable = true;
         tag = "Neither";
-        // ErrorScreen.gameObject.SetActive(true);
-        // ErrorPopUp.gameObject.SetActive(true);
+        crossAudioList.showErrorMessage = true;
        
     }
 
@@ -304,8 +305,7 @@ public class TagManager : MonoBehaviour
         if (www.isNetworkError || www.isHttpError) {
             Debug.Log("Error uploading sound to the server");
             Debug.Log(www.error + " : " + www.downloadHandler.text);
-            // ErrorScreen.gameObject.SetActive(true);
-            // ErrorPopUp.gameObject.SetActive(true);
+            crossAudioList.showErrorMessage = true;
         }
         else {
             Debug.LogError("Upload complete!");
@@ -350,8 +350,7 @@ public class TagManager : MonoBehaviour
             NoSoundPopUp.gameObject.SetActive(false);
         }
 
-        // ErrorScreen.gameObject.SetActive(false);
-        // ErrorPopUp.gameObject.SetActive(false);
+        showErrorMessage = false;
 
     }
 
@@ -365,6 +364,15 @@ public class TagManager : MonoBehaviour
         else {
             NoSoundScreen.gameObject.SetActive(false);
             NoSoundPopUp.gameObject.SetActive(false);
+        }
+
+        if (crossAudioList.showErrorMessage) {
+            ErrorScreen.gameObject.SetActive(true);
+            ErrorPopUp.gameObject.SetActive(true);
+        }
+        else {
+            ErrorScreen.gameObject.SetActive(false);
+            ErrorPopUp.gameObject.SetActive(false);
         }
         
         if (crossAudioList.label != "") {
