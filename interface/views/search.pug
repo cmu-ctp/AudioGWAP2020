@@ -4,6 +4,9 @@ html(lang='en')
         title Audio Dataset
         link(rel="stylesheet", type="text/css", href="/style.css")
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css")
+        link(href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet")
     body
         div.nav-container
             div.nav-wrapper
@@ -16,11 +19,12 @@ html(lang='en')
                             a(href='/dataset') Dataset
                         li
                             a(href='/people') People
-                        li
-                            a(href='/future') Future
+                        //li
+                        //    a(href='/future') Future
                         li
                             a.nav-btn-container(href='#' )
                                 img.search-btn(src="/images/search.png" alt="search icon")
+                    button.sign-up-log-in Log in / Sign Up
         div.body-container
             //div.search-slogan Search place, object and scenario
             div.search-container
@@ -33,16 +37,17 @@ html(lang='en')
                         img(src="/images/search-submit.png" alt="search icon")
 
             div.results-info
-                if results.length === 1
-                    p= 'Dataset > ' + results[0].parent + ' > ' + results[0].sub
-                p #{count} Results
+                div.catalog
+                    a(href="/dataset") Dataset
+                    if results.length === 1
+                        | &nbsp; > &nbsp;
+                        a(href="/dataset") #{results[0].parent}
+                        | &nbsp; > &nbsp; #{results[0].sub}
+                | #{count} Results
 
             div.ontology-container
-
-            div.result
-                form(method="post" action="/d/" target="_blank")
-                    if results.length
-                        //p #{count} files found:
+                form(method="post" action="/d/sounds" target="_blank")
+                    if results.length > 0
                         table.main-table
                             tr
                                 th.main-input
@@ -61,7 +66,8 @@ html(lang='en')
                                         - var down = '/d' + sound.path
                                         tr.main-row
                                             td.sub-input
-                                                input(type="checkbox" name="d[]" id=category.sub value=category.sub onclick="globalCheck()")
+                                                - var checkName = category.sub + "[]"
+                                                input(type="checkbox" name=checkName id=category.sub value=sound.path onclick="globalCheck()")
                                             td.count #{rowId}
                                             td.category-col #{category.sub}
                                             td.audio-col
@@ -71,9 +77,17 @@ html(lang='en')
                                             td #{sound.lastMod}
                                             td
                                                 a(href=down target="_blank") Download
-                        input.download(type="submit" value="Download")
+                        input.download(type="submit" value="Bulk Download")
                     else
                         p No results
+    footer
+        div
+            p.footer-text Made possible with the help of Philips & Bosch Corporation
+            p.footer-text Copyright © 2020
+            div
+                p.footer-text Privacy
+                p.footer-text Support
+                p.footer-text Contact
 
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')

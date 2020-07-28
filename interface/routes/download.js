@@ -26,6 +26,47 @@ router.get('/upload/:path1/:path2/:fileName', (req, res) => {
 
 const urlParser = bodyParser.urlencoded({ extended: true })
 
+router.post('/sounds', urlParser, async (req, res) => {
+  const download = req.body;
+  console.log(download);
+  if (download == null) {
+    console.error('Bad request')
+    res.status(404).send("Sorry, we couldn't find the categories you wanted")
+  } else {
+    let zip = JSZip();
+    for (const parent in download) {
+      const paths = download[parent];
+      if (!Array.isArray(paths) || paths.length === 0) {
+        continue;
+      }
+      let count = 0;
+      //get number of digits for padding reasons
+      let maxDigits = paths.length.toString().length;
+      const localeOptions = {
+        useGrouping: false,
+        minimumIntegerDigits: maxDigits
+      }
+      const parentSanitized = parent.replace("/","-");
+      for (const path of paths) {
+        if (!path.endsWith('.wav')) {
+          continue;
+        }
+        count++;
+        let filename = parentSanitized + count.toLocaleString('en-US', localeOptions) + '.wav';
+        let filePath = '../project/server' + path;
+        zip.file(filename, fs.readFileSync(filePath));
+      }
+    }
+
+    res.set('Content-Type', 'application/zip')
+    res.set('Content-Disposition', 'attachment; filename=sounds.zip')
+    zip.generateNodeStream({type: 'nodebuffer', streamFiles: true})
+    .pipe(res)
+    console.log("Zip file generated and downloaded!")
+  }
+  
+})
+
 /** Category download route
  *  Determines which category to download via URLencoded POST data
  */
