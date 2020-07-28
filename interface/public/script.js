@@ -77,3 +77,12 @@ window.onclick = function(event) {
     }
 }
 
+function getCurl() {
+    let curlString = 'curl -d "';
+    $("td.sub-input input:checked").each(function () {
+        curlString += 'd[]=' + encodeURIComponent(this.value) + '&';
+    })
+    curlString = curlString.slice(0, -1);
+    curlString += '" -X POST -JO localhost:5000/d/'
+    $(".curl-link-box").attr('value', curlString);
+}
