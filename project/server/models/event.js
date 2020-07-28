@@ -186,6 +186,7 @@ module.exports = class Event extends BaseModel {
 
   async updateUnvalidatedSounds(id, count){
     try{
+      console.log("Updating unvalidated sounds in for the event "+id+" by "+count);
       await this.collection.updateOne({ _id: id},
         {
           $inc: {unvalidatedSounds : count}
