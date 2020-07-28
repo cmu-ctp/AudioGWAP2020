@@ -10,6 +10,7 @@ const authApi = require('./auth');
 const streamerApi = require('./streamer');
 const viewerApi = require('./viewer');
 const gameApi = require('./game');
+const adminApi = require('./admin');
 
 const apiPrefix = '/api';
 
@@ -22,6 +23,7 @@ const api = () => {
   
   router.use(apiPrefix, streamerApi.routes());
   router.use(apiPrefix, viewerApi.routes());
+  router.use(apiPrefix, adminApi.routes());
 
   router.all('*', (ctx) => {
     ctx.throw(404, 'Not Found');

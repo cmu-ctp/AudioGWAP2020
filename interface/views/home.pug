@@ -3,24 +3,104 @@ html(lang='en')
     head
         title Audio Dataset
         link(rel="stylesheet", type="text/css", href="/style.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css")
+        link(href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet")
     body
-        div.nav-container
-            div.nav-wrapper
-                nav
-                    div.logo Echoes
-                    ul.nav-items
-                        li.active
-                            a(href='/') Home
-                        li
-                            a(href='/dataset') Dataset
-                        li
-                            a(href='/people') People
-                        li
-                            a(href='/future') Future
-                        li
-                            a.nav-btn-container(href='#' )
-                                img.search-btn(src="/images/search.png" alt="search icon")
         div.body-container
+            div.nav-container
+                div.nav-wrapper
+                    nav.nav-content
+                        div.logo Polyphonic
+                        ul.nav-items
+                            li.active
+                                a(href='/') Home
+                            li
+                                a(href='/dataset') Dataset
+                            li
+                                a(href='/people') People
+                            //li
+                            //    a(href='/future') Future
+                            li
+                                a.nav-btn-container(href='#' )
+                                    img.search-btn(src="/images/search.png" alt="search icon")
+                        button.sign-up-log-in Log in / Sign Up
+            div.body-container
+                div.image-one
+                    p.slogan This is a slogan for the dataset
+                    img.human(src="/images/human.png" alt="human" )
+                div.project
+                    p.project-name Polyphonic
+                    div.info
+                        p.content Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae.
+                        p.content Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae.
+                        p.content Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae.
+                        a.our-team(href="/people")
+                            img(src="/images/ourTeam-before.png" onmouseover="this.src='/images/ourTeam-after.png'" onmouseout="this.src='/images/ourTeam-before.png'")
+                div.dataset
+                    img(src="/images/dataset-micro.png", alt="dataset-micro")
+                    div.info-rows
+                        p.dataset-title Dataset
+                        div.dataset-info
+                            p.data 578
+                                span.label Audios
+                            p.data 65
+                                span.label Categories
+                            p.data 3427
+                                span.label Downloads
+                        a.explore-dataset(href="/dataset")
+                            img(src="/images/explore-dataset-before.png" onmouseover="this.src='/images/explore-dataset-after.png'" onmouseout="this.src='/images/explore-dataset-before.png'")
+                div.details
+                    p.details-text Details
+                    - var maxCount = 0;
+                        each subCats, category in ontology
+                            each subCategory in subCats
+                                if subCategory.sounds.length > maxCount
+                                    - maxCount = subCategory.sounds.length
+                    dl
+                        each subCats, category in ontology
+                            div.each-chart
+                                p.bar-title #{category}
+                                each subCategory in subCats
+                                    dd(class="bar-count bar-count-"+ subCategory.sounds.length + " max-is-"+maxCount)
+                                        span(class="text") #{subCategory.sub}
+                                        -var width = subCategory.sounds.length * 100 * 0.9 / maxCount;
+                                        div.x(style={width: width + '%'})
+                                            if (subCategory.sounds.length !== 0)
+                                                |#{subCategory.sounds.length} &nbsp
+
+                div.audio-collection
+                    p.audio-text Audio Collection
+                    div.audio-content
+                        div
+                            p.header Home
+                            p.intro Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae.
+                            div.arrow
+                        div.line
+                        div
+                            p.header Gamification
+                            p.intro Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae.
+                            a(href="#")
+                                img.arrow(src="/images/arrow.png", alt="dataset-micro")
+                        div.line
+                        div
+                            p.header Collabration
+                            p.intro Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae.
+                            a(href="#")
+                                img.arrow(src="/images/arrow.png", alt="dataset-micro")
+
+    footer
+        div
+            p.footer-text Made possible with the help of Philips & Bosch Corporation
+            p.footer-text Copyright © 2020
+            div
+                p.footer-text Privacy
+                p.footer-text Support
+                p.footer-text Contact
 
 
-        script(type='text/javascript' src='script.js' defer='defer')
+
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
+    script(type='text/javascript' src='script.js' defer='defer')
