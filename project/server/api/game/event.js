@@ -32,6 +32,7 @@ router.get('/events/fake/sound', async (ctx) => {
  * Get all the sound list of an event.
  */
 router.get('/events/:token/sound', async (ctx) => {
+
   const gameToken = ctx.params.token;
   const eventModel = new Event(ctx);
   const event = await eventModel.findByToken(gameToken);
@@ -43,7 +44,8 @@ router.get('/events/:token/sound', async (ctx) => {
 
   const soundModel = new Sound(ctx);
   const itemList = await soundModel.findQueryWithUser({
-    'event_id': eventId
+    'event_id': eventId,
+    'isValidated' : true
   });
 
   ctx.body = {
