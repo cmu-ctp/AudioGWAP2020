@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
         objectCount = 0;
         collectedObjects = new List<Transform>();
         rb.maxAngularVelocity = maxAngularVelocity;
+        Debug.Log("Player started");
     }
 
     void Update()

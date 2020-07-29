@@ -240,6 +240,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        Debug.Log("Starting Game");
         instruction.SetActive(false);
         timer.SetActive(true);
         minimap.SetActive(true);

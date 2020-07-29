@@ -7,16 +7,20 @@ public class Recognize : MonoBehaviour
 {
     [SerializeField]
     float fadeTime;
+    [SerializeField]
     Text recognizeText;
     CanvasGroup canvasGroup;
     // Start is called before the first frame update
     void Start()
     {
+
         recognizeText = GetComponent<Text>();
         canvasGroup = GetComponent<CanvasGroup>();
 
         Debug.Assert(recognizeText != null, gameObject.name + ": no recognizeText found");
         Debug.Assert(canvasGroup != null, gameObject.name + ": no canvasGroup found");
+
+        Debug.Log("Starting Recognize Script");
     }
 
     // Update is called once per frame
@@ -29,11 +33,6 @@ public class Recognize : MonoBehaviour
     // of whose sound is being collected now.
     public IEnumerator ShowRecognization(string userName)
     {
-        recognizeText = GetComponent<Text>();
-        canvasGroup = GetComponent<CanvasGroup>();
-
-        Debug.Assert(recognizeText != null, gameObject.name + ": no recognizeText found");
-        Debug.Assert(canvasGroup != null, gameObject.name + ": no canvasGroup found");
 
         recognizeText.text = "Sound from <color=#F85797>" + userName + "</color> is collected!";
 
