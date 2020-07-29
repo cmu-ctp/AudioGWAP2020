@@ -59,7 +59,7 @@ html(lang='en')
                                 th Duration
                                 th File Size
                                 th Update
-                                th Download
+                                //th Download
                                 each category in results
                                     -var rowId = 0;
                                     each sound in category.sounds
@@ -76,11 +76,11 @@ html(lang='en')
                                             td #{sound.duration}
                                             td #{sound.fileSize}
                                             td #{sound.lastMod}
-                                            td
-                                                a(href=down target="_blank") Download
-                        input.download(type="submit" value="Bulk Download")
+                                            //td
+                                            //    a(href=down target="_blank") Download
+                        input.download(type="submit" value="Download")
                     else
-                        p No results
+                        p.no-result We are sorry,  there are no results for "#{query}"...
     footer
         div
             p.footer-text Made possible with the help of Philips & Bosch Corporation
