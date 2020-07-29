@@ -6,7 +6,7 @@
 module.exports = {
   defaults: {
     protocol: process.env.APP_PROTOCOL || 'http',
-    host: (process.env.APP_PUBLIC_HOST || 'localhost'),
+    host: (process.env.APP_HOST || 'localhost'),
     path: '/api'
   },
   twitch: {
@@ -22,6 +22,10 @@ module.exports = {
       token: {
         scope: [],
         callback: '/api/auth/twitch/token'
+      },
+      admin: {
+        scope: [],
+        callback: '/api/auth/twitch/admin'
       }
     },
     custom_params: {

@@ -35,7 +35,8 @@ public class InputToken : MonoBehaviour
     IEnumerator ParseToken(string token)
     {    
         string responseBody;
-        using (UnityWebRequest req = UnityWebRequest.Get("https://echoes.etc.cmu.edu/api/game/events/" + token + "/sound"))
+        // "https://echoes.etc.cmu.edu
+        using (UnityWebRequest req = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/game/events/" + token + "/sound"))
         {
             yield return req.SendWebRequest();
             if (req.isNetworkError || req.isHttpError)
