@@ -45,6 +45,7 @@ router.get('/events/:id/stat/users', async (ctx) => {
     event_id: eventModel.getObjectId(eventId)
   });
 
+  console.log("Response object created for stat "+userStat);
   ctx.body = {
     'msg': 'Success',
     'result': userStat
