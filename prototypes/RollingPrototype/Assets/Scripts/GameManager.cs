@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
     Goal goal;
     [SerializeField]
     GameObject startGame;
+    [SerializeField]
+    GameObject restart;
     
 
     [Header("Game Components")]
@@ -205,6 +207,7 @@ public class GameManager : MonoBehaviour
         timer.SetActive(false);
         minimap.SetActive(false);
         recognition.SetActive(false);
+        restart.SetActive(false);
         goal.gameObject.SetActive(false);
         leaderboard.SetActive(true);
         gameState = GameState.Ending;
@@ -252,6 +255,7 @@ public class GameManager : MonoBehaviour
         minimap.SetActive(true);
         recognition.SetActive(true);
         goal.gameObject.SetActive(true);
+        restart.SetActive(true);
         gameState = GameState.Playing;
         SetGoal();
     }
@@ -260,6 +264,10 @@ public class GameManager : MonoBehaviour
     public void RestartGame() {
         Debug.Log("Restart Game");
         SceneManager.LoadScene(1);
+    }
+
+    public void ResetPlayer() {
+        player.position = new Vector3((float)-5.5, (float)2.5, (float)-19.2);
     }
 
     // A game piece rain will happen when completing a task.
