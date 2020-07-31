@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement; /* for restarting game */
 
 public enum GameState
 {
@@ -34,6 +35,9 @@ public class GameManager : MonoBehaviour
     GameObject recognition;
     [SerializeField]
     Goal goal;
+    [SerializeField]
+    GameObject startGame;
+    
 
     [Header("Game Components")]
     [SerializeField]
@@ -89,6 +93,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("Awake");
         if (instance == null)
             instance = this;
 
@@ -203,6 +208,7 @@ public class GameManager : MonoBehaviour
         goal.gameObject.SetActive(false);
         leaderboard.SetActive(true);
         gameState = GameState.Ending;
+        startGame.SetActive(true); /* display start game button at the end */
         //StartCoroutine(GameEnd());
     }
 
@@ -248,6 +254,12 @@ public class GameManager : MonoBehaviour
         goal.gameObject.SetActive(true);
         gameState = GameState.Playing;
         SetGoal();
+    }
+
+    /* restart at the end or in the middle */
+    public void RestartGame() {
+        Debug.Log("Restart Game");
+        SceneManager.LoadScene(1);
     }
 
     // A game piece rain will happen when completing a task.
