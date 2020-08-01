@@ -18,7 +18,8 @@ const categorySchema = Joi.object({
 
 const updateCategorySchema = Joi.object({
   parent: Joi.string().alphanum().allow('/', '-'),
-  sub: Joi.string().alphanum().allow('/', '-')
+  sub: Joi.string().alphanum().allow('/', '-'),
+  useInGame: Joi.boolean()
 }).min(1);
 
 router.use(userAuth({ blockRequest: true, roleRequired: 1 }));
@@ -68,8 +69,9 @@ router.post('/categories', async (ctx) => {
  * 
  * Request should be in json form, as follows:
  * {
- *    parent: 'name of new parent'
- *    sub: 'new subcategory name'
+ *    parent: 'name of new parent, string'
+ *    sub: 'new subcategory name, string'
+ *    useInGame: True/False, boolean
  * }
  * 
  * If any fields aren't present, the end point will assume that field shouldn't be changed.

@@ -15,6 +15,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       role: 0,
+      hasAuth: false,
       userName: "",
       picURL: "",
     }
@@ -31,6 +32,7 @@ class App extends React.Component {
       console.log(data);
       this.setState({
         role: data.result.role || 0,
+        hasAuth: true,
         picURL: data.result.avatar_url,
         userName: data.result.display_name
       });
@@ -40,23 +42,18 @@ class App extends React.Component {
 
   render() {
     console.log(this.state)
-    const reqBody = {
-      user: 'teamechoesetc',
-      role: 1
-    }
-    //This example will update the category with id: 5f1cadf6b4b8600e8bc05f0f
+    /*const reqBody = {
+      useInGame: true
+    }*/
     let testInit = {
-      method: 'PUT',
+      method: 'GET',
       mode: 'cors',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(reqBody)
+      credentials: 'include'
     }
     if (this.state.role > 0) {
       return (
         <div className="App">
+          {/* eslint-disable-next-line */}
           <img src={this.state.picURL} alt="Profile Picture"/>
           <p>{this.state.userName}</p>
           <a href={CONFIG.serverIp + CONFIG.authLogout}>Sign Out</a>
@@ -67,13 +64,20 @@ class App extends React.Component {
             <input type="text" id="sub" name="sub"/>
             <input type="Submit" value="Add Category"/>
           </form>
-          <TestButton url={CONFIG.serverIp + '/admin/mgmt'} init={testInit}/>
+          <TestButton url={CONFIG.serverIp + '/admin/sounds/review'} init={testInit}/>
         </div>
       )
+    } else if (this.state.hasAuth) {
+      return (
+        <span>
+          Sorry, you don't have permission to access this. If you believe this is an error,
+          please let us know.
+        </span>
+        )
     } else {
       return (
         <span>Waiting</span>
-        )
+      )
     }
   }
 }

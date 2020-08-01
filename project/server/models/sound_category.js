@@ -32,14 +32,16 @@ module.exports = class SoundCategory extends BaseModel {
     return results.length > 0;
   }
 
-  async addCategory(parent, categoryName) {
+  // By default sets useInGame to true unless passed in as third arg
+  async addCategory(parent, categoryName, useInGame = true) {
     if (await this.checkExists(parent, categoryName)) {
       return null;
     }
     let data = {
       parent: parent,
       sub: categoryName,
-      sounds: []
+      sounds: [],
+      useInGame: useInGame
     }
     return await super.create(data);
   }
