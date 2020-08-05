@@ -3,19 +3,21 @@ services:
   node-server:
     build: project/server
     ports: 
-      - "3500:3500"
+      - "3500:3000"
     depends_on:
       - mongo
+    volumes:
+      - "./project/server/upload:/polyphonic/upload"
 
   mongo:
     build: database/
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: 
-      MONGO_INITDB_ROOT_PASSWORD: 
+      MONGO_INITDB_ROOT_USERNAME:
+      MONGO_INITDB_ROOT_PASSWORD:
     ports:
-      - "27017:27017"
+      - "27018:27017"
     expose:
       - "27017"
-    # volumes:
-    #   - 
+    volumes:
+      - "/var/lib/mongo:/data/db"
