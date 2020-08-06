@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     GameObject startGame;
     [SerializeField]
     GameObject restart;
+    [SerializeField]
+    GameObject tutorial;
     
 
     [Header("Game Components")]
@@ -208,11 +210,24 @@ public class GameManager : MonoBehaviour
         minimap.SetActive(false);
         recognition.SetActive(false);
         restart.SetActive(false);
+        tutorial.SetActive(false);
         goal.gameObject.SetActive(false);
         leaderboard.SetActive(true);
         gameState = GameState.Ending;
         startGame.SetActive(true); /* display start game button at the end */
         //StartCoroutine(GameEnd());
+    }
+
+    public void ViewTutorial()
+    {
+        timer.SetActive(false);
+        minimap.SetActive(false);
+        recognition.SetActive(false);
+        restart.SetActive(false);
+        tutorial.SetActive(false);
+        goal.gameObject.SetActive(false);
+        instruction.SetActive(true);
+        tutorial.SetActive(false);
     }
 
     // This coroutine is only used when we have "reach destination" as a end goal.
@@ -256,6 +271,7 @@ public class GameManager : MonoBehaviour
         recognition.SetActive(true);
         goal.gameObject.SetActive(true);
         restart.SetActive(true);
+        tutorial.SetActive(true);
         gameState = GameState.Playing;
         SetGoal();
     }
