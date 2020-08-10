@@ -15,8 +15,7 @@ const router = new Router();
 router.use(userAuth({ blockRequest: true, roleRequired: 1 }));
 
 const updateSoundSchema = Joi.object({
-  parent: Joi.string().alphanum().allow('/', '-'),
-  sub: Joi.string().alphanum().allow('/', '-')
+  category: Joi.string()
 }).min(1);
 
 
@@ -86,9 +85,8 @@ router.get('/sounds/review', async (ctx) => {
  * 
  * Request should be in json form as follows:
  * {
- *    sub: 'String, new subcategory name'
+ *    category: 'String, new subcategory name'
  * }
- * If any fields aren't present, endpoint will assume field shouldn't be changed
  */
 router.put('/sounds/:id', async (ctx) => {
   let SoundModel = new Sound(ctx);
@@ -107,7 +105,23 @@ router.put('/sounds/:id', async (ctx) => {
     ctx.throw(400, err);
   };
 
-  //TODO: logic for updating parent category too
+  let updater = {
+    meta: soundData
+  };
+
+  if (sound.hasOwnProperty('validatedLabel') && sound.validatedLabel !== null) {
+    updater.validatedLabel = soundData.category;
+  }
+
+  try {
+    await SoundModel.update(id, updater);
+    ctx.body = {
+      'msg': 'Success'
+    }
+  } catch (err) {
+    console.log(err);
+    ctx.throw(500, err);
+  }
 })
 
 

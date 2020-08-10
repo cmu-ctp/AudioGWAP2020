@@ -42,13 +42,17 @@ class App extends React.Component {
 
   render() {
     console.log(this.state)
-    /*const reqBody = {
-      useInGame: true
-    }*/
+    const reqBody = {
+      category: 'Toilet Flush'
+    }
     let testInit = {
-      method: 'GET',
+      method: 'PUT',
       mode: 'cors',
-      credentials: 'include'
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(reqBody)
     }
     if (this.state.role > 0) {
       return (
@@ -64,7 +68,7 @@ class App extends React.Component {
             <input type="text" id="sub" name="sub"/>
             <input type="Submit" value="Add Category"/>
           </form>
-          <TestButton url={CONFIG.serverIp + '/admin/sounds/review'} init={testInit}/>
+          <TestButton url={CONFIG.serverIp + '/admin/sounds/5dd014b58d86d915837798fb'} init={testInit}/>
         </div>
       )
     } else if (this.state.hasAuth) {

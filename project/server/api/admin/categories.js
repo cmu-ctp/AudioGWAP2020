@@ -12,14 +12,13 @@ const userAuth = require('../../lib/session').authRole;
 const router = new Router();
 
 const categorySchema = Joi.object({
-  parent: Joi.string().alphanum().allow('/', '-'),
-  sub: Joi.string().alphanum().allow('/', '-')
+  parent: Joi.string(),
+  sub: Joi.string()
 }).min(2);
 
 const updateCategorySchema = Joi.object({
-  parent: Joi.string().alphanum().allow('/', '-'),
-  sub: Joi.string().alphanum().allow('/', '-'),
-  useInGame: Joi.boolean()
+  parent: Joi.string(),
+  sub: Joi.string()
 }).min(1);
 
 router.use(userAuth({ blockRequest: true, roleRequired: 1 }));
@@ -71,7 +70,6 @@ router.post('/categories', async (ctx) => {
  * {
  *    parent: 'name of new parent, string'
  *    sub: 'new subcategory name, string'
- *    useInGame: True/False, boolean
  * }
  * 
  * If any fields aren't present, the end point will assume that field shouldn't be changed.
