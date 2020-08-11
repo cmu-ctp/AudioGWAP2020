@@ -21,3 +21,10 @@ services:
       - "27017"
     volumes:
       - "/var/lib/mongo:/data/db"
+
+  grafana:
+    build: grafana/
+    ports: 
+      - "4000:3000"
+    # volumes:
+    #   - "./project/server/upload:/polyphonic/upload"
