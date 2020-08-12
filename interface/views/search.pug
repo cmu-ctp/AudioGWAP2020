@@ -41,26 +41,26 @@ html(lang='en')
                     a(href="/dataset") Dataset
                     if results.length === 1
                         | &nbsp; > &nbsp;
-                        a(href="/dataset") #{results[0].parent}
+                        a(href="/dataset?cat=" + encodeURIComponent(results[0].parent)) #{results[0].parent}
                         | &nbsp; > &nbsp; #{results[0].sub}
                 | #{count} Results
 
             div.ontology-container
                 form(method="post" action="/d/sounds" target="_blank")
                     if results.length > 0
+                        - var rowId = 0;
                         table.main-table
                             tr
                                 th.main-input
                                     input(type="checkbox" name="select" class="checkAll")
                                 th.count #
                                 th Label
+                                th Parent Category
                                 th.audio-col Audio
-                                th Duration
                                 th File Size
                                 th Update
                                 th Download
                                 each category in results
-                                    -var rowId = 0;
                                     each sound in category.sounds
                                         - rowId++;
                                         - var down = '/d' + sound.path
@@ -70,14 +70,15 @@ html(lang='en')
                                                 input(type="checkbox" name=checkName id=category.sub value=sound.path onclick="globalCheck()")
                                             td.count #{rowId}
                                             td.category-col #{category.sub}
+                                            td.category-col #{category.parent}
                                             td.audio-col
                                                 audio(controls preload='none' src=sound.path)
-                                            td #{sound.duration}
                                             td #{sound.fileSize}
                                             td #{sound.lastMod}
                                             td
                                                 a(href=down target="_blank") Download
-                        input.download(type="submit" value="Bulk Download")
+                        p To download in bulk, check the boxes next to each sound you want to download.
+                        input.download(style="display:none" type="submit" value="Bulk Download")
                     else
                         p No results
     footer

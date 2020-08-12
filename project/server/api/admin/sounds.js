@@ -87,6 +87,9 @@ router.get('/sounds/review', async (ctx) => {
  * {
  *    category: 'String, new subcategory name'
  * }
+ * 
+ * TODO: May need to change with different logic depending on the status of the
+ *       sound (validated, being validated, audio for review, etc.)
  */
 router.put('/sounds/:id', async (ctx) => {
   let SoundModel = new Sound(ctx);

@@ -8,10 +8,14 @@ const sound_categories = db.collection('sound_categories')
 const wfi = require('wav-file-info')
 const fs = require('fs')
 
+// categories are hardcoded as of now, change in future to get from database
 const categoryList = ["Kitchen", "Bathroom", "Living/Bedroom", "Garage", "Ambience", "Concerning"]
 
 /** Route for search results
  *  Searches database from the query operators in URL
+ * 
+ * Query params: q = search query
+ *               strict = if 1, search only for exact matches. Otherwise, do a general text search.
  */
 router.get('/search/', async (req, res) => {
   const { q, strict } = req.query
@@ -89,12 +93,17 @@ router.get('/search/', async (req, res) => {
 /** Route for general dataset landing page
  *  Populates list of categories via hardcoded array (for now), searches
  *  db to get list of subcategories for each parent category
+ * 
+ * Query params: cat = category to show already expanded (vs. all collapsed)
  */
 router.get('/', async (req, res) => {
   let ontology = {}
   let counts = {}
   let fileSizes = {}
   let lastModified = {}
+  let shownCategory = req.query.cat || "";
+
+  // this should eventually be changed to get the list of categories from the database
   for(const category of categoryList) {
     let subCats = await getSubCategories(category)
     ontology[category] = subCats
@@ -137,13 +146,15 @@ router.get('/', async (req, res) => {
     ontology: ontology, 
     counts: counts, 
     fileSizes: fileSizes, 
-    lastModified: lastModified})
+    lastModified: lastModified,
+    shownCategory: shownCategory
+  })
 })
 
 //Searches sound_categories database for categories that match
 async function getResults(query, strict) {
   let cursor
-  if (strict == 1) {
+  if (strict === 1) {
     cursor = await sound_categories.find({ sub: query })
   } else {
     cursor = await sound_categories.find({

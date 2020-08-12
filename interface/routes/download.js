@@ -26,12 +26,16 @@ router.get('/upload/:path1/:path2/:fileName', (req, res) => {
 
 const urlParser = bodyParser.urlencoded({ extended: true })
 
+/** Bulk sound download route
+ *  Determines which sounds to download via URLencoded POST data
+ *  The body object has one array per sound category, and each sound's path is within its category's array
+ */
 router.post('/sounds', urlParser, async (req, res) => {
   const download = req.body;
-  console.log(download);
+  // console.log(download);
   if (download == null) {
     console.error('Bad request')
-    res.status(404).send("Sorry, we couldn't find the categories you wanted")
+    res.status(404).send("Sorry, we couldn't find the sounds you wanted")
   } else {
     let zip = JSZip();
     for (const parent in download) {
@@ -46,6 +50,8 @@ router.post('/sounds', urlParser, async (req, res) => {
         useGrouping: false,
         minimumIntegerDigits: maxDigits
       }
+
+      // some category names have slashes which doesnt play well with JSZip
       const parentSanitized = parent.replace("/","-");
       for (const path of paths) {
         if (!path.endsWith('.wav')) {
