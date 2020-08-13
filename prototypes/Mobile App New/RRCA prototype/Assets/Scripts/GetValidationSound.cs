@@ -34,6 +34,7 @@ public class GetValidationSound : MonoBehaviour
         
     }
 
+    /* not used */
     public void GetSound()
     {
         Debug.Log("Get sound");
@@ -50,15 +51,13 @@ public class GetValidationSound : MonoBehaviour
         
     }
 
-    /* from CrossAudioList */
     public IEnumerator RequestSoundList()
     {
         Debug.Log("in Request Sound List");
         string responseBody;
-        // https://hcii-gwap-01.andrew.cmu.edu/api/viewer/sound/retrieve
         using (UnityWebRequest req = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/sound/retrieve"))
         {
-            Debug.Log("making api call");
+            // Debug.Log("making api call");
             req.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
 
             yield return req.SendWebRequest();

@@ -160,7 +160,7 @@ public class TagManager : MonoBehaviour
         SaveAudio();
     }
 
-
+    /* not used */
     void UpdateAudio()
     {
         CompareTag();
@@ -273,9 +273,7 @@ public class TagManager : MonoBehaviour
 
         SoundData updatedSound = getValidationSound.sound;
         Debug.Log("new sound: "+updatedSound.path); 
-        
-        // from RecordManager.cs 
-    
+            
         List<JsonVotedLabel> votedLabels = updatedSound.votedLabels;
         JsonVotedLabel newLabel = new JsonVotedLabel();
         newLabel.uid = "null";
@@ -286,10 +284,6 @@ public class TagManager : MonoBehaviour
         }
         votedLabels.Add(newLabel);
         updatedSound.votedLabels = votedLabels;
-        
-        // Debug.Log("voting array: "+ updatedSound.votedLabels);
-        // Debug.Log("voting array count: "+updatedSound.votedLabels.Count);
-    
 
         formData.Add(new MultipartFormDataSection("sound", JsonUtility.ToJson(updatedSound)));
         Debug.Log("new json: "+JsonUtility.ToJson(updatedSound));
@@ -307,9 +301,6 @@ public class TagManager : MonoBehaviour
             Debug.LogError("Upload complete!");
             getNext = true; 
         }
-        // getNext = true;
-        // optionButtons[8].interactable = true;
-        
         
     }
 
@@ -329,9 +320,8 @@ public class TagManager : MonoBehaviour
         optionButtons[4].onClick.AddListener(PlayAudio);
         optionButtons[5].onClick.AddListener(PauseAudio);
         optionButtons[6].onClick.AddListener(SaveAudio);
-        // optionButtons[6].onClick.AddListener(UpdateAudio);
         optionButtons[7].onClick.AddListener(SkipAudio);
-        optionButtons[8].onClick.AddListener(SaveAudio); // NextAudio
+        optionButtons[8].onClick.AddListener(SaveAudio); 
         optionButtons[8].interactable = false;
         reportYes.onClick.AddListener(OnClickReportYes);
         reportNo.onClick.AddListener(OnClickReportNo);

@@ -68,7 +68,7 @@ public class PopulateEvents : MonoBehaviour
 
     void InitialPopulate()
     {
-        Debug.Log("initial populate");
+        // Debug.Log("initial populate");
         isPopulated = true;
         Debug.Log("isJoined : " + isJoinedEvents + " , number  : " + numberOfEvents.Value );
         for(int i = 0; i < numberOfEvents.Value; i++)
@@ -83,8 +83,7 @@ public class PopulateEvents : MonoBehaviour
 
     public void UpdateAllEventsJoinButtonInitial()
     {
-        Debug.LogError("in UpdateAllEventsJoinButtonInitial");
-        /* if number of events have changed --> update populate */
+        // Debug.LogError("in UpdateAllEventsJoinButtonInitial");
         if(joinedEventIds.Value.Count > 0)
         {
             updateAllEventCards();
@@ -94,7 +93,7 @@ public class PopulateEvents : MonoBehaviour
 
     void updateAllEventCards()
     {
-        Debug.Log("joined ids not count : " + (numberOfEvents.Value - joinedEventIds.Value.Count)); /* joinedEventIds.Value.Count not updates when event is deleted */
+        Debug.Log("joined ids not count : " + (numberOfEvents.Value - joinedEventIds.Value.Count)); 
         for(int i = 0; i < numberOfEvents.Value; i++)
         {
             if(CheckIfInJoined(eventParent.transform.GetChild(i).gameObject.GetComponent<EventID>().GetId()))
