@@ -20,7 +20,6 @@ public class Recognize : MonoBehaviour
         Debug.Assert(recognizeText != null, gameObject.name + ": no recognizeText found");
         Debug.Assert(canvasGroup != null, gameObject.name + ": no canvasGroup found");
 
-        Debug.Log("Starting Recognize Script");
     }
 
     // Update is called once per frame
