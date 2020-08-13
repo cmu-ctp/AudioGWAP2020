@@ -43,7 +43,7 @@ class App extends React.Component {
   render() {
     console.log(this.state)
     const reqBody = {
-      category: 'Toilet Flush'
+      category: 'Cooking'
     }
     let testInit = {
       method: 'PUT',
@@ -68,7 +68,7 @@ class App extends React.Component {
             <input type="text" id="sub" name="sub"/>
             <input type="Submit" value="Add Category"/>
           </form>
-          <TestButton url={CONFIG.serverIp + '/admin/sounds/5dd014b58d86d915837798fb'} init={testInit}/>
+          <TestButton url={CONFIG.serverIp + '/admin/sounds/5f34c215e3bde40bcc73a266'} init={testInit}/>
         </div>
       )
     } else if (this.state.hasAuth) {

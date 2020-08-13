@@ -4,7 +4,7 @@
  */
 
 const Router = require('koa-router');
-const Category = require('../../models/sound_category');
+const Category = require('../../models/sound_categories');
 const Joi = require('@hapi/joi');
 
 const userAuth = require('../../lib/session').authRole;
@@ -45,8 +45,8 @@ router.post('/categories', async (ctx) => {
   
   const CategoryModel = new Category(ctx);
   try {
-    const idObj = await CategoryModel.addCategory(categoryData.parent, categoryData.sub)
-    //addCategory returns null if it already exists
+    const idObj = await CategoryModel.addNewCategory(categoryData.parent, categoryData.sub)
+    //addNewCategory returns null if it already exists
     if (!idObj) {
       ctx.throw(400, 'Category already exists');
     }
