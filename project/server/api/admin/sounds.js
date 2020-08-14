@@ -23,7 +23,6 @@ const updateNoiseSchema = Joi.object({
   category: Joi.string()
 })
 
-
 /**
  * GET /admin/sounds/validated
  * Get list of validated sounds

@@ -24,12 +24,27 @@ const updateCategorySchema = Joi.object({
 router.use(userAuth({ blockRequest: true, roleRequired: 1 }));
 
 /**
- * POST /admin/categories
- * Add a new category to the list of categories
+ * @api {POST} /admin/categories Add New Category
+ * @apiName AddCategory
+ * @apiGroup Admin
+ * @apiDescription Add a new category to the list of categories
  * 
- * Send with url-encoded format with following parameters:
- * parent='name of parent category'
- * sub='name of subcategory'
+ * @apiParam  {String} parent Parent category name
+ * @apiParam  {String} sub    Category name (technically subcategory)
+ * @apiParamExample  {x-www-form-urlencoded} Request-Example:
+ *    parent=Kitchen&sub=Cooking
+ * 
+ * @apiSuccess {String} id    ObjectId of category in database
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *     msg: 'Success'
+ *     id: '3fe4576928a4b2bc9c'
+ * }
+ * 
+ * @apiPermission admin
+ * 
+ * @apiUse BadRequest
+ * @apiUse Unauthorized
  */
 router.post('/categories', async (ctx) => {
   // console.log(ctx.request.body);
@@ -63,16 +78,29 @@ router.post('/categories', async (ctx) => {
 });
 
 /**
- * PUT /admin/categories/:id
- * Update the category designated by :id
+ * @api {PUT} /admin/categories/:id Update Category
+ * @apiName UpdateCategory
+ * @apiGroup Admin
+ * @apiDescription Update the category designated by the given ID
  * 
- * Request should be in json form, as follows:
+ * @apiParam  {String} id       ObjectId of category in database
+ * @apiParam  {String} [parent] New parent category name (Only 1 of parent and sub must be present)
+ * @apiParam  {String} [sub]    New category name (technically subcategory)
+ * @apiParamExample  {json} Request-Example:
  * {
- *    parent: 'name of new parent, string'
- *    sub: 'new subcategory name, string'
+ *     parent: 'Kitchen'
+ *     sub: 'Dishwasher'
  * }
  * 
- * If any fields aren't present, the end point will assume that field shouldn't be changed.
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *     msg: 'Success'
+ * }
+ * 
+ * @apiPermission admin
+ * 
+ * @apiUse BadRequest
+ * @apiUse Unauthorized
  */
 router.put('/categories/:id', async (ctx) => {
   const id = ctx.params.id;
