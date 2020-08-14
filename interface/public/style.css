@@ -267,7 +267,7 @@ div.catalog {
   align-items: center; }
 
 button.sign-up-log-in {
-  font-family: "Roboto", sans-serif;
+  font-family: "Lato", sans-serif;
   font-style: normal;
   font-weight: 300;
   font-size: 18px;
@@ -311,7 +311,6 @@ p.slogan {
 div.info {
   display: flex;
   /*justify-content: space-between;*/
-  align-items: center;
   margin-bottom: 100px;
   margin-right: 100px;
   justify-content: space-between; }
@@ -471,7 +470,6 @@ p.details-text {
 div.audio-content {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-left: 100px;
   margin-right: 100px; }
 
@@ -515,11 +513,14 @@ div.core-team-content {
   margin-right: 100px; }
 
 div.avatar-part {
-  width: 1200px;
-  display: flex; }
+  width: 800px;
+  display: flex;
+  justify-content: center;
+}
 
 a.avatar {
-  margin-left: 80px; }
+  margin-left: 80px;
+margin-top: 40px}
 
 div.contributors {
   padding-left: 100px;
@@ -611,9 +612,9 @@ p.bar-title {
     transition: background-color .3s ease;
     cursor: pointer; }
 
-div.each-chart:nth-of-type(4n+3) .bar-count div.x, div.each-chart:nth-of-type(4n) .bar-count div.x {
-  color: white;
-  background-color: #000000; }
+/*div.each-chart:nth-of-type(4n+3) .bar-count div.x, div.each-chart:nth-of-type(4n) .bar-count div.x {*/
+/*  color: white;*/
+/*  background-color: #000000; }*/
 
 .bar-count:hover div.x, :focus div.x, div.each-chart:nth-of-type(4n+3) .bar-count:hover div.x, :focus div.x, div.each-chart:nth-of-type(4n) .bar-count:hover div.x, :focus div.x {
   background-color: #aaa; }
