@@ -1,5 +1,5 @@
 /**
- * sound_category.js
+ * sound_categories.js
  * Sound category model.
  */
 
@@ -32,16 +32,14 @@ module.exports = class SoundCategory extends BaseModel {
     return results.length > 0;
   }
 
-  // By default sets useInGame to true unless passed in as third arg
-  async addCategory(parent, categoryName, useInGame = true) {
+  async addNewCategory(parent, categoryName) {
     if (await this.checkExists(parent, categoryName)) {
       return null;
     }
     let data = {
       parent: parent,
       sub: categoryName,
-      sounds: [],
-      useInGame: useInGame
+      sounds: []
     }
     return await super.create(data);
   }
@@ -72,6 +70,52 @@ module.exports = class SoundCategory extends BaseModel {
       uc = uc.slice(0, slash) + uc.charAt(slash).toUpperCase() + uc.slice(slash + 1);
     }
     return uc;
+  }
+
+  // returns true if the given path is in the subcategory designated by categoryName, false otherwise
+  async inCategory(categoryName, path) {
+    const categoryObj = await this.collection.findOne({sub: categoryName});
+    if (categoryObj === null) return false;
+
+    return categoryObj.sounds.includes(path)
+  }
+
+  // remove the sound/path from the given category, if it exists in the sounds array
+  async removeFromCategory(categoryName, path) {
+    const categoryObj = await this.collection.findOne({sub: categoryName});
+    if (categoryObj === null) throw "Category doesn't exist";
+
+    if (categoryObj.sounds.includes(path)) {
+      try {
+        await this.collection.updateOne({
+          sub: categoryName
+        }, {
+          $pull: {sounds: path}
+        })
+      } catch (err) {
+        throw err;
+      }
+    }
+  }
+
+  // add the sound/path to the given category, run in try/catch block to catch errors
+  async addToCategory(categoryName, path) {
+    const categoryObj = await this.collection.findOne({sub: categoryName});
+    if (categoryObj === null) throw "Category doesn't exist";
+
+    if (categoryObj.sounds.includes(path)) {
+      throw "Sound already in category"
+    } else {
+      try {
+        await this.collection.updateOne({
+          sub: categoryName
+        }, {
+          $push: {sounds: path}
+        })
+      } catch (err) {
+        throw err;
+      }
+    }
   }
 
   async update(id, data) {

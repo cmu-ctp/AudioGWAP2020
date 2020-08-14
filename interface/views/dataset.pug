@@ -20,6 +20,7 @@ html(lang='en')
                 a(href='/dataset') Dataset
               li
                 a(href='/people') People
+              //- Currently not using future page, could change in the future
               //li
               //  a(href='/future') Future
               li
@@ -28,7 +29,6 @@ html(lang='en')
             a.nav-btn-container(href='http://localhost:3001/' )
               button.sign-up-log-in Log in / Sign Up
       div.body-container
-        //div.search-slogan Search place, object and scenario
         div.search-container
           form(method='get' action='/dataset/search/')
             if query && query.length > 0
@@ -51,11 +51,13 @@ html(lang='en')
               - var rowId = 0;
                 each subCats, category in ontology
                   - rowId++;
+                  - var expanded = shownCategory.toLowerCase() === category.toLowerCase()
                   tr.main-row
                     td
                       input(type="checkbox" id=category class="parent")
                     td.category-col(data-toggle="collapse" data-target="#"+rowId) #{category}
-                    td.expand-button(data-toggle="collapse" data-target="#"+rowId aria-expanded="false")
+                    td.expand-button(data-toggle="collapse" data-target="#"+rowId 
+                                     aria-expanded=expanded ? "true" : "false")
                       img(src="/images/arrow_drop_down.png" onmouseover="this.src='/images/black_arrow_drop_down.png'" onmouseout="this.src='/images/arrow_drop_down.png'")
                     td #{counts[category]} files
                     td #{fileSizes[category]}
@@ -63,7 +65,8 @@ html(lang='en')
 
                   tr
                     td.hiddenRow(colspan="12")
-                      div.collapse(id=rowId)
+                      - var className = expanded ? "collapse in" : "collapse"
+                      div(class=className id=rowId)
                         table.collapsible-table
                           each subCategory in subCats
                             tr
@@ -78,7 +81,8 @@ html(lang='en')
                               td #{subCategory.sounds.length} files
                               td #{subCategory.fileSizes}
                               td #{subCategory.lastMod}
-            button(type="button" data-toggle="modal" data-target="#basicModal" onclick="getCurl()").download Download
+            p To download categories, check the boxes next to each one you want to download.
+            button(style="display:none" type="button" data-toggle="modal" data-target="#basicModal" onclick="getCurl()").download Download
             div#basicModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true")
               div.modal-dialog.modal-sm
                 div.modal-content

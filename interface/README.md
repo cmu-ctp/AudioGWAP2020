@@ -13,5 +13,5 @@ app is port 5000.
 
 - Search
 - Audio Playback in Browser
-- Audio Download
-- Admin system
+- Audio Download (individual and zip)
+- Admin system (React app in admin-panel folder)

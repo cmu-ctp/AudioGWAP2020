@@ -1,14 +1,18 @@
-
+// controls checkAll checkboxes
 $(".checkAll").click(function () {
     $('input:checkbox').not(this).prop('checked', this.checked);
+    $('input:checkbox').not(this).prop('indeterminate', false);
+    this.checked ? $(".download").show() : $(".download").hide()
 });
 
+// controls parent category checkboxes in dataset landing page
 $(".parent").click(function () {
     let subClass = ".sub-" + this.id
     $(subClass).prop('checked', this.checked);
     globalCheck();
 })
 
+// called by each subcategory checkbox on dataset landing page, updates parent checkbox
 function uncheck(data, categoryName) {
     var allSubChecked = true;
     var noneSubChecked = true;
@@ -31,6 +35,7 @@ function uncheck(data, categoryName) {
     globalCheck();
 }
 
+// updates checkAll textbox, and also controls if download button is visible
 function globalCheck () {
     var allChecked = true;
     var noneChecked = true;
@@ -41,6 +46,7 @@ function globalCheck () {
             noneChecked = false;
         }
     })
+
     if(allChecked) {
         $(".checkAll")[0].checked = true;
         $(".checkAll")[0].indeterminate = false;
@@ -50,6 +56,8 @@ function globalCheck () {
     } else {
         $(".checkAll")[0].indeterminate = true;
     }
+
+    noneChecked ? $(".download").hide() : $(".download").show()
 }
 
 var modal = document.getElementById("myModal");
@@ -77,6 +85,7 @@ window.onclick = function(event) {
     }
 }
 
+// creates curl string for download use
 function getCurl() {
     let curlString = 'curl -d "';
     $("td.sub-input input:checked").each(function () {
