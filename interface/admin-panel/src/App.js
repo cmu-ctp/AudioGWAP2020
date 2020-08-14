@@ -21,6 +21,7 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
+    // endpoint requires login, without login leads to error & redirect to login page
     fetch(
       CONFIG.serverIp + CONFIG.userInfo,
       init
@@ -68,6 +69,8 @@ class App extends React.Component {
             <input type="text" id="sub" name="sub"/>
             <input type="Submit" value="Add Category"/>
           </form>
+          {/* This component runs a fetch command to the given url with the options specified, and prints 
+              the response below it. Use if u want for testing API endpoints */}
           <TestButton url={CONFIG.serverIp + '/admin/sounds/5f34c215e3bde40bcc73a266'} init={testInit}/>
         </div>
       )

@@ -98,7 +98,7 @@ module.exports = class SoundCategory extends BaseModel {
     }
   }
 
-  // add the sound/path to the given category
+  // add the sound/path to the given category, run in try/catch block to catch errors
   async addToCategory(categoryName, path) {
     const categoryObj = await this.collection.findOne({sub: categoryName});
     if (categoryObj === null) throw "Category doesn't exist";

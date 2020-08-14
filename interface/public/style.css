@@ -311,7 +311,7 @@ p.slogan {
 div.info {
   display: flex;
   /*justify-content: space-between;*/
-  align-items: center;
+  align-items: stretch;
   margin-bottom: 100px;
   margin-right: 100px;
   justify-content: space-between; }
@@ -471,7 +471,7 @@ p.details-text {
 div.audio-content {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
   margin-left: 100px;
   margin-right: 100px; }
 

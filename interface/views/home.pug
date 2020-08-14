@@ -1,4 +1,5 @@
 doctype html
+//- Feel free to modify the text on this page as you see fit
 html(lang='en')
     head
         title Audio Dataset
@@ -33,9 +34,19 @@ html(lang='en')
                 div.project
                     p.project-name Polyphonic
                     div.info
-                        p.content Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae.
-                        p.content Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae.
-                        p.content Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae.
+                        p.content.
+                            Artificial Intelligence is becoming more ubiquitous thanks to advances in machine learning and big data. 
+                            However, obtaining the right data can often be the most challenging obstacle in developing an AI system,
+                            due to the amount needed and the difficulty of collecting certain certain samples.
+                        p.content.
+                            We are Polyphonic, a research project from Carnegie Mellon’s Human-Computer Interaction Institute. Our goal
+                            is to create an annotated, public, audio dataset, using a Game with a Purpose (GWAP), to solve this problem.
+                            This will help students and researchers by providing usable data for audio-focused AI development.
+                        p.content.
+                            Our current collection focus is sounds in the home, such as a dishwasher, footsteps, a security alarm or others.
+                            These sounds get collected via our game, which is integrated with the Twitch platform. We partner with streamers
+                            to host streams of our game, where viewers can submit sounds and verify labels of other sounds for the game. 
+                            This allows us to collect large amounts of annotated audio data related to sounds at home.
                         a.our-team(href="/people")
                             img(src="/images/ourTeam-before.png" onmouseover="this.src='/images/ourTeam-after.png'" onmouseout="this.src='/images/ourTeam-before.png'")
                 div.dataset
@@ -43,10 +54,11 @@ html(lang='en')
                     div.info-rows
                         p.dataset-title Dataset
                         div.dataset-info
-                            p.data 578
+                            p.data #{numAudios}
                                 span.label Audios
-                            p.data 65
+                            p.data #{numCategories}
                                 span.label Categories
+                            // replace with real numbers from download tracking
                             p.data 3427
                                 span.label Downloads
                         a.explore-dataset(href="/dataset")
@@ -75,18 +87,30 @@ html(lang='en')
                     div.audio-content
                         div
                             p.header Home
-                            p.intro Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae.
+                            p.intro.
+                                Polyphonic is a research project from Carnegie Mellon’s Human-Computer Interaction Institute. The goal of this
+                                project is to compile a dataset of audio clips that would allow our partners to advance their research into
+                                in-home technologies. Through the use of a Game With a Purpose (GWAP) we are able to incentivize the collection
+                                of sounds, as well as categorize and verify them before adding them to a collective database available to researchers.
                             div.arrow
                         div.line
                         div
                             p.header Gamification
-                            p.intro Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae.
+                            p.intro.
+                                Our mobile application and streamer’s website help leverage gamification in the process of collecting quality
+                                audio data sets. The website helps streamers publish events which can be joined by viewers on our mobile app
+                                to collect associated sounds and validate them. The validated sound clips are then used as collectibles within
+                                Rolling Rhapsody, our fun-filled game played by streamers on Twitch.
                             a(href="#")
                                 img.arrow(src="/images/arrow.png", alt="dataset-micro")
                         div.line
                         div
-                            p.header Collabration
-                            p.intro Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean pharetra magna ac placerat. Tempor orci dapibus ultrices in iaculis. Enim tortor at auctor urna nunc id cursus metus. Eget lorem dolor sed viverra. Proin nibh nisl condimentum id venenatis a condimentum vitae.
+                            p.header Collaboration
+                            p.intro.
+                                Our team is working with researchers from Philips and Bosch. Bosch is a leading global supplier of technology
+                                and services. Philips is a leading health technology company focused on improving people’s health and enabling
+                                better outcomes across the health continuum. We thank our friends at Bosch and Philips Health for their support
+                                on this project.
                             a(href="#")
                                 img.arrow(src="/images/arrow.png", alt="dataset-micro")
 

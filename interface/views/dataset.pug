@@ -20,6 +20,7 @@ html(lang='en')
                 a(href='/dataset') Dataset
               li
                 a(href='/people') People
+              //- Currently not using future page, could change in the future
               //li
               //  a(href='/future') Future
               li
@@ -27,7 +28,6 @@ html(lang='en')
                   img.search-btn(src="/images/search.png" alt="search icon")
             button.sign-up-log-in Log in / Sign Up
       div.body-container
-        //div.search-slogan Search place, object and scenario
         div.search-container
           form(method='get' action='/dataset/search/')
             if query && query.length > 0
