@@ -284,13 +284,13 @@ public class RecordManager : MonoBehaviour
                     }
                     serverCategory = soundLabelText;
                     tempLabel = soundLabelText + soundLabelNumbers.Value[soundLabelIndex]++;
-                    Debug.Log("after setting sound label index");
+                    // Debug.Log("after setting sound label index");
                     //randomFileNameNumber.Value++;
                 }
             }
 
-            Debug.Log("gamePieces.Count: "+gamePieces.Value.Count);
-            Debug.Log("chosen game piece index: "+chosenGamePieceIndex.Value);
+            // Debug.Log("gamePieces.Count: "+gamePieces.Value.Count);
+            // Debug.Log("chosen game piece index: "+chosenGamePieceIndex.Value);
             /* if the game piece has not been set, choose the default */
             if (chosenGamePieceIndex.Value < 0) {
                 chosenGamePieceIndex.Value = 0;
@@ -304,7 +304,6 @@ public class RecordManager : MonoBehaviour
 
             if(indexInFile == -1)
             {
-                Debug.Log("df");
                 soundItemsFilenames.Value.Add(tempLabel);
                 audioLengthFile.Value.Add(recordingTimerText.text);
 

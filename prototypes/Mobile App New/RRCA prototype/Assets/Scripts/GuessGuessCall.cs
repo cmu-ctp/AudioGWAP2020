@@ -18,7 +18,6 @@ public class GuessGuessCall : MonoBehaviour
     }
 
     public void GetAudio() {
-        Debug.Log("on guess guess button click get audio");
         crossAudioList.GetSound();
     }
 

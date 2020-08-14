@@ -33,7 +33,7 @@ public class SampleWebView : MonoBehaviour
     [SerializeField]
     private StringVariable token;
 
-    private static readonly string AUTH_TOKEN_URL = "https://echoes.etc.cmu.edu/api/auth/twitch/token";
+    private static readonly string AUTH_TOKEN_URL = "https://hcii-gwap-01.andrew.cmu.edu/api/auth/twitch/token";
 
     public string Url;
     public Text status;

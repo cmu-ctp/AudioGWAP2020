@@ -22,6 +22,8 @@ public class GetValidationSound : MonoBehaviour
 
     public bool setPopUp = false;
 
+    public bool showErrorMessage = false;
+
     public DownLoadPack newClip;
 
     void Start()
@@ -32,9 +34,11 @@ public class GetValidationSound : MonoBehaviour
         
     }
 
+    /* not used */
     public void GetSound()
     {
         Debug.Log("Get sound");
+        showErrorMessage = false;
         StartCoroutine(RequestSoundList());
     }
 
@@ -47,15 +51,13 @@ public class GetValidationSound : MonoBehaviour
         
     }
 
-    /* from CrossAudioList */
     public IEnumerator RequestSoundList()
     {
         Debug.Log("in Request Sound List");
         string responseBody;
-        // https://hcii-gwap-01.andrew.cmu.edu/api/viewer/sound/retrieve
         using (UnityWebRequest req = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/sound/retrieve"))
         {
-            Debug.Log("making api call");
+            // Debug.Log("making api call");
             req.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
 
             yield return req.SendWebRequest();
@@ -89,13 +91,19 @@ public class GetValidationSound : MonoBehaviour
         SoundFetchAPIResult result = JsonUtility.FromJson<SoundFetchAPIResult>(responseBody);
         Debug.Log("result message: "+result.msg);
 
-        if (result.msg != "Success") {
+        
+        if (result.msg == "There are currently no new sounds for validation") {
             setPopUp = true;
+            label = "Is this the sound of ... ";
+        }
+        else if (result.msg != "Success") {
+            showErrorMessage = true;
             label = "Is this the sound of ... ";
         }
 
         else {
             setPopUp = false;
+            showErrorMessage = false;
             if (result.result != null)
             {
                 Debug.Log("result: "+result.result);
@@ -104,14 +112,12 @@ public class GetValidationSound : MonoBehaviour
             
                 path = "https://hcii-gwap-01.andrew.cmu.edu" + sound.path;
                 Debug.Log(path);
-                labelName = sound.meta.category; //sound.game_meta.sound_label;
+                labelName = sound.meta.category; 
                 label = "Is this the sound of a(n) " + labelName + "?";
                 votedLabels = sound.votedLabels;
             
                 Debug.Log("voting round: "+sound.votingRound);
-            
                 Debug.Log("guideline text: "+label);
-                //guideline.text = guideline.text + " " + labelName;
 
                 soundObject = new SoundObject(path, displayName, labelName, id);
                 
@@ -120,7 +126,7 @@ public class GetValidationSound : MonoBehaviour
 
             }
             else {
-            Debug.Log("result.result IS null"); 
+                Debug.Log("result.result IS null"); 
             }
 
             Debug.Log("Made request for sound audio file");
@@ -151,8 +157,9 @@ public class GetValidationSound : MonoBehaviour
             newClip.labelnames = labelName;
 
             Debug.Log("Audio clip successfully downloaded");
-            ClipDownLoaded.Add(newClip);
             
+            /* not used in TagManager */
+            ClipDownLoaded.Add(newClip);
             Debug.Log("clip downloaded count: "+ClipDownLoaded.Count);
 
             

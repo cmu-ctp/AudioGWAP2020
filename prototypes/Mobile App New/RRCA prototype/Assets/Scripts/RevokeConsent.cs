@@ -59,14 +59,9 @@ public class RevokeConsent : MonoBehaviour
 
     public void GoToNextPage()
     {
-        //chosenGamePieceIndex.Value = PlayerPrefs.GetInt("chosenGamePiece");
-        //canvas.GetComponent<GetEvents>().StartGettingEvents();
-        // loginPage.SetActive(false);
-        // this.gameObject.SetActive(false);
-        // consentPage.SetActive(true);
+        
         revokeConfirmPage.SetActive(false);
-        //homePage.SetActive(true);
-        //soundItems.GetComponent<PopulateGallery>().StartPopulating();
+        
     }
 
 

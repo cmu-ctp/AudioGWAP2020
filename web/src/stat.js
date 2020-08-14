@@ -206,7 +206,7 @@ class Statistics extends React.Component {
         let id = window.location.pathname.substr(12);
         fetch(
             CONFIG.serverIp + CONFIG.streamerEvents + "/" + id + CONFIG.userStats,
-            //'https://echoes.etc.cmu.edu/api/streamer/events/fake/stat/users',
+            //'https://hcii-gwap-01.andrew.cmu.edu/api/streamer/events/fake/stat/users',
             init
         )
         .then(

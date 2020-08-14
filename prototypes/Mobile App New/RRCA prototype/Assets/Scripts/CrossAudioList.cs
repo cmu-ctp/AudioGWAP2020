@@ -10,6 +10,8 @@ using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 using UnityEngine.Networking;
 
+/* not used */
+
 public class CrossAudioList : MonoBehaviour
 {
     //public Dictionary<AudioClip,string> clips_labels;
@@ -158,16 +160,7 @@ public class CrossAudioList : MonoBehaviour
             
         }
         
-
-
-
     }
-
-
-
-
-
-
 
 
 }
