@@ -51,15 +51,24 @@ module.exports = class Sound extends BaseModel {
     return this.filterResult(sounds);
   }
 
-  async updateValidatedSound(sound){
+  async updateValidatedSound(sound, ctx){
     try{
+      const labels = sound.votedLabels;
+      labels[(labels.length)-1].uid = ctx.user.uid;
       await this.collection.updateOne({ sid: sound.sid}, 
       {
         $set: {
           isValidated: true,
-          validatedLabel: sound.validatedLabel
+          validatedLabel: sound.meta.category,
+          votedLabels: sound.votedLabels
         }
       });
+
+      // Update the count of unvalidated sound in events collection
+      const eventModel = new Event(ctx);
+      const soundData = await this.collection.findOne({ sid: sound.sid});
+      console.log("sound being sent to event DB "+JSON.stringify(soundData));
+      await eventModel.updateUnvalidatedSounds(soundData.event_id, -1);
       
     } catch(err){
       console.log("Unable to update the validated sound in DB");
@@ -71,14 +80,27 @@ module.exports = class Sound extends BaseModel {
     const uid = ctx.user.uid;
     console.log("Fetching data from database");
 
-    var query = {
-      uid: { $ne: uid},
-      'votedLabels.uid': { $ne: uid},
-      isValidated: { $eq: false }
-    }
+    //Find event with least validated sound
+    const eventModel = new Event(ctx);
+    const eventArray = await eventModel.findEventWithMinValidatedSound();
+    console.log("Total events fetched:" + eventArray.length);
 
-    const sound = await this.collection.findOne(query);
-    return sound;
+    for(let event of eventArray){
+      const eventId = eventModel.getObjectId(event._id);
+      console.log("checking available sound for id:"+ eventId);
+      var query = {
+        isValidated: { $eq: false },
+        event_id: { $eq: eventId},
+        uid: { $ne: uid},
+        'votedLabels.uid': { $ne: uid},
+      }
+  
+      const sound = await this.collection.findOne(query);
+      console.log("Sound Fetched "+sound);
+      if(sound)
+        return sound;
+    }
+    return null;  
   }
 
   async updateLabel(ctx){
@@ -118,7 +140,7 @@ module.exports = class Sound extends BaseModel {
         // If majority votes have been reached, update db & cache
         if(count >= majorityVotes){
           console.log("Majority votes have been achieved");
-          await this.updateValidatedSound(sound);
+          await this.updateValidatedSound(sound, ctx);
         } 
 
         // Max votes reached but no majority label found.
