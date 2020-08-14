@@ -33,6 +33,13 @@ module.exports = class User extends BaseModel {
     return this.filterResult(result);
   }
 
+  async findByUserName(username) {
+    const result = await this.collection.findOne({
+      user_name: username
+    });
+    return this.filterResult(result) || null;
+  }
+
   async registerOrUpdate(data) {
     if (!data || !data.uid) return;
 

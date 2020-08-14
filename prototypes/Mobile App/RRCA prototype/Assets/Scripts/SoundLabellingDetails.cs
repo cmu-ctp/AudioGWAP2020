@@ -115,7 +115,7 @@ public class SoundLabellingDetails : MonoBehaviour
     IEnumerator GetEventDetailsFromServer(string eventId)
     {
         idOfEvent.Value = eventId;
-        UnityWebRequest www = UnityWebRequest.Get("https://echoes.etc.cmu.edu/api/viewer/events/" + eventId);
+        UnityWebRequest www = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/events/" + eventId);
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
  
         //Wait for the response and then get our data

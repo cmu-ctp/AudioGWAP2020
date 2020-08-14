@@ -22,6 +22,7 @@ public class GetEvents : MonoBehaviour
 
     public void StartGettingEvents()
     {
+        Debug.LogError("Start Getting Events");
         numberOfEvents.Value = 0;
         numberOfJoinedEvents.Value = 0;
         StartCoroutine(GetJoinedEventsInfoFromServer());
@@ -40,8 +41,9 @@ public class GetEvents : MonoBehaviour
 
     IEnumerator GetEventsInfoFromServer()
     {
+        Debug.Log("Retrieving events from server");
         
-        UnityWebRequest www = UnityWebRequest.Get("https://echoes.etc.cmu.edu/api/viewer/events");
+        UnityWebRequest www = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/events");
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
         yield return www.SendWebRequest();
 
@@ -49,6 +51,7 @@ public class GetEvents : MonoBehaviour
             Debug.Log(www.error + " : " + www.downloadHandler.text);
         }
         else {
+            Debug.Log("successfully hit API");
             var data = www.downloadHandler.text;
             events = JsonClassEvents.getEventsInfo(data);
 
@@ -71,14 +74,15 @@ public class GetEvents : MonoBehaviour
                 numberOfEvents.Value = total;
                 populateEvents.StartPopulating();
             }
+            populateEvents.UpdateAllEventsJoinButtonInitial();
         }
     }
 
     IEnumerator GetJoinedEventsInfoFromServer()
     {
         Debug.Log("joined events");
-        UnityWebRequest www = UnityWebRequest.Get("https://echoes.etc.cmu.edu/api/viewer/events/joined");
-        www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token")); //"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI0NjQ4NjkzNTciLCJ0b2tlbiI6eyJhY2Nlc3NfdG9rZW4iOiJ1MW94OHZnNjdrMHR4bHJ1bGdqOGJzeWdpOXFxbG0iLCJyZWZyZXNoX3Rva2VuIjoiNGR6ejZhYXo5bHR2anNpOGJ3ZGdmMnA5bXE0cHA5aml0eWVqbjIwMXZhNGV4eHI0dGEifSwiaWF0IjoxNTc0Mzk5MjA3LCJleHAiOjE2MDU5NTY4MDd9.QkD55bcWmD-qcszgMssVKydhzGFs169KUzFih9d14Hg");
+        UnityWebRequest www = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/events/joined");
+        www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token")); 
  
         yield return www.SendWebRequest();
 
@@ -87,6 +91,7 @@ public class GetEvents : MonoBehaviour
         }
         else
         {
+            Debug.Log("successfully hit API");
             var data = www.downloadHandler.text;
             joinedEvents = JsonClassEvents.getEventsInfo(data);
             
