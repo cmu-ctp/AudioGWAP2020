@@ -35,6 +35,8 @@ class Session {
     };
   }
 
+
+  // checks roles. Note 0 = viewer, 1 = admin (access to admin panel), 2 = superadmin (can edit admins/superadmins)
   static authRole(opt) {
     opt = Object.assign({
       roleRequired: 0
@@ -42,7 +44,7 @@ class Session {
 
     const authNormal = Session.auth(opt);
     return async (ctx, next) => {
-      console.log('User Role: ' + ctx.session.role + ' | Role Required: ' + opt.roleRequired);
+      // console.log('User Role: ' + ctx.session.role + ' | Role Required: ' + opt.roleRequired);
       if (ctx.session.role < opt.roleRequired) {
         ctx.throw(401, 'Unauthorized');
       }

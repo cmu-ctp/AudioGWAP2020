@@ -18,16 +18,27 @@ const updateRoleSchema = Joi.object({
 
 router.use(userAuth({ blockRequest: true, roleRequired: 2 }));
 
-
 /**
- * PUT /admin/mgmt
- * Update the role of the given user
+ * @api {PUT} /admin/mgmt Change Admin Roles
+ * @apiName ChangeAdminRoles
+ * @apiGroup Admin
+ * @apiDescription Change the role of the given user to the given role
  * 
- * Request should be in json form, as follows:
+ * @apiParam  {String} user Twitch username of user
+ * @apiParam  {Number} role Role to be given (0 = viewer, 1 = admin, 2 = superadmin)
+ * @apiParamExample  {json} Request-Example:
  * {
- *    user: 'twitch username of user, string'
- *    role: 'role to be given, number (0 = viewer, 1 = admin, 2 = superadmin)'
+ *     user: 'teamechoesetc'
+ *     role: 1
  * }
+ * 
+ * @apiSuccessExample {type} Success-Response:
+ * {
+ *     msg : 'Success'
+ * }
+ * 
+ * @apiUse Unauthorized
+ * @apiPermission superadmin
  */
 router.put('/mgmt', async (ctx) => {
   // console.log(ctx.request.body);

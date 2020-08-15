@@ -24,7 +24,8 @@ html(lang='en')
                         li
                             a.nav-btn-container(href='#' )
                                 img.search-btn(src="/images/search.png" alt="search icon")
-                    button.sign-up-log-in Log in / Sign Up
+                    a.nav-btn-container(href='http://localhost:3001/' )
+                        button.sign-up-log-in Log in / Sign Up
         div.body-container
             //div.search-slogan Search place, object and scenario
             div.search-container
@@ -41,26 +42,27 @@ html(lang='en')
                     a(href="/dataset") Dataset
                     if results.length === 1
                         | &nbsp; > &nbsp;
-                        a(href="/dataset") #{results[0].parent}
+                        a(href="/dataset?cat=" + encodeURIComponent(results[0].parent)) #{results[0].parent}
                         | &nbsp; > &nbsp; #{results[0].sub}
-                | #{count} Results
+                | #{count} Results, #{totalSize}
 
             div.ontology-container
                 form(method="post" action="/d/sounds" target="_blank")
                     if results.length > 0
+                        - var rowId = 0;
                         table.main-table
                             tr
                                 th.main-input
-                                    input(type="checkbox" name="select" class="checkAll")
+                                    // no name so its value doesn't get submitted in form
+                                    input(type="checkbox" class="checkAll")
                                 th.count #
                                 th Label
+                                th Parent Category
                                 th.audio-col Audio
-                                th Duration
                                 th File Size
                                 th Update
                                 //th Download
                                 each category in results
-                                    -var rowId = 0;
                                     each sound in category.sounds
                                         - rowId++;
                                         - var down = '/d' + sound.path
@@ -70,14 +72,15 @@ html(lang='en')
                                                 input(type="checkbox" name=checkName id=category.sub value=sound.path onclick="globalCheck()")
                                             td.count #{rowId}
                                             td.category-col #{category.sub}
+                                            td.category-col #{category.parent}
                                             td.audio-col
                                                 audio(controls preload='none' src=sound.path)
-                                            td #{sound.duration}
                                             td #{sound.fileSize}
                                             td #{sound.lastMod}
-                                            //td
-                                            //    a(href=down target="_blank") Download
-                        input.download(type="submit" value="Download")
+                                            td
+                                                a(href=down target="_blank") Download
+                        p To download in bulk, check the boxes next to each sound you want to download.
+                        input.download(style="display:none" type="submit" value="Bulk Download")
                     else
                         p.no-result We are sorry,  there are no results for "#{query}"...
     footer
