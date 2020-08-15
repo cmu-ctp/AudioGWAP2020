@@ -45,7 +45,7 @@ router.get('/', async (req, res) => {
     }
   }
   
-  console.log(ontology);
+  // console.log(ontology);
   res.render('home', {
     ontology: ontology,
     numCategories: numCategories,
