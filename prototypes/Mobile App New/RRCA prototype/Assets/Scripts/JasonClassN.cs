@@ -9,15 +9,12 @@ public class SoundFetchAPIResult
     public string msg;
     public SoundData result;
     
-    // public SoundData[] result;
 }
 
 [Serializable]
 public class SoundData
 {
-    // public string _id;
-    // public string uid;
-    // public string event_id;
+    
     public string path;
     public string sid;
     public int votingRound;
@@ -26,8 +23,7 @@ public class SoundData
     public string validatedLabel;
     public SoundMeta meta;
     public SoundGameMeta game_meta;
-    // public UserData user;
-    // public string id;
+    
 }
 
 [Serializable]

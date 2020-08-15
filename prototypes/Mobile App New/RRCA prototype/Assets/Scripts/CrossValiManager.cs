@@ -10,6 +10,8 @@ using UnityEngine.Android;
 using UnityEngine.iOS;
 #endif
 
+/* not used */
+
 public class CrossValiManager : MonoBehaviour
 {
     public UnityWebRequest www;

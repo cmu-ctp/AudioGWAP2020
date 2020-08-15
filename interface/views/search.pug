@@ -61,7 +61,7 @@ html(lang='en')
                                 th.audio-col Audio
                                 th File Size
                                 th Update
-                                th Download
+                                //th Download
                                 each category in results
                                     each sound in category.sounds
                                         - rowId++;
@@ -82,7 +82,7 @@ html(lang='en')
                         p To download in bulk, check the boxes next to each sound you want to download.
                         input.download(style="display:none" type="submit" value="Bulk Download")
                     else
-                        p No results
+                        p.no-result We are sorry,  there are no results for "#{query}"...
     footer
         div
             p.footer-text Made possible with the help of Philips & Bosch Corporation

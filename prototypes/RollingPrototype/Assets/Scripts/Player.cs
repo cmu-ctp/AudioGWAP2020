@@ -46,6 +46,8 @@ public class Player : MonoBehaviour
     {
         if (GameManager.instance.gameState == GameState.Playing)
         {
+
+            // Debug.Log("pos: "+rb.transform.position);
             //Move and rotate. It will brake automatically if the keys are not held.
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");

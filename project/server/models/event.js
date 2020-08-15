@@ -184,6 +184,30 @@ module.exports = class Event extends BaseModel {
     });
   }
 
+  async updateUnvalidatedSounds(id, count){
+    try{
+      console.log("Updating unvalidated sounds in for the event "+id+" by "+count);
+      await this.collection.updateOne({ _id: id},
+        {
+          $inc: {unvalidatedSounds : count}
+        })
+    } catch(err){
+      console.log("Unable to update the count of unvalidated sounds for event id "+ id);
+      console.log(err);
+    }
+  }
+
+  async findEventWithMinValidatedSound(){
+    try{
+      const eventArray = await this.collection.find().sort({ unvalidatedSounds: -1}).toArray();
+      return eventArray;
+    } catch (err){
+      console.log("Unable to query sound collection to find event with max unvalidated sounds");
+      console.log(err);
+    }
+    
+  }
+
   async forceRemoveAll() {
     await this.collection.deleteMany();
   }

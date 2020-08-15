@@ -114,7 +114,7 @@ td[aria-expanded=true] img {
   text-align: center; }
 
 .main-table {
-  margin-top: 50px;
+  margin-top: 80px;
   margin-bottom: 40px;
   border-collapse: collapse;
   width: 100%;
@@ -124,21 +124,36 @@ td[aria-expanded=true] img {
   font-family: "Roboto", sans-serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 21px;
-  color: #000000; }
+  color: #000000;
+}
+
+.parent {
+  color: greenyellow;
+}
 
 th {
   width: 160px;
   font-family: "Roboto", sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 21px;
   /* identical to box height */
   color: #9A9A9A;
   position: relative;
-  transform: perspective(1px) translateY(-30%); }
+  transform: perspective(1px) translateY(-60%); }
+
+input[type='checkbox'] {
+  background: #FFFFFF;
+  border: 1px solid #9A9A9A;
+  box-sizing: border-box;
+  border-radius: 2px;
+  height: 16px;
+  width: 16px;
+  margin-top: -14px;
+}
 
 th.main-input {
   width: 30px; }
@@ -153,7 +168,12 @@ td {
   color: #9A9A9A; }
 
 tr.main-row {
-  height: 50px; }
+  height: 60px;
+}
+
+tr.hidden-row {
+  height: 50px;
+}
 
 .main-table th, td {
   text-align: left;
@@ -177,7 +197,7 @@ td.sub-category {
   background-color: black;
   color: #FFFFFF;
   border: none;
-  width: 118px;
+  width: 100px;
   height: 30px;
   font-family: "Roboto", sans-serif;
   font-size: 16px; }
@@ -589,7 +609,8 @@ p.bar-title {
   width: 150px;
   background-color: white;
   position: absolute;
-  justify-content: flex-start; }
+  justify-content: flex-start;
+}
 
 .bar-count {
   font-size: .8em;
@@ -619,4 +640,43 @@ p.bar-title {
 /*  background-color: #000000; }*/
 
 .bar-count:hover div.x, :focus div.x, div.each-chart:nth-of-type(4n+3) .bar-count:hover div.x, :focus div.x, div.each-chart:nth-of-type(4n) .bar-count:hover div.x, :focus div.x {
-  background-color: #aaa; }
+  background-color: #aaa;
+
+}
+.bar-count:hover span.text, :focus span.text {
+
+  color: black;
+  font-weight: 800;
+
+}
+
+div.each-contributor a {
+  color: inherit;
+  text-decoration: none;
+}
+
+label a {
+  color: inherit;
+  text-decoration: none;
+
+}
+.sub-name {
+  font-family: "Roboto",sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 36px;
+  color: #000000;
+  padding-bottom: 12px;
+}
+
+p.no-result {
+  margin-top: 40px;
+  font-family: "Roboto",sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 36px;
+  color: #000000;
+  padding-bottom: 12px;
+}

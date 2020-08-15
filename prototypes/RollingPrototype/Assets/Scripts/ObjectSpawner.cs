@@ -46,7 +46,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             foreach (SoundData sound in result.result)
             {
-                string path = "https://echoes.etc.cmu.edu" + sound.path;
+                string path = "https://hcii-gwap-01.andrew.cmu.edu/" + sound.path;
                 string displayName = sound.user.display_name;
                 string modelName = sound.game_meta.model;
                 string id = sound.id;
@@ -60,7 +60,14 @@ public class ObjectSpawner : MonoBehaviour
         yield return null;
 
         GameManager.instance.totalNumObjects = sounds.Count;
-        int repetition = GameManager.instance.totalNumPoints / GameManager.instance.totalNumObjects;
+        int repetition = 0;
+        if (GameManager.instance.totalNumObjects <= 0) {
+            Debug.Log("No validated sounds!");
+        }
+        else {
+            repetition = GameManager.instance.totalNumPoints / GameManager.instance.totalNumObjects;
+        }
+        
         for (int i = 0; i < Mathf.Max(1, repetition); i++)
         {
             foreach (SoundObject sound in sounds)

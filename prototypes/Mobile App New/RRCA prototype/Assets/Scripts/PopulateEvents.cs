@@ -68,7 +68,7 @@ public class PopulateEvents : MonoBehaviour
 
     void InitialPopulate()
     {
-        Debug.Log("initial populate");
+        // Debug.Log("initial populate");
         isPopulated = true;
         Debug.Log("isJoined : " + isJoinedEvents + " , number  : " + numberOfEvents.Value );
         for(int i = 0; i < numberOfEvents.Value; i++)
@@ -83,16 +83,17 @@ public class PopulateEvents : MonoBehaviour
 
     public void UpdateAllEventsJoinButtonInitial()
     {
-        Debug.LogError("in UpdateAllEventsJoinButtonInitial");
+        // Debug.LogError("in UpdateAllEventsJoinButtonInitial");
         if(joinedEventIds.Value.Count > 0)
         {
             updateAllEventCards();
         }
+       getEvents.UpdateJoinedEvents();
     }
 
     void updateAllEventCards()
     {
-        Debug.Log("joined ids not count : " + (numberOfEvents.Value - joinedEventIds.Value.Count));
+        Debug.Log("joined ids not count : " + (numberOfEvents.Value - joinedEventIds.Value.Count)); 
         for(int i = 0; i < numberOfEvents.Value; i++)
         {
             if(CheckIfInJoined(eventParent.transform.GetChild(i).gameObject.GetComponent<EventID>().GetId()))
@@ -162,10 +163,13 @@ public class PopulateEvents : MonoBehaviour
         if(eventParent.transform.childCount <= numberOfEvents.Value)
         {
             Debug.Log("# of events displayed < number of events");
+            Debug.Log("eventParent.transform.childCount: "+eventParent.transform.childCount);
+            Debug.Log("numberOfEvents.Value:"+numberOfEvents.Value);
             if(eventParent.transform.childCount != 0)
             {
-                // Debug.Log("# of events displayed != 0");
+                Debug.Log("# of events displayed != 0");
                 /* instantiate event cards for new events */
+                
                 for(int i = eventParent.transform.childCount; i < numberOfEvents.Value; i++)
                 {
                     populatedNumber = i; 
@@ -180,13 +184,14 @@ public class PopulateEvents : MonoBehaviour
             else
             {
                 /* instantiate first event card */
-                // Debug.Log("# of events displayed == 0");
+                Debug.Log("# of events displayed == 0");
                 populatedNumber = 0;
                 InstantiateEventCard(0);
             }
         }
         else
         {
+            Debug.Log("no new events");
             /* no new events */
             for(int i = 0; i < numberOfEvents.Value; i++)
             {

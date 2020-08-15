@@ -12,29 +12,26 @@ using UnityEngine.iOS;
 public class TagManager : MonoBehaviour
 {
     // public CrossAudioList crossAudioList;
-    public GetValidationSound crossAudioList = new GetValidationSound(); 
+    public GetValidationSound getValidationSound = new GetValidationSound(); 
 
     public List<string> tagmanager;
     public List<string> chosentag = new List<string>();
     public string userchoosetag;
-    public GameObject option1;
-    public GameObject option2;
-    public GameObject option3;
+    public GameObject option1, option2, option3;
     private string target;
     int ClipAmountsDid = 1 ;
-
     private string tag;
-
     public bool getNext = false;
 
     public UnityWebRequest www;
     public Text audioTime;
     private AudioClip download_audioClip;
-
     public GameObject completepage;
 
     public GameObject playaudiobutton;
     public GameObject pauseaudiobutton;
+
+    public bool showErrorMessage;
 
 
     [SerializeField]
@@ -54,6 +51,12 @@ public class TagManager : MonoBehaviour
 
     [SerializeField]
     private Button reportYes, reportNo;
+
+    [SerializeField]
+    private GameObject ErrorScreen;
+    
+    [SerializeField]
+    private Image ErrorPopUp;
 
     
     // Start is called before the first frame update
@@ -76,7 +79,6 @@ public class TagManager : MonoBehaviour
     }
 
     /* not used */
-
     public void loadTagList(string t)
     {
         Debug.Log("loading tag list");
@@ -96,8 +98,8 @@ public class TagManager : MonoBehaviour
 
         target = t;
     } 
-    /* not used */
 
+    /* not used */
     void randomMnumber(int m, int n)
     {
         chosentag.Clear();
@@ -114,11 +116,11 @@ public class TagManager : MonoBehaviour
         }
     }
 
+    /* option buttons -- set the tag and enable the submit button */
     void OnClickButton0()
     {
         optionButtons[8].interactable = true;
         tag = "Yes";
-        // Debug.Log("tag: "+tag);
 
     }
     void OnClickButton1()
@@ -134,6 +136,7 @@ public class TagManager : MonoBehaviour
        
     }
 
+    /* not used */
     void CompareTag()
     {
        
@@ -157,23 +160,23 @@ public class TagManager : MonoBehaviour
         SaveAudio();
     }
 
-
+    /* not used */
     void UpdateAudio()
     {
         CompareTag();
         StopAudio();
 
-        DownLoadPack downLoadPackToDelete = crossAudioList.newClip;
+        DownLoadPack downLoadPackToDelete = getValidationSound.newClip;
 
-        crossAudioList.ClipDownLoaded.Remove(downLoadPackToDelete);
+        getValidationSound.ClipDownLoaded.Remove(downLoadPackToDelete);
         ClipAmountsDid++;
 
-        Debug.Log(crossAudioList.sounds.Count);
-        if (ClipAmountsDid <= crossAudioList.sounds.Count)
+        Debug.Log(getValidationSound.sounds.Count);
+        if (ClipAmountsDid <= getValidationSound.sounds.Count)
         {
             //completepage.SetActive(false);
-            loadTagList(crossAudioList.ClipDownLoaded[0].labelnames);
-            UpdateTime(crossAudioList.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            loadTagList(getValidationSound.ClipDownLoaded[0].labelnames);
+            UpdateTime(getValidationSound.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
 
         }
         else
@@ -190,16 +193,19 @@ public class TagManager : MonoBehaviour
     public void PlayAudio()
     {
         Debug.Log("PlayAudio()");
-        Debug.Log("clip downloaded num (in play audio):" + crossAudioList.ClipDownLoaded.Count);
-        if (crossAudioList.ClipDownLoaded[0].downloadclips == null) {
+        Debug.Log("clip downloaded num (in play audio):" + getValidationSound.ClipDownLoaded.Count);
+        if (getValidationSound.newClip.downloadclips == null) {
             Debug.Log("sound clip is null");
+            /* have an error message display here */
         }
-        Debug.Log(crossAudioList.newClip.downloadclips);
-        UpdateTime(crossAudioList.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
-        // UpdateTime(crossAudioList.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
-        Camera.main.GetComponent<AudioSource>().clip = crossAudioList.newClip.downloadclips; // crossAudioList.ClipDownLoaded[0].downloadclips; //audioclip from server
-        Camera.main.GetComponent<AudioSource>().Play();
-
+        else {
+            Debug.Log(getValidationSound.newClip.downloadclips);
+            UpdateTime(getValidationSound.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            // UpdateTime(getValidationSound.ClipDownLoaded[0].downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            Camera.main.GetComponent<AudioSource>().clip = getValidationSound.newClip.downloadclips; // getValidationSound.ClipDownLoaded[0].downloadclips; //audioclip from server
+            Camera.main.GetComponent<AudioSource>().Play();
+        }
+        
     }
 
     public void PauseAudio()
@@ -221,23 +227,24 @@ public class TagManager : MonoBehaviour
         audioTime.text = $"{time / 60:D2}:{time % 60:D2}:{millisecond / 15:D2}";
     }
 
+
+    /* not used */
     public void SkipAudio()
     {
         StopAudio();
 
-        DownLoadPack downLoadPackToDelete = crossAudioList.ClipDownLoaded[0];
+        DownLoadPack downLoadPackToDelete = getValidationSound.ClipDownLoaded[0];
 
-        crossAudioList.ClipDownLoaded.Remove(downLoadPackToDelete);
-        //Debug.Log(" YI gong duoshao ge"+ crossAudioList.sounds.Count + " zuole duoshao ge  " + ClipAmountsDid + " haishng duoshao ge " + crossAudioList.ClipDownLoaded.Count);
+        getValidationSound.ClipDownLoaded.Remove(downLoadPackToDelete);
         ClipAmountsDid++;
 
 
-        if (ClipAmountsDid <= crossAudioList.sounds.Count)
+        if (ClipAmountsDid <= getValidationSound.sounds.Count)
         {
             
-            loadTagList(crossAudioList.ClipDownLoaded[0].labelnames);
+            loadTagList(getValidationSound.ClipDownLoaded[0].labelnames);
             //StartCoroutine("DownloadAudioFromServer");
-            UpdateTime(crossAudioList.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            UpdateTime(getValidationSound.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
 
         }
         else
@@ -253,6 +260,7 @@ public class TagManager : MonoBehaviour
         StartCoroutine(UpdateAudioInServer());
     }
 
+    /* not used */
     public void NextAudio() {
         Debug.Log("next button clicked!");
         // getNext = true;
@@ -263,10 +271,9 @@ public class TagManager : MonoBehaviour
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         Debug.Log("Updating audio data to the server");
 
-        SoundData updatedSound = crossAudioList.sound;
+        SoundData updatedSound = getValidationSound.sound;
         Debug.Log("new sound: "+updatedSound.path); 
-        // from RecordManager.cs 
-    
+            
         List<JsonVotedLabel> votedLabels = updatedSound.votedLabels;
         JsonVotedLabel newLabel = new JsonVotedLabel();
         newLabel.uid = "null";
@@ -277,10 +284,6 @@ public class TagManager : MonoBehaviour
         }
         votedLabels.Add(newLabel);
         updatedSound.votedLabels = votedLabels;
-        
-        Debug.Log("voting array: "+ updatedSound.votedLabels);
-        Debug.Log("voting array count: "+updatedSound.votedLabels.Count);
-    
 
         formData.Add(new MultipartFormDataSection("sound", JsonUtility.ToJson(updatedSound)));
         Debug.Log("new json: "+JsonUtility.ToJson(updatedSound));
@@ -289,17 +292,15 @@ public class TagManager : MonoBehaviour
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
         yield return www.SendWebRequest();
 
-        if(www.isNetworkError || www.isHttpError) {
+        if (www.isNetworkError || www.isHttpError) {
             Debug.Log("Error uploading sound to the server");
             Debug.Log(www.error + " : " + www.downloadHandler.text);
+            getValidationSound.showErrorMessage = true;
         }
         else {
             Debug.LogError("Upload complete!");
-            getNext = true;
-            
+            getNext = true; 
         }
-        // optionButtons[8].interactable = true;
-        
         
     }
 
@@ -309,7 +310,7 @@ public class TagManager : MonoBehaviour
     {
         
         Debug.Log("Tag Manager Started");
-        Debug.Log("clip downloaded length (in tm):" + crossAudioList.ClipDownLoaded.Count);
+        Debug.Log("clip downloaded length (in tm):" + getValidationSound.ClipDownLoaded.Count);
 
         Debug.Log("Setting button listeners");
         optionButtons[0].onClick.AddListener(OnClickButton0);
@@ -319,15 +320,14 @@ public class TagManager : MonoBehaviour
         optionButtons[4].onClick.AddListener(PlayAudio);
         optionButtons[5].onClick.AddListener(PauseAudio);
         optionButtons[6].onClick.AddListener(SaveAudio);
-        // optionButtons[6].onClick.AddListener(UpdateAudio);
         optionButtons[7].onClick.AddListener(SkipAudio);
-        optionButtons[8].onClick.AddListener(SaveAudio); // NextAudio
+        optionButtons[8].onClick.AddListener(SaveAudio); 
         optionButtons[8].interactable = false;
         reportYes.onClick.AddListener(OnClickReportYes);
         reportNo.onClick.AddListener(OnClickReportNo);
-        // Debug.Log("clip downloaded length 2 (in tm):" + crossAudioList.ClipDownLoaded.Count);
+        Debug.Log("clip downloaded length 2 (in tm):" + getValidationSound.ClipDownLoaded.Count);
         
-        if (crossAudioList.setPopUp) {
+        if (getValidationSound.setPopUp) {
             NoSoundScreen.gameObject.SetActive(true); 
             NoSoundPopUp.gameObject.SetActive(true);
         }
@@ -335,13 +335,15 @@ public class TagManager : MonoBehaviour
             NoSoundScreen.gameObject.SetActive(false);
             NoSoundPopUp.gameObject.SetActive(false);
         }
+
+        showErrorMessage = false;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (crossAudioList.setPopUp) {
+        if (getValidationSound.setPopUp) {
             NoSoundScreen.gameObject.SetActive(true); 
             NoSoundPopUp.gameObject.SetActive(true);
         }
@@ -349,33 +351,40 @@ public class TagManager : MonoBehaviour
             NoSoundScreen.gameObject.SetActive(false);
             NoSoundPopUp.gameObject.SetActive(false);
         }
+
+        if (getValidationSound.showErrorMessage) {
+            ErrorScreen.gameObject.SetActive(true);
+            ErrorPopUp.gameObject.SetActive(true);
+        }
+        else {
+            ErrorScreen.gameObject.SetActive(false);
+            ErrorPopUp.gameObject.SetActive(false);
+        }
         
-        if (crossAudioList.label != "") {
-            guideline.text = crossAudioList.label;
+        if (getValidationSound.label != "") {
+            guideline.text = getValidationSound.label;
         }
 
         if (Camera.main.GetComponent<AudioSource>().isPlaying)
         {
-            if (crossAudioList.ClipDownLoaded.Count != 0) {
-                UpdateTime(crossAudioList.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            if (getValidationSound.ClipDownLoaded.Count != 0) {
+                UpdateTime(getValidationSound.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
             }
         }
         else
         {
             playaudiobutton.SetActive(true);
             pauseaudiobutton.SetActive(false);
-            if (crossAudioList.ClipDownLoaded.Count != 0) {
-                UpdateTime(crossAudioList.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
+            if (getValidationSound.ClipDownLoaded.Count != 0) {
+                UpdateTime(getValidationSound.newClip.downloadclips.length - Camera.main.GetComponent<AudioSource>().time);
             }
         }
 
         if (getNext) {
-            getNext = false;
-            crossAudioList.GetSound();
+            getValidationSound.GetSound();
             optionButtons[8].interactable = false;
-            // optionButtons[6].interactable = true;
-            Debug.Log("clip downloaded length after next:" + crossAudioList.ClipDownLoaded.Count);
-
+            Debug.Log("clip downloaded length after next:" + getValidationSound.ClipDownLoaded.Count);
+            getNext = false;
         }
         
     }

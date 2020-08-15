@@ -7,6 +7,7 @@ html(lang='en')
     link(href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet")
     link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
     link(href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet")
   body
     div.body-container
       div.nav-container
@@ -69,14 +70,15 @@ html(lang='en')
                       div(class=className id=rowId)
                         table.collapsible-table
                           each subCategory in subCats
-                            tr
+                            tr.hidden-row
                               td.indentation
                               td.sub-input
                                 input(type="checkbox" class="sub-"+category id=subCategory.sub name="d[]" value=subCategory.sub onclick="uncheck(this, '" + category + "')")
                               td.sub-category
                                 - var categoryLink = '/dataset/search/?q=' + subCategory.sub + '&strict=1'
                                 label(for=subCategory.sub)
-                                  a(href=categoryLink) #{subCategory.sub}
+                                  a(href=categoryLink)
+                                    span.sub-name #{subCategory.sub}
                               td
                               td #{subCategory.sounds.length} files
                               td #{subCategory.fileSizes}
