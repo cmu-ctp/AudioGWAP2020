@@ -63,7 +63,6 @@ class App extends React.Component {
 
         <div className="App">
           {/* eslint-disable-next-line */}
-<<<<<<< HEAD
           <div className="nav-container">
             <div className="nav-wrapper">
               <nav className="nav-content">
@@ -125,21 +124,6 @@ class App extends React.Component {
               </Tabs>
             </div>
           </div>
-=======
-          <img src={this.state.picURL} alt="Profile Picture"/>
-          <p>{this.state.userName}</p>
-          <a href={CONFIG.serverIp + CONFIG.authLogout}>Sign Out</a>
-          <form action="/api/admin/categories" method="post">
-            <label for="parent">Parent Category:</label>
-            <input type="text" id="parent" name="parent"/>
-            <label for="sub">Subcategory:</label>
-            <input type="text" id="sub" name="sub"/>
-            <input type="Submit" value="Add Category"/>
-          </form>
-          {/* This component runs a fetch command to the given url with the options specified, and prints 
-              the response below it. Use if u want for testing API endpoints */}
-          <TestButton url={CONFIG.serverIp + '/admin/sounds/5f34c215e3bde40bcc73a266'} init={testInit}/>
->>>>>>> 6c66c984385532235517544696044713bd3124ba
         </div>
       )
     } else if (this.state.hasAuth) {

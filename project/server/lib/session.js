@@ -35,6 +35,8 @@ class Session {
     };
   }
 
+
+  // checks roles. Note 0 = viewer, 1 = admin (access to admin panel), 2 = superadmin (can edit admins/superadmins)
   static authRole(opt) {
     opt = Object.assign({
       roleRequired: 0
