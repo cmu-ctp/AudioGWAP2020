@@ -37,7 +37,10 @@ const soundSchema = Joi.object({
   isValidated: Joi.boolean(),
   votingRound: Joi.number(),
   votedLabels: Joi.array().items(votedLabel).allow(null),
-  validatedLabel: Joi.string().allow(null)
+  validatedLabel: Joi.string().allow(null),
+  uploadTime: Joi.date().allow(null),
+  validateTime: Joi.date().allow(null)
+
 });
 
 function getUploadDir() {
@@ -348,11 +351,11 @@ router.post('/events/:id/sound', async (ctx) => {
   }
 
   // Validate sound data
-  try {
-    soundInfo = await soundSchema.validateAsync(soundInfo);
-  } catch (err) {
-    ctx.throw(400, err);
-  }
+  // try {
+  //   soundInfo = await soundSchema.validateAsync(soundInfo);
+  // } catch (err) {
+  //   ctx.throw(400, err);
+  // }
 
   console.log("Successfully validated uploaded sound");
 
@@ -402,6 +405,7 @@ router.post('/events/:id/sound', async (ctx) => {
   soundData.votedLabels = null;
   soundData.isValidated = false;
   soundData.validatedLabel = null;
+  soundData.uploadTime = new Date();
 
   console.log("Sound being saved:"+ JSON.stringify(soundData));
   const soundItem = await soundModel.create(soundData);

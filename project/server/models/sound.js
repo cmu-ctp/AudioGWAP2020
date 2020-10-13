@@ -60,7 +60,8 @@ module.exports = class Sound extends BaseModel {
         $set: {
           isValidated: true,
           validatedLabel: sound.meta.category,
-          votedLabels: sound.votedLabels
+          votedLabels: sound.votedLabels,
+          validateTime: new Date()
         }
       });
 
