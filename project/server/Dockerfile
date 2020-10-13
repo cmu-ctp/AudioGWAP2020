@@ -4,7 +4,7 @@ COPY . .
 RUN ["npm", "config", "set", "proxy", "http://proxy.andrew.cmu.edu:3128"]
 RUN ["npm", "config", "set", "https-proxy", "http://proxy.andrew.cmu.edu:3128"]
 RUN npm install
-EXPOSE 3500
+EXPOSE 3000
 CMD ["npm","start"]
 
 
