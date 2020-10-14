@@ -14,7 +14,7 @@ const app = new Koa();
 
 // const bootstrap = require('global-agent').bootstrap;
 // bootstrap();
-// global.GLOBAL_AGENT.HTTP_PROXY='http://proxy.andrew.cmu.edu:3128';
+global.GLOBAL_AGENT.HTTP_PROXY='http://proxy.andrew.cmu.edu:3128';
 
 // Register middlewares
 registerMiddleware(app);
