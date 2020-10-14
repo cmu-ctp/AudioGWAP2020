@@ -23,6 +23,7 @@ router.get('/auth/twitch/web', async (ctx) => {
   const tokenInfo = Object.create(null);
   tokenInfo.access_token = ctx.query.access_token || '';
   tokenInfo.refresh_token = ctx.query.refresh_token || '';
+  console.log('Tokens');
   console.log(tokenInfo.refresh_token);
   console.log(tokenInfo.access_token);
   if (!tokenInfo.access_token) {
