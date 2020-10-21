@@ -43,10 +43,21 @@ router.get('/events/:token/sound', async (ctx) => {
   const eventId = event.id;
 
   const soundModel = new Sound(ctx);
-  const itemList = await soundModel.findQueryWithUser({
+  var itemList = await soundModel.findQueryWithUser({
     'event_id': eventId,
     'isValidated' : true
   });
+
+  // If sounds collected for an event is less than 10, add validated sounds from other event
+  if(itemList.length < 15){
+    console.log("Additional sound being append for eventId "+ eventId);
+    var query = {
+      'event_id': { $ne: eventId },
+      'isValidated' : true
+    };
+    var additionalSounds = await soundModel.findQueryWithUser(query);
+    itemList = itemList.concat(additionalSounds);
+  }
 
   ctx.body = {
     'msg': 'Success',

@@ -73,9 +73,7 @@ router.get('/consent/revoke', async (ctx) => {
  */
 
 router.get('/sound/retrieve', async (ctx) => { 
-  console.log("Request made to fetch sound");
-  //const cache = new Cache(ctx);
-  //const soundObj = await cache.getUnvalidatedSound(ctx);  
+  console.log("Request made to fetch sound"); 
   const soundModel = new Sound(ctx);
   const soundObj = await soundModel.getUnvalidatedSound(ctx);
 
