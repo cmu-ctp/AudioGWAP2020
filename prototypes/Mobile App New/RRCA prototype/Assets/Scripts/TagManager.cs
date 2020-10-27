@@ -222,6 +222,7 @@ public class TagManager : MonoBehaviour
     
     private void UpdateTime(float rawTime)
     {
+        if (rawTime < 0) return;
         int millisecond = Mathf.FloorToInt(rawTime * 1000) % 1000;
         int time = Mathf.FloorToInt(rawTime);
         audioTime.text = $"{time / 60:D2}:{time % 60:D2}:{millisecond / 15:D2}";
@@ -257,6 +258,7 @@ public class TagManager : MonoBehaviour
 
     public void SaveAudio() {
         Debug.Log("save button clicked!");
+        PauseAudio();
         StartCoroutine(UpdateAudioInServer());
     }
 
