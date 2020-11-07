@@ -94,10 +94,12 @@ module.exports = class Sound extends BaseModel {
       }
   
       const sound = await this.collection.findOne(query);
-      console.log("Sound Fetched for validation "+sound+" by uid "+uid);
       if(sound)
+        console.log("Sound Fetched for validation "+sound+" by uid "+uid);
         return sound;
     }
+
+    console.log("Sound Fetched for validation "+sound+" by uid "+uid);
     return null;  
   }
 
