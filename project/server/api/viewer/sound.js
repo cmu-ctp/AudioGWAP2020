@@ -15,7 +15,6 @@ const config = require('../../config');
 
 const Event = require('../../models/event');
 const Sound = require('../../models/sound');
-//const Cache = require('../../models/cachedData');
 
 const router = new Router();
 
@@ -77,7 +76,6 @@ router.get('/sound/retrieve', async (ctx) => {
   const soundModel = new Sound(ctx);
   const soundObj = await soundModel.getUnvalidatedSound(ctx);
 
-  console.log("Sound object being sent for labelling:"+JSON.stringify(soundObj));
   if(soundObj === null){
     ctx.body = {
       'msg': 'There are currently no new sounds for validation',
@@ -86,6 +84,7 @@ router.get('/sound/retrieve', async (ctx) => {
     return;
   }
   
+  console.log("Sound object being sent for labelling:"+JSON.stringify(soundObj));
   ctx.body = {
     'msg': 'Success',
     'result': soundObj
@@ -96,8 +95,6 @@ router.get('/sound/retrieve', async (ctx) => {
 router.post('/label/submit', async (ctx) => {
   try{
     console.log("Request made to submit label");
-    // const cache = new Cache(ctx);
-    // await cache.updateCache(ctx);
     const soundModel = new Sound(ctx);
     await soundModel.updateLabel(ctx);
     console.log("Label successfully submitted.")
@@ -160,122 +157,6 @@ router.get('/events/:id/sound', async (ctx) => {
   ctx.body = {
     'msg': 'Success',
     'result': itemList
-  };
-});
-
-/**
- * POST /viewer/event/fake/sound
- */
-router.post('/events/fake/sound', async (ctx) => {
-  // TODO: Fake method to show how upload works; replace with real logic
-  const eventId = 'fake';
-
-  const uid = ctx.user.uid;
-
-  // create a temporary folder to store files
-  const uploadDir = `${eventId}/${uid}`;
-  const realEventDir = path.join(getUploadDir(), eventId);
-  const realDir = path.join(getUploadDir(), uploadDir);
-
-  // make the temporary directory
-  try {
-    if (!await fse.exists(realEventDir)) {
-      await fse.mkdir(realEventDir);
-    }
-    if (!await fse.exists(realDir)) {
-      await fse.mkdir(realDir);
-    }
-  } catch (e) {
-    console.log(e);
-    ctx.throw(500, 'Failed to create upload dir');
-  }
-
-  const files = ctx.request.files || {};
-  const file = files.file;
-
-  if (!file) {
-    ctx.throw(400, 'No file for upload');
-  }
-
-  if (!ctx.request.body.sound) {
-    ctx.throw(400, 'Sound info required');
-  }
-
-  let soundInfo;
-  try {
-    soundInfo = JSON.parse(ctx.request.body.sound);
-    soundInfo = Object.assign({
-      meta: {
-        category: ''
-      }
-    }, soundInfo);
-  } catch (e) {
-    console.log(e);
-    ctx.throw(400, 'Invalid sound info format');
-  }
-
-  // Validate sound data
-  try {
-    soundInfo = await soundSchema.validateAsync(soundInfo);
-  } catch (err) {
-    ctx.throw(400, err);
-  }
-  
-  // Remove empty label
-  if (!soundInfo.meta.label) {
-    delete soundInfo.meta.label;
-  }
-
-  if (!['audio/wav', 'audio/wave', 'audio/x-wav'].includes(file.type) ||
-      !file.name.endsWith('.wav')) {
-    ctx.throw(400, 'Unsupported audio format');
-  }
-
-  if (file.size > 4 * 1024 * 1024) {  // 4MB
-    ctx.throw(400, 'File size exceeds limit');
-  }
-
-  const soundModel = new Sound(ctx);
-  const soundId = soundModel.createObjectId();
-  let soundLabel = soundInfo.meta.label || soundInfo.meta.category || '';
-  // Sanitize the label to avoid security issues
-  soundLabel = soundLabel.replace(/[^a-zA-z0-9]/g, '').substring(0, 15); 
-
-  const filename = getTime() + '_' + soundLabel + '_' + soundId + '.wav';
-  const filePath = path.join(realDir, filename);
-  const fileUrl = getUploadUrlPrefix() + uploadDir + `/${filename}`;
-
-  try {
-    const reader = fse.createReadStream(file.path);
-    const writer = fse.createWriteStream(filePath);
-    const promise = new Promise((resolve, reject) => {
-      reader.on('error', error => reject(error));
-      writer.on('error', error => reject(error));
-      reader.on('end', response => resolve(response));
-    });
-    reader.pipe(writer);
-    await promise;
-  } catch (e) {
-    console.log(e);
-    ctx.throw(500, 'Failed to upload file');
-  }
-
-  const soundData = Object.create(soundInfo);
-
-  // TODO: Verify soundData
-  soundData.uid = uid;
-  soundData.event_id = eventId;
-  soundData.path = fileUrl;
-  soundData._id = soundId;
-
-  const soundItem = await soundModel.create(soundData);
-
-  ctx.body = {
-    'msg': 'success',
-    'result': {
-      'id': soundItem.id,
-      'path': fileUrl
-    }
   };
 });
 
@@ -349,11 +230,11 @@ router.post('/events/:id/sound', async (ctx) => {
   }
 
   // Validate sound data
-  // try {
-  //   soundInfo = await soundSchema.validateAsync(soundInfo);
-  // } catch (err) {
-  //   ctx.throw(400, err);
-  // }
+  try {
+    soundInfo = await soundSchema.validateAsync(soundInfo);
+  } catch (err) {
+    ctx.throw(400, err);
+  }
 
   console.log("Successfully validated uploaded sound");
 
@@ -405,9 +286,8 @@ router.post('/events/:id/sound', async (ctx) => {
   soundData.validatedLabel = null;
   soundData.uploadTime = new Date();
 
-  console.log("Sound being saved:"+ JSON.stringify(soundData));
   const soundItem = await soundModel.create(soundData);
-  console.log("Successfully saved uploaded sound");
+  console.log("Sound object "+JSON.stringify(soundData)+" was successfully saved uploaded sound");
 
   // Update corresponding event
   await eventModel.updateUnvalidatedSounds(soundData.event_id, 1);

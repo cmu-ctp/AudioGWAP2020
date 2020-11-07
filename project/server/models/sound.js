@@ -68,7 +68,6 @@ module.exports = class Sound extends BaseModel {
       // Update the count of unvalidated sound in events collection
       const eventModel = new Event(ctx);
       const soundData = await this.collection.findOne({ sid: sound.sid});
-      console.log("sound being sent to event DB "+JSON.stringify(soundData));
       await eventModel.updateUnvalidatedSounds(soundData.event_id, -1);
       
     } catch(err){
@@ -79,7 +78,6 @@ module.exports = class Sound extends BaseModel {
 
   async getUnvalidatedSound(ctx){
     const uid = ctx.user.uid;
-    console.log("Fetching data from database");
 
     //Find event with least validated sound
     const eventModel = new Event(ctx);
@@ -88,7 +86,6 @@ module.exports = class Sound extends BaseModel {
 
     for(let event of eventArray){
       const eventId = eventModel.getObjectId(event._id);
-      console.log("checking available sound for id:"+ eventId);
       var query = {
         isValidated: { $eq: false },
         event_id: { $eq: eventId},
@@ -97,7 +94,7 @@ module.exports = class Sound extends BaseModel {
       }
   
       const sound = await this.collection.findOne(query);
-      console.log("Sound Fetched "+sound);
+      console.log("Sound Fetched for validation "+sound+" by uid "+uid);
       if(sound)
         return sound;
     }
