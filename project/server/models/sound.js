@@ -94,9 +94,10 @@ module.exports = class Sound extends BaseModel {
       }
   
       const sound = await this.collection.findOne(query);
-      if(sound)
+      if(sound) {
         console.log("Sound Fetched for validation "+sound+" by uid "+uid);
         return sound;
+      }
     }
 
     console.log("No sounds available for validation by uid "+uid);
