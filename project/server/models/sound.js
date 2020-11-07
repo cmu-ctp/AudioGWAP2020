@@ -99,7 +99,7 @@ module.exports = class Sound extends BaseModel {
         return sound;
     }
 
-    console.log("Sound Fetched for validation "+sound+" by uid "+uid);
+    console.log("No sounds available for validation by uid "+uid);
     return null;  
   }
 
