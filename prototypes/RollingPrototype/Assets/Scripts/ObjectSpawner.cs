@@ -26,7 +26,7 @@ public class ObjectSpawner : MonoBehaviour
     {
         sounds = new List<SoundObject>();
         InitObjectIndexDict();
-        StartCoroutine(GetSoundList());
+        StartCoroutine(GetLatestSoundList());
         delayedFiles = new Queue<SoundObject>();
     }
 
@@ -158,5 +158,25 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-
+    public IEnumerator GetLatestSoundList()
+    {
+        string responseBody;
+        string token = PlayerPrefs.GetString("token");
+        Debug.Log("Getting latest sound list from token: " + token);
+        using (UnityWebRequest req = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/game/events/" + token + "/sound"))
+        {
+            yield return req.SendWebRequest();
+            if (req.isNetworkError || req.isHttpError)
+            {
+                if (req.responseCode == 404L)
+                {
+                    Debug.Log("Get latest sound list from token " + token + " failed.");
+                }
+                yield break;
+            }
+            responseBody = DownloadHandlerBuffer.GetContent(req);
+            PlayerPrefs.SetString("body", responseBody);
+            yield return StartCoroutine(GetSoundList());
+        }
+    }
 }

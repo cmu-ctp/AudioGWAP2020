@@ -52,6 +52,7 @@ public class InputToken : MonoBehaviour
             }
             responseBody = DownloadHandlerBuffer.GetContent(req);
             PlayerPrefs.SetString("body", responseBody);
+            PlayerPrefs.SetString("token", token);
             SceneManager.LoadScene(1);
         }
     }
