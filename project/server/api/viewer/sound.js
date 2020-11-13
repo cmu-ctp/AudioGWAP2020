@@ -230,13 +230,12 @@ router.post('/events/:id/sound', async (ctx) => {
   }
 
   // Validate sound data
-  try {
-    soundInfo = await soundSchema.validateAsync(soundInfo);
-  } catch (err) {
-    ctx.throw(400, err);
-  }
-
-  console.log("Successfully validated uploaded sound");
+  // try {
+  //   soundInfo = await soundSchema.validateAsync(soundInfo);
+  // } catch (err) {
+  //   ctx.throw(400, err);
+  // }
+  // console.log("Successfully validated uploaded sound");
 
   if (!['audio/wav', 'audio/wave', 'audio/x-wav'].includes(file.type) ||
       !file.name.endsWith('.wav')) {
