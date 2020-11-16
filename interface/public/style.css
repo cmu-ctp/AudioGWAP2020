@@ -197,7 +197,7 @@ td.sub-category {
   background-color: black;
   color: #FFFFFF;
   border: none;
-  width: 100px;
+  width: 140px;
   height: 30px;
   font-family: "Roboto", sans-serif;
   font-size: 16px; }
@@ -635,9 +635,9 @@ p.bar-title {
     transition: background-color .3s ease;
     cursor: pointer; }
 
-/*div.each-chart:nth-of-type(4n+3) .bar-count div.x, div.each-chart:nth-of-type(4n) .bar-count div.x {*/
-/*  color: white;*/
-/*  background-color: #000000; }*/
+div.each-chart:nth-of-type(4n+3) .bar-count div.x, div.each-chart:nth-of-type(4n) .bar-count div.x {
+  color: white;
+  background-color: #000000; }
 
 .bar-count:hover div.x, :focus div.x, div.each-chart:nth-of-type(4n+3) .bar-count:hover div.x, :focus div.x, div.each-chart:nth-of-type(4n) .bar-count:hover div.x, :focus div.x {
   background-color: #aaa;
