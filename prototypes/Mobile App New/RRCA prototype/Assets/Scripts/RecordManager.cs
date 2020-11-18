@@ -350,8 +350,6 @@ public class RecordManager : MonoBehaviour
             soundData.sid = "null";
             soundData.votingRound = 0;
             soundData.validatedLabel = "unknown";
-            soundData.uploadTime = "null";
-            soundData.validateTime = "null";
             soundData.sid = "unknown";
             soundData.game_meta.model = gamePieces.Value[chosenGamePieceIndex.Value];
             soundData.meta.category = category;
@@ -366,8 +364,6 @@ public class RecordManager : MonoBehaviour
             soundData.votingRound = 0;
             soundData.sid = "null";
             soundData.validatedLabel = "unknown";
-            soundData.uploadTime = "null";
-            soundData.validateTime = "null";
             soundData.game_meta.model = gamePieces.Value[chosenGamePieceIndex.Value];
             soundData.meta.category = category;
             soundData.meta.label = soundLabel;

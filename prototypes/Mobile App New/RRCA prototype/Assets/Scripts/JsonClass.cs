@@ -186,8 +186,6 @@ public class JsonSoundDataWithLabel
     public int votingRound; /* round of voting */
     public List<JsonVotedLabel> votedLabels = new List<JsonVotedLabel>();
     public string validatedLabel; /* label after validation is complete */
-    public string uploadTime;
-    public string validateTime;
 }
 
 [Serializable]
@@ -200,8 +198,6 @@ public class JsonSoundDataWithoutLabel
     public List<JsonVotedLabel> votedLabels = new List<JsonVotedLabel>();
     public string validatedLabel; /* label after validation is complete */
     public string sid;
-    public string uploadTime;
-    public string validateTime;
 }
 
 [Serializable]
