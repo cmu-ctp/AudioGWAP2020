@@ -37,8 +37,8 @@ const soundSchema = Joi.object({
   votingRound: Joi.number(),
   votedLabels: Joi.array().items(votedLabel).allow(null),
   validatedLabel: Joi.string().allow(null),
-  uploadTime: Joi.date().allow(null),
-  validateTime: Joi.date().allow(null)
+  // uploadTime: Joi.date().allow(null),
+  // validateTime: Joi.date().allow(null)
 
 });
 
@@ -91,6 +91,10 @@ router.get('/sound/retrieve', async (ctx) => {
   };
 
 });
+
+/**
+ * POST /label/submit
+ */
 
 router.post('/label/submit', async (ctx) => {
   try{
@@ -230,12 +234,12 @@ router.post('/events/:id/sound', async (ctx) => {
   }
 
   // Validate sound data
-  // try {
-  //   soundInfo = await soundSchema.validateAsync(soundInfo);
-  // } catch (err) {
-  //   ctx.throw(400, err);
-  // }
-  // console.log("Successfully validated uploaded sound");
+  try {
+    soundInfo = await soundSchema.validateAsync(soundInfo);
+  } catch (err) {
+    ctx.throw(400, err);
+  }
+  console.log("Successfully validated uploaded sound");
 
   if (!['audio/wav', 'audio/wave', 'audio/x-wav'].includes(file.type) ||
       !file.name.endsWith('.wav')) {

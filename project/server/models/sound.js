@@ -8,8 +8,9 @@ const Event = require('./event');
 const User = require('./user');
 const fs = require('fs');
 const path = require('path');
-const maxVotes = 3;
-const majorityVotes = 2;
+// TODO : Revert back to 3 & 2
+const maxVotes = 1;
+const majorityVotes = 1;
 const maxVotingRounds = 1;
 const maxAbuseCount = 2;
 const Noise = require('./noise');
