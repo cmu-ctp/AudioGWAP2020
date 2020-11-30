@@ -44,6 +44,8 @@ public class RecordManager : MonoBehaviour
     
     [SerializeField]
     private StringVariable token;
+    [SerializeField]
+    private Text TestOnScript;
 
     private string soundLabelText, customSoundLabelText;
     private int soundLabelIndex;
@@ -56,6 +58,7 @@ public class RecordManager : MonoBehaviour
 
     public List<String> RecordTimestamp = new List<String>();
 
+
     void Start()
     {
         Screen.orientation = ScreenOrientation.Portrait;
@@ -63,10 +66,12 @@ public class RecordManager : MonoBehaviour
         soundLabelText = "";
         customSoundLabelText = "";
         Init();
+        
     }
 
     private void Init()
     {
+        TestOnScript.text = "^^^^";
         string lastState = currentRecordingState.Value;
         currentRecordingState.Value = recordingStates.Value[0];
 
@@ -113,7 +118,7 @@ public class RecordManager : MonoBehaviour
     }
 
 
-        private bool CheckPermission()
+    private bool CheckPermission()
     {
 #if UNITY_ANDROID
         if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))

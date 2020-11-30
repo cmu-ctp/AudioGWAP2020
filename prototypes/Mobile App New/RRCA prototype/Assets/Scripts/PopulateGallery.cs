@@ -20,7 +20,8 @@ public class PopulateGallery : MonoBehaviour
     private GameObject parentOfSoundItem;
     private int populatedNumberOfFiles;
     private Vector2 originalSize;
-    
+
+
     public void StartPopulating()
     {
         populatedNumberOfFiles = 0;

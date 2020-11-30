@@ -7,6 +7,7 @@ public class SoundGalleryBackButton : MonoBehaviour
 {
     [SerializeField]
     private Text BackButtontext;
+    
 
     private GameObject previousPage;
 

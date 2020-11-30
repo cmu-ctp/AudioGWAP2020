@@ -17,7 +17,7 @@ public class PopulateSoundLabels : MonoBehaviour
         {
             int count = soundLabelDropdown.options.Count;
             soundLabelDropdown.options.Add(new Dropdown.OptionData());
-            soundLabelDropdown.options[count].text = s;
+            soundLabelDropdown.options[count].text = s + "$%$^";
         }
     }
 }
