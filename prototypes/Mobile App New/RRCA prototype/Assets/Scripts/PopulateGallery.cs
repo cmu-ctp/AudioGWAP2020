@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PopulateGallery : MonoBehaviour
 {
     [SerializeField]
-    private ListOfStringsVariable audioFilesNames, audioFilesLength;
+    private ListOfStringsVariable audioFilesNames, audioFilesLength, audioFilesValidations;
 
     [SerializeField]
     private IntVariable updatedIndex;

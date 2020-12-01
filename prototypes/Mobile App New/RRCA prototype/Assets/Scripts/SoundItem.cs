@@ -15,7 +15,7 @@ using UnityEngine.Networking;
 public class SoundItem : MonoBehaviour
 {
     [SerializeField]
-    private ListOfStringsVariable soundItemsNames, soundItemsLength;
+    private ListOfStringsVariable soundItemsNames, soundItemsLength, soundItemsValidations;
     private DirectoryInfo dirInfo;
     private FileInfo[] files;
     private AudioSource audioSrc;
