@@ -60,6 +60,7 @@ public class SoundItem : MonoBehaviour
                 StartCoroutine(AddFileToClips(filepath));
             }
         }
+        //test test
     }
 
     IEnumerator AddFileToClips(string path)
