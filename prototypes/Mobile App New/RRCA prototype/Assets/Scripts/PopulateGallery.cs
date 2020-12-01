@@ -36,15 +36,18 @@ public class PopulateGallery : MonoBehaviour
 
     void InitialPopulate()
     {
-        for(int i = 0; i < PlayerPrefs.GetInt("NumberOfAudioFiles"); i++)
+        
+        for (int i = 0; i < PlayerPrefs.GetInt("NumberOfAudioFiles"); i++)
         {
+            Debug.Log("current sound validation status is " + PlayerPrefs.GetString("Validation_" + i.ToString()));
             audioFilesNames.Value.Add(PlayerPrefs.GetString(i.ToString()));
             audioFilesLength.Value.Add(PlayerPrefs.GetString("Length_" + i.ToString()));
-            audioFilesValidations.Value.Add(PlayerPrefs.GetString(i.ToString()));
+            audioFilesValidations.Value.Add(PlayerPrefs.GetString("Validation_" + i.ToString()));
         }
 
         foreach(string s in audioFilesNames.Value)
         {
+            
             InstantiateSoundItem();
         }
     }
@@ -74,7 +77,6 @@ public class PopulateGallery : MonoBehaviour
         int yPos = soundItemData[0].Value + soundItemData[1].Value * populatedNumberOfFiles;
         g.transform.localScale = Vector3.one;
         g.transform.localPosition = new Vector3(275, yPos, 0);
-
         g.transform.GetChild(1).gameObject.GetComponent<Text>().text = audioFilesNames.Value[populatedNumberOfFiles];
         g.transform.GetChild(2).gameObject.GetComponent<Text>().text = audioFilesLength.Value[populatedNumberOfFiles];
         g.transform.GetChild(3).gameObject.GetComponent<Text>().text = audioFilesValidations.Value[populatedNumberOfFiles];
