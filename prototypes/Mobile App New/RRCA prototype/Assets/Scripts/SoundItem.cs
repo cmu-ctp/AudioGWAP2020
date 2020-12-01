@@ -15,7 +15,7 @@ using UnityEngine.Networking;
 public class SoundItem : MonoBehaviour
 {
     [SerializeField]
-    private ListOfStringsVariable soundItemsNames, soundItemsLength, soundItemsValidations;
+    //private ListOfStringsVariable soundItemsNames, soundItemsLength, soundItemsValidations;
     private DirectoryInfo dirInfo;
     private FileInfo[] files;
     private AudioSource audioSrc;
@@ -26,26 +26,26 @@ public class SoundItem : MonoBehaviour
         audioSrc = Camera.main.GetComponent<AudioSource>();
     }
     
-    public void DeleteFile()
-    {
-        Debug.Log("destroy");
-        int index = transform.GetSiblingIndex();
-        files = dirInfo.GetFiles();
+    //public void DeleteFile()
+    //{
+    //    Debug.Log("destroy");
+    //    int index = transform.GetSiblingIndex();
+    //    files = dirInfo.GetFiles();
 
-        for(int i = 0; i < files.Length; i++)
-        {
-            string[] fName = files[i].Name.Split('_');
-            if(fName[fName.Length - 1] == soundItemsNames.Value[index])
-            {
-                var filepath = Path.Combine(Application.persistentDataPath, files[i].Name);
-                File.Delete(filepath);
-            }
-        }
+    //    for(int i = 0; i < files.Length; i++)
+    //    {
+    //        string[] fName = files[i].Name.Split('_');
+    //        if(fName[fName.Length - 1] == soundItemsNames.Value[index])
+    //        {
+    //            var filepath = Path.Combine(Application.persistentDataPath, files[i].Name);
+    //            File.Delete(filepath);
+    //        }
+    //    }
 
-        soundItemsNames.Value.RemoveAt(index);
-        soundItemsLength.Value.RemoveAt(index);
-        Destroy(this.gameObject);
-    }
+    //    soundItemsNames.Value.RemoveAt(index);
+    //    soundItemsLength.Value.RemoveAt(index);
+    //    Destroy(this.gameObject);
+    //}
 
     public void PlayAudioFile(Text fileName)
     {

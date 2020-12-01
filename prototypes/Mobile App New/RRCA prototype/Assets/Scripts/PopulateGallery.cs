@@ -40,6 +40,7 @@ public class PopulateGallery : MonoBehaviour
         {
             audioFilesNames.Value.Add(PlayerPrefs.GetString(i.ToString()));
             audioFilesLength.Value.Add(PlayerPrefs.GetString("Length_" + i.ToString()));
+            audioFilesValidations.Value.Add(PlayerPrefs.GetString(i.ToString()));
         }
 
         foreach(string s in audioFilesNames.Value)
@@ -76,6 +77,7 @@ public class PopulateGallery : MonoBehaviour
 
         g.transform.GetChild(1).gameObject.GetComponent<Text>().text = audioFilesNames.Value[populatedNumberOfFiles];
         g.transform.GetChild(2).gameObject.GetComponent<Text>().text = audioFilesLength.Value[populatedNumberOfFiles];
+        g.transform.GetChild(3).gameObject.GetComponent<Text>().text = audioFilesValidations.Value[populatedNumberOfFiles];
         populatedNumberOfFiles++;
 
         parentOfSoundItem.GetComponent<RectTransform>().sizeDelta += new Vector2(0, soundItemData[2].Value);
