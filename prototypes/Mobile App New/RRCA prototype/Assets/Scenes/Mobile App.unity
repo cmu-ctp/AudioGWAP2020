@@ -18868,7 +18868,7 @@ GameObject:
   - component: {fileID: 1285377744}
   - component: {fileID: 1285377743}
   m_Layer: 5
-  m_Name: Game Piece Info (1)
+  m_Name: Sound Gallery description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18885,12 +18885,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1953450297}
-  m_RootOrder: 0
+  m_Father: {fileID: 2039411904}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 49, y: -70}
+  m_AnchoredPosition: {x: -1.0200157, y: 226}
   m_SizeDelta: {x: 430, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1285377743
@@ -28329,14 +28329,13 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1285377742}
+  m_Children: []
   m_Father: {fileID: 2039411904}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -49, y: 296}
+  m_AnchoredPosition: {x: -72.6, y: 296.9}
   m_SizeDelta: {x: 375.3, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1953450299
@@ -28510,6 +28509,7 @@ MonoBehaviour:
   audioFilesLength: {fileID: 11400000, guid: 8aef318e29b75654bb8d1334d5deadf0, type: 2}
   audioFilesValidations: {fileID: 11400000, guid: ee6863e10e762471094535c2484625b0,
     type: 2}
+  audioFilesEventIds: {fileID: 11400000, guid: ee7323aa9e9d7425aac791aa56b6c888, type: 2}
   updatedIndex: {fileID: 11400000, guid: 15621c66bb725e2439de5f5fcbcf2a87, type: 2}
   soundItemData:
   - {fileID: 11400000, guid: 6212794dfc1a9fc4391be8dfe9cd3816, type: 2}
@@ -29079,6 +29079,7 @@ RectTransform:
   - {fileID: 1798882529}
   - {fileID: 1343524869}
   - {fileID: 1953450297}
+  - {fileID: 1285377742}
   m_Father: {fileID: 64313432}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

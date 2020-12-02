@@ -329,6 +329,7 @@ public class RecordManager : MonoBehaviour
             PlayerPrefs.SetString(countTemp.ToString(), tempLabel);
             PlayerPrefs.SetString("Length_" + countTemp.ToString(), recordingTimerText.text);
             PlayerPrefs.SetString("Validation_" + countTemp.ToString(), "Not Validated");
+            PlayerPrefs.SetString("EventId_" + countTemp.ToString(), eventId.Value);
             // PlayerPrefs.SetString("Id_"+countTemp.ToString(),) 
 
             StartCoroutine(UploadAudioToServer(serverCategory, soundCustomLabel, eventId.Value));

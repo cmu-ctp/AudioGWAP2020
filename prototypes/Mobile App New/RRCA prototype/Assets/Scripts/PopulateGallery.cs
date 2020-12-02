@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PopulateGallery : MonoBehaviour
 {
     [SerializeField]
-    private ListOfStringsVariable audioFilesNames, audioFilesLength, audioFilesValidations;
+    private ListOfStringsVariable audioFilesNames, audioFilesLength, audioFilesValidations, audioFilesEventIds;
 
     [SerializeField]
     private IntVariable updatedIndex;
@@ -39,10 +39,11 @@ public class PopulateGallery : MonoBehaviour
         
         for (int i = 0; i < PlayerPrefs.GetInt("NumberOfAudioFiles"); i++)
         {
-            Debug.Log("current sound validation status is " + PlayerPrefs.GetString("Validation_" + i.ToString()));
+            Debug.Log("current sound event id is " + PlayerPrefs.GetString("EventId_" + i.ToString()));
             audioFilesNames.Value.Add(PlayerPrefs.GetString(i.ToString()));
             audioFilesLength.Value.Add(PlayerPrefs.GetString("Length_" + i.ToString()));
             audioFilesValidations.Value.Add(PlayerPrefs.GetString("Validation_" + i.ToString()));
+            audioFilesEventIds.Value.Add(PlayerPrefs.GetString("EventId_" + i.ToString()));
         }
 
         foreach(string s in audioFilesNames.Value)
@@ -77,9 +78,11 @@ public class PopulateGallery : MonoBehaviour
         int yPos = soundItemData[0].Value + soundItemData[1].Value * populatedNumberOfFiles;
         g.transform.localScale = Vector3.one;
         g.transform.localPosition = new Vector3(275, yPos, 0);
+        
         g.transform.GetChild(1).gameObject.GetComponent<Text>().text = audioFilesNames.Value[populatedNumberOfFiles];
         g.transform.GetChild(2).gameObject.GetComponent<Text>().text = audioFilesLength.Value[populatedNumberOfFiles];
         g.transform.GetChild(3).gameObject.GetComponent<Text>().text = audioFilesValidations.Value[populatedNumberOfFiles];
+        g.transform.GetChild(4).gameObject.GetComponent<Text>().text = "<" + audioFilesEventIds.Value[populatedNumberOfFiles] + ">";
         populatedNumberOfFiles++;
 
         parentOfSoundItem.GetComponent<RectTransform>().sizeDelta += new Vector2(0, soundItemData[2].Value);
