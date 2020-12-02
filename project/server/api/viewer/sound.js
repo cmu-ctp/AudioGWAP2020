@@ -93,7 +93,7 @@ router.get('/sound/retrieve', async (ctx) => {
  * GET viewer/sound/retrieve/event/:id
  * Given a user, retrieves an unvalidated sound from the DB for a given event
  */
-router.get('sound/retrieve/event/:id', async (ctx) => {
+router.get('/sound/retrieve/event/:id', async (ctx) => {
   const eventId = ctx.params.id;
   const uid = ctx.user.uid;
   const soundModel = new Sound(ctx);
