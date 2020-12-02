@@ -8,10 +8,9 @@ const Event = require('./event');
 const User = require('./user');
 const fs = require('fs');
 const path = require('path');
-// TODO : Revert back to 3 & 2
-const maxVotes = 1;
-const majorityVotes = 1;
-const maxVotingRounds = 1;
+const maxVotes = 3;
+const majorityVotes = 2;
+const maxVotingRounds = 3;
 const maxAbuseCount = 2;
 const Noise = require('./noise');
 
@@ -96,13 +95,34 @@ module.exports = class Sound extends BaseModel {
   
       const sound = await this.collection.findOne(query);
       if(sound) {
-        console.log('Sound Fetched for validation '+sound+' by uid '+uid);
+        console.log('Sound Fetched for validation '+JSON.stringify(sound)+' by uid '+uid);
         return sound;
       }
     }
 
     console.log('No sounds available for validation by uid '+uid);
     return null;  
+  }
+
+  async getUnvalidatedSoundForEvent(eventId, uid){
+    try{
+      var query = {
+        isValidated: { $eq: false },
+        event_id: { $eq: eventId},
+        uid: { $ne: uid},
+        'votedLabels.uid': { $ne: uid},
+      };
+      const sound = await this.collection.findOne(query);
+      if(sound) {
+        console.log('Sound Fetched for validation '+JSON.stringify(sound)+' by uid '+uid);
+        return sound;
+      }
+
+    } catch (err) {
+      console.log('Error occured while fetching unvalidated sound object for the given event');
+      console.log(err);
+    }
+
   }
 
   async updateLabel(ctx){

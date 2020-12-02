@@ -1,10 +1,9 @@
-/* eslint-disable require-atomic-updates */
+
 /**
  * collect.js
  * Viewer audio collection routes.
  */
 
- 
 const path = require('path');
 const fse = require('fs-extra');
 const Router = require('koa-router');
@@ -37,8 +36,6 @@ const soundSchema = Joi.object({
   votingRound: Joi.number(),
   votedLabels: Joi.array().items(votedLabel).allow(null),
   validatedLabel: Joi.string().allow(null),
-  // uploadTime: Joi.date().allow(null),
-  // validateTime: Joi.date().allow(null)
 
 });
 
@@ -56,6 +53,7 @@ function getTime() {
 
 /**
  * GET /viewer/consent/revoke
+ * Deletes all the sound uploaded by the user
  */
 router.get('/consent/revoke', async (ctx) => {  
   const uid = ctx.user.uid;
@@ -63,16 +61,16 @@ router.get('/consent/revoke', async (ctx) => {
   const soundModel = new Sound(ctx);
   const totalSounds = await soundModel.deleteUserSound(uid);
   ctx.body = {
-    'msg': 'Success',
+    'msg': totalSounds + ' were deleted from the server',
   };
 });
 
 /**
  * GET viewer/sound/retrieve
+ * Given a user, retrieves an unvalidated sound from the DB for an event with minimum validated sound
  */
 
-router.get('/sound/retrieve', async (ctx) => { 
-  console.log('Request made to fetch sound'); 
+router.get('/sound/retrieve', async (ctx) => {  
   const soundModel = new Sound(ctx);
   const soundObj = await soundModel.getUnvalidatedSound(ctx);
 
@@ -84,9 +82,34 @@ router.get('/sound/retrieve', async (ctx) => {
     return;
   }
   
-  console.log('Sound object being sent for labelling:'+JSON.stringify(soundObj));
   ctx.body = {
-    'msg': 'Success',
+    'msg': 'Successfully found unvalidated sound',
+    'result': soundObj
+  };
+
+});
+
+/**
+ * GET viewer/sound/retrieve/event/:id
+ * Given a user, retrieves an unvalidated sound from the DB for a given event
+ */
+router.get('sound/retrieve/event/:id', async (ctx) => {
+  const eventId = ctx.params.id;
+  const uid = ctx.user.uid;
+  const soundModel = new Sound(ctx);
+
+  const soundObj = await soundModel.getUnvalidatedSoundForEvent(eventId, uid);
+
+  if(soundObj === null){
+    ctx.body = {
+      'msg': 'There are currently no new sounds for validation',
+      'result': null
+    }; 
+    return;
+  }
+  
+  ctx.body = {
+    'msg': 'Successfully found unvalidated sound',
     'result': soundObj
   };
 
@@ -94,11 +117,11 @@ router.get('/sound/retrieve', async (ctx) => {
 
 /**
  * POST /label/submit
+ * Append the label submitted by user to an existing unvalidated sound clip in DB.
  */
 
 router.post('/label/submit', async (ctx) => {
   try{
-    console.log('Request made to submit label');
     const soundModel = new Sound(ctx);
     await soundModel.updateLabel(ctx);
     console.log('Label successfully submitted.');
