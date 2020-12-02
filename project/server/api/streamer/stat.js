@@ -31,7 +31,7 @@ router.get('/events/fake/stat/users', async (ctx) => {
 router.get('/events/:id/stat/users', async (ctx) => {
   const uid = ctx.user.uid;
   const eventId = ctx.params.id || '';
-  console.log("Request received to fetch stats for the event "+eventId);
+  console.log('Request received to fetch stats for the event '+eventId);
 
   const eventModel = new Event(ctx);
   const item = await eventModel.find(eventId);
@@ -45,7 +45,7 @@ router.get('/events/:id/stat/users', async (ctx) => {
     event_id: eventModel.getObjectId(eventId)
   });
 
-  console.log("Response object created for stat "+userStat);
+  console.log('Response object created for stat '+userStat);
   ctx.body = {
     'msg': 'Success',
     'result': userStat

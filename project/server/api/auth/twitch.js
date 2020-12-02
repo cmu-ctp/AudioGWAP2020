@@ -85,7 +85,7 @@ router.get('/auth/twitch/admin', async (ctx) => {
 
   // Redirect to admin panel page, change to final url (since on subdomain)
   ctx.redirect('/');
-})
+});
 
 /**
  * GET /auth/twitch/token

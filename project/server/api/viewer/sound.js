@@ -72,7 +72,7 @@ router.get('/consent/revoke', async (ctx) => {
  */
 
 router.get('/sound/retrieve', async (ctx) => { 
-  console.log("Request made to fetch sound"); 
+  console.log('Request made to fetch sound'); 
   const soundModel = new Sound(ctx);
   const soundObj = await soundModel.getUnvalidatedSound(ctx);
 
@@ -84,7 +84,7 @@ router.get('/sound/retrieve', async (ctx) => {
     return;
   }
   
-  console.log("Sound object being sent for labelling:"+JSON.stringify(soundObj));
+  console.log('Sound object being sent for labelling:'+JSON.stringify(soundObj));
   ctx.body = {
     'msg': 'Success',
     'result': soundObj
@@ -98,15 +98,15 @@ router.get('/sound/retrieve', async (ctx) => {
 
 router.post('/label/submit', async (ctx) => {
   try{
-    console.log("Request made to submit label");
+    console.log('Request made to submit label');
     const soundModel = new Sound(ctx);
     await soundModel.updateLabel(ctx);
-    console.log("Label successfully submitted.")
+    console.log('Label successfully submitted.');
     ctx.body = {
       'msg': 'Label sucessfully added',
-    }
+    };
   } catch (err) {
-    console.log("Label was not submitted");
+    console.log('Label was not submitted');
     console.log(err);
     ctx.throw(400, err);
   }
@@ -169,7 +169,7 @@ router.get('/events/:id/sound', async (ctx) => {
  */
 router.post('/events/:id/sound', async (ctx) => {  
 
-  console.log("Initially recorded sound object: "+ctx.request.body.sound);
+  console.log('Initially recorded sound object: '+ctx.request.body.sound);
   const eventId = ctx.params.id;
   const eventModel = new Event(ctx);
   eventModel.hideUnpublishedEvents();
@@ -214,7 +214,7 @@ router.post('/events/:id/sound', async (ctx) => {
     ctx.throw(400, 'Sound info required');
   }
 
-  console.log("Successfully found sound info and created directory to upload sound");
+  console.log('Successfully found sound info and created directory to upload sound');
   let soundInfo;
   try {
     soundInfo = JSON.parse(ctx.request.body.sound);
@@ -239,7 +239,7 @@ router.post('/events/:id/sound', async (ctx) => {
   } catch (err) {
     ctx.throw(400, err);
   }
-  console.log("Successfully validated uploaded sound");
+  console.log('Successfully validated uploaded sound');
 
   if (!['audio/wav', 'audio/wave', 'audio/x-wav'].includes(file.type) ||
       !file.name.endsWith('.wav')) {
@@ -290,7 +290,7 @@ router.post('/events/:id/sound', async (ctx) => {
   soundData.uploadTime = new Date();
 
   const soundItem = await soundModel.create(soundData);
-  console.log("Sound object "+JSON.stringify(soundData)+" was successfully saved uploaded sound");
+  console.log('Sound object '+JSON.stringify(soundData)+' was successfully saved uploaded sound');
 
   // Update corresponding event
   await eventModel.updateUnvalidatedSounds(soundData.event_id, 1);

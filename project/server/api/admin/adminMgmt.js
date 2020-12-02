@@ -46,15 +46,15 @@ router.put('/mgmt', async (ctx) => {
   }
 
   try {
-    let roleObj = { role: roleData.role }
+    let roleObj = { role: roleData.role };
     await UserModel.updateInfo(userRequested.uid, roleObj);
     ctx.body = {
       'msg': 'Success'
-    }
+    };
   } catch (err) {
     console.log(err);
     ctx.throw(500, err);
   }
-})
+});
 
 module.exports = router;

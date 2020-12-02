@@ -143,7 +143,7 @@ router.post('/events', async (ctx) => {
   try {
     eventData = await eventSchema.validateAsync(eventData);
   } catch (err) {
-    console.log("Invalid event object format");
+    console.log('Invalid event object format');
     ctx.throw(400, err);
   }
 

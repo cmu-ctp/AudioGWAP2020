@@ -45,7 +45,7 @@ router.post('/categories', async (ctx) => {
   
   const CategoryModel = new Category(ctx);
   try {
-    const idObj = await CategoryModel.addCategory(categoryData.parent, categoryData.sub)
+    const idObj = await CategoryModel.addCategory(categoryData.parent, categoryData.sub);
     //addCategory returns null if it already exists
     if (!idObj) {
       ctx.throw(400, 'Category already exists');
@@ -95,12 +95,12 @@ router.put('/categories/:id', async (ctx) => {
     await CategoryModel.update(id, categoryData);
     ctx.body = {
       'msg': 'Success'
-    }
+    };
   } catch (err) {
     console.log(err);
     ctx.throw(500, err);
   }
-})
+});
 
 /**
  * DELETE /admin/categories/:id
@@ -120,11 +120,11 @@ router.delete('/categories/:id', async (ctx) => {
     ctx.body = {
       'msg': 'Success',
       'Removed Category': category.parent + '/' + category.sub
-    }
+    };
   } catch (err) {
     console.log(err);
     ctx.throw(500, err);
   }
-})
+});
 
 module.exports = router;

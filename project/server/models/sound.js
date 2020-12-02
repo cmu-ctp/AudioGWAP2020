@@ -29,17 +29,17 @@ module.exports = class Sound extends BaseModel {
       const soundPath = path.resolve(__dirname + '/..' + usersound.path);
       try {
         fs.unlinkSync(soundPath);
-        console.log("All .wav files successfully removed from server");
+        console.log('All .wav files successfully removed from server');
       } catch(err) {
-        console.log("Unable to delete .wav file");
+        console.log('Unable to delete .wav file');
         console.error(err);
       }
     }
     try{
       await this.collection.deleteMany(query);
-      console.log("All file removed from DB");
+      console.log('All file removed from DB');
     } catch(err) {
-      console.log("Unable to delete sound from DB");
+      console.log('Unable to delete sound from DB');
       console.log(err);
     }
   }
@@ -57,14 +57,14 @@ module.exports = class Sound extends BaseModel {
       const labels = sound.votedLabels;
       labels[(labels.length)-1].uid = ctx.user.uid;
       await this.collection.updateOne({ sid: sound.sid}, 
-      {
-        $set: {
-          isValidated: true,
-          validatedLabel: sound.meta.category,
-          votedLabels: sound.votedLabels,
-          validateTime: new Date()
-        }
-      });
+        {
+          $set: {
+            isValidated: true,
+            validatedLabel: sound.meta.category,
+            votedLabels: sound.votedLabels,
+            validateTime: new Date()
+          }
+        });
 
       // Update the count of unvalidated sound in events collection
       const eventModel = new Event(ctx);
@@ -72,7 +72,7 @@ module.exports = class Sound extends BaseModel {
       await eventModel.updateUnvalidatedSounds(soundData.event_id, -1);
       
     } catch(err){
-      console.log("Unable to update the validated sound in DB");
+      console.log('Unable to update the validated sound in DB');
       console.log(err);
     }
   }
@@ -83,7 +83,7 @@ module.exports = class Sound extends BaseModel {
     //Find event with least validated sound
     const eventModel = new Event(ctx);
     const eventArray = await eventModel.findEventWithMinValidatedSound();
-    console.log("Total events fetched:" + eventArray.length);
+    console.log('Total events fetched:' + eventArray.length);
 
     for(let event of eventArray){
       const eventId = eventModel.getObjectId(event._id);
@@ -92,16 +92,16 @@ module.exports = class Sound extends BaseModel {
         event_id: { $eq: eventId},
         uid: { $ne: uid},
         'votedLabels.uid': { $ne: uid},
-      }
+      };
   
       const sound = await this.collection.findOne(query);
       if(sound) {
-        console.log("Sound Fetched for validation "+sound+" by uid "+uid);
+        console.log('Sound Fetched for validation '+sound+' by uid '+uid);
         return sound;
       }
     }
 
-    console.log("No sounds available for validation by uid "+uid);
+    console.log('No sounds available for validation by uid '+uid);
     return null;  
   }
 
@@ -112,10 +112,10 @@ module.exports = class Sound extends BaseModel {
       const sound = JSON.parse(ctx.request.body.sound);
 
       if(!sound) {
-        ctx.throw(400, "Post object cannot be null")
+        ctx.throw(400, 'Post object cannot be null');
       }
 
-      console.log("Initially received sound object with label"+JSON.stringify(sound));
+      console.log('Initially received sound object with label'+JSON.stringify(sound));
 
       // Check for majority on reaching max labels
       if(sound.votedLabels.length >= maxVotes){
@@ -123,25 +123,25 @@ module.exports = class Sound extends BaseModel {
         let count = 0;
         let abuseCount = 0;
         for(let i=0; i < labels.length; i++){
-            if(labels[i].label === 'Yes'){
-                count++;
-            }
+          if(labels[i].label === 'Yes'){
+            count++;
+          }
 
-            if(labels[i].label === 'Abuse'){
-              abuseCount++;
-            }
+          if(labels[i].label === 'Abuse'){
+            abuseCount++;
+          }
         }
 
         // If clip has been reported as abuse more than maxAbuseCount times, mark as abuse
         if(abuseCount > maxAbuseCount){
-          sound.validatedLabel = "Abuse";
+          sound.validatedLabel = 'Abuse';
           await this.collection.deleteOne({'sid': sound.sid});
-          await noiseModel.markAsNoise(sound);
+          await noiseModel.markAsNoise(sound, ctx);
           return;
         }
         // If majority votes have been reached, update db & cache
         if(count >= majorityVotes){
-          console.log("Majority votes have been achieved");
+          console.log('Majority votes have been achieved');
           await this.updateValidatedSound(sound, ctx);
         } 
 
@@ -151,9 +151,9 @@ module.exports = class Sound extends BaseModel {
 
           //Max number of voting rounds reached. Mark sound as noise and remove from sound collection.
           if(sound.votingRound > maxVotingRounds){
-            sound.validatedLabel = "Noise";
+            sound.validatedLabel = 'Noise';
             await this.collection.deleteOne({'sid': sound.sid});
-            await noiseModel.markAsNoise(sound);
+            await noiseModel.markAsNoise(sound, ctx);
           } 
           else {
             sound.votedLabels = null;
@@ -172,18 +172,18 @@ module.exports = class Sound extends BaseModel {
       else {
         const labels = sound.votedLabels;
         labels[(labels.length)-1].uid = ctx.user.uid;
-        console.log("Final updated sound object being resaved in cache:" + JSON.stringify(sound));
+        console.log('Final updated sound object being resaved in cache:' + JSON.stringify(sound));
         await this.collection.updateOne({ sid: sound.sid},
-        {
+          {
             $set: {
-                votedLabels: sound.votedLabels
+              votedLabels: sound.votedLabels
             }
 
-        });
+          });
       }
 
     } catch (err) {
-      console.log("Error occured while processing post object with label");
+      console.log('Error occured while processing post object with label');
       console.log(err);
     }
   }

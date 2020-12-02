@@ -56,7 +56,7 @@ router.get('/events/:token/sound', async (ctx) => {
     };
     var additionalSounds = await soundModel.findQueryWithUser(query);
     itemList = itemList.concat(additionalSounds);
-    console.log("Additional sounds being append for eventId " + eventId + " by " + additionalSounds.length + " as Initial count was "+itemList.length);
+    console.log('Additional sounds being append for eventId ' + eventId + ' by ' + additionalSounds.length + ' as Initial count was '+itemList.length);
   }
 
   ctx.body = {

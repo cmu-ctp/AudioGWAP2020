@@ -40,7 +40,7 @@ module.exports = class SoundCategory extends BaseModel {
       parent: parent,
       sub: categoryName,
       sounds: []
-    }
+    };
     return await super.create(data);
   }
 
