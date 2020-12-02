@@ -112,6 +112,7 @@ router.get('/sound/retrieve/event/:id', async (ctx) => {
     'msg': 'Successfully found unvalidated sound',
     'result': soundObj
   };
+  return ;
 
 });
 

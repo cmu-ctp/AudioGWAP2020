@@ -122,6 +122,7 @@ module.exports = class Sound extends BaseModel {
       console.log('Error occured while fetching unvalidated sound object for the given event');
       console.log(err);
     }
+    return null;
 
   }
 
