@@ -42,6 +42,13 @@ public class GetValidationSound : MonoBehaviour
         StartCoroutine(RequestSoundList());
     }
 
+    public void GetSoundFromEvent(string id)
+    {
+        Debug.Log("Get sound from event " + id);
+        showErrorMessage = false;
+        StartCoroutine(RequestSoundListFromEventId(id));
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -49,6 +56,33 @@ public class GetValidationSound : MonoBehaviour
             guideline.text = label;
         }
         
+    }
+
+    public IEnumerator RequestSoundListFromEventId(string id)
+    {
+        Debug.Log("in Request Sound List from event: " + id);
+        string responseBody;
+        using (UnityWebRequest req = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/sound/retrieve/event/" + id))
+        {
+            // Debug.Log("making api call");
+            req.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
+
+            yield return req.SendWebRequest();
+
+
+            if (req.isNetworkError || req.isHttpError)
+            {
+                Debug.Log(req.error + " : " + req.downloadHandler.text);
+            }
+
+            responseBody = DownloadHandlerBuffer.GetContent(req);
+            PlayerPrefs.SetString("body", responseBody);
+        }
+
+        Debug.Log("Got sound front event response");
+        Debug.Log("response: " + responseBody);
+        StartCoroutine(GetSoundList());
+
     }
 
     public IEnumerator RequestSoundList()
