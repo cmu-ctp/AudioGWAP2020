@@ -16,7 +16,7 @@ using UnityEngine.Networking;
 public class RecordManager : MonoBehaviour
 {
     [SerializeField]
-    private ListOfStringsVariable soundItemsFilenames, audioLengthFile, recordingStates, joinedEvents;
+    private ListOfStringsVariable soundItemsFilenames, audioLengthFile, audioValidationFile, audioEventIdFile, recordingStates, joinedEvents;
     
     [SerializeField]
     private ListOfIntVariable soundLabelNumbers;
@@ -306,8 +306,10 @@ public class RecordManager : MonoBehaviour
             {
                 soundItemsFilenames.Value.Add(tempLabel);
                 audioLengthFile.Value.Add(recordingTimerText.text);
+                audioValidationFile.Value.Add("Not Validated");
+                audioEventIdFile.Value.Add(eventId.Value);
 
-                if(PlayerPrefs.GetInt("NumberOfAudioFiles") >= 0)
+                if (PlayerPrefs.GetInt("NumberOfAudioFiles") >= 0)
                 {
                     countTemp = PlayerPrefs.GetInt("NumberOfAudioFiles");
                     PlayerPrefs.SetInt("NumberOfAudioFiles", countTemp + 1);
@@ -324,6 +326,8 @@ public class RecordManager : MonoBehaviour
                 countTemp = indexInFile;
                 updatedIndex.Value = indexInFile;
                 audioLengthFile.Value[indexInFile] = recordingTimerText.text;
+                audioValidationFile.Value[indexInFile] = "Not Validated";
+                audioEventIdFile.Value[indexInFile] = eventId.Value;
             }
 
             PlayerPrefs.SetString(countTemp.ToString(), tempLabel);

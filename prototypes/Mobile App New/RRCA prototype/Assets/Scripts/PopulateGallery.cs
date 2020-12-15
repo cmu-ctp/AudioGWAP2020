@@ -82,7 +82,7 @@ public class PopulateGallery : MonoBehaviour
         g.transform.GetChild(1).gameObject.GetComponent<Text>().text = audioFilesNames.Value[populatedNumberOfFiles];
         g.transform.GetChild(2).gameObject.GetComponent<Text>().text = audioFilesLength.Value[populatedNumberOfFiles];
         g.transform.GetChild(3).gameObject.GetComponent<Text>().text = audioFilesValidations.Value[populatedNumberOfFiles];
-        g.transform.GetChild(4).gameObject.GetComponent<Text>().text = "<" + audioFilesEventIds.Value[populatedNumberOfFiles] + ">";
+        g.transform.GetChild(4).gameObject.GetComponent<Text>().text = "Event ID: <" + audioFilesEventIds.Value[populatedNumberOfFiles] + ">";
         populatedNumberOfFiles++;
 
         parentOfSoundItem.GetComponent<RectTransform>().sizeDelta += new Vector2(0, soundItemData[2].Value);
