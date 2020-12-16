@@ -37,6 +37,7 @@ public class RotateGamePiece : MonoBehaviour
         //if(PlayerPrefs.GetInt("chosenGamePiece") == -1)
         //{
             index = 0;
+            backHomeButton.gameObject.SetActive(true);
             gamePieceMovingButtons[0].onClick.AddListener(OnClickLeftButton);
             gamePieceMovingButtons[1].onClick.AddListener(OnClickRightButton);
             confirmButton.onClick.AddListener(OnConfirmButtonClick);

@@ -57,7 +57,7 @@ public class SoundItem : MonoBehaviour
             if(fName[fName.Length - 1] == fileName.text)
             {
                 var filepath = Path.Combine(Application.persistentDataPath, files[i].Name);
-                StartCoroutine(AddFileToClips(filepath));
+                StartCoroutine(AddFileToClips("file://"+filepath));
             }
         }
         //test test
