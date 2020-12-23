@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement; /* for restarting game */
 
 public enum GameState
 {
@@ -34,6 +35,13 @@ public class GameManager : MonoBehaviour
     GameObject recognition;
     [SerializeField]
     Goal goal;
+    [SerializeField]
+    GameObject startGame;
+    [SerializeField]
+    GameObject restart;
+    [SerializeField]
+    GameObject tutorial;
+    
 
     [Header("Game Components")]
     [SerializeField]
@@ -89,6 +97,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("Awake");
         if (instance == null)
             instance = this;
 
@@ -200,10 +209,25 @@ public class GameManager : MonoBehaviour
         timer.SetActive(false);
         minimap.SetActive(false);
         recognition.SetActive(false);
+        restart.SetActive(false);
+        tutorial.SetActive(false);
         goal.gameObject.SetActive(false);
         leaderboard.SetActive(true);
         gameState = GameState.Ending;
+        startGame.SetActive(true); /* display start game button at the end */
         //StartCoroutine(GameEnd());
+    }
+
+    public void ViewTutorial()
+    {
+        timer.SetActive(false);
+        minimap.SetActive(false);
+        recognition.SetActive(false);
+        restart.SetActive(false);
+        tutorial.SetActive(false);
+        goal.gameObject.SetActive(false);
+        instruction.SetActive(true);
+        tutorial.SetActive(false);
     }
 
     // This coroutine is only used when we have "reach destination" as a end goal.
@@ -240,13 +264,26 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        Debug.Log("Starting Game");
         instruction.SetActive(false);
         timer.SetActive(true);
         minimap.SetActive(true);
         recognition.SetActive(true);
         goal.gameObject.SetActive(true);
+        restart.SetActive(true);
+        tutorial.SetActive(true);
         gameState = GameState.Playing;
         SetGoal();
+    }
+
+    /* restart at the end or in the middle */
+    public void RestartGame() {
+        Debug.Log("Restart Game");
+        SceneManager.LoadScene(1);
+    }
+
+    public void ResetPlayer() {
+        player.position = new Vector3((float)-5.5, (float)2.5, (float)-19.2);
     }
 
     // A game piece rain will happen when completing a task.

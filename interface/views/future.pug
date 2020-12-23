@@ -1,0 +1,32 @@
+doctype html
+//- No current uses for this page yet
+html(lang='en')
+    head
+        title Audio Dataset
+        link(rel="stylesheet", type="text/css", href="/style.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css")
+        link(href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
+    body
+        div.nav-container
+            div.nav-wrapper
+                nav.nav-content
+                    div.logo Polyphonic
+                    ul.nav-items
+                        li
+                            a(href='/') Home
+                        li
+                            a(href='/dataset') Dataset
+                        li
+                            a(href='/people') People
+                        li.active
+                            a(href='/future') Future
+                        li
+                            a.nav-btn-container(href='#' )
+                                img.search-btn(src="/images/search.png" alt="search icon")
+                    button.sign-up-log-in Log in / Sign Up
+        div.body-container
+
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
+    script(type='text/javascript' src='script.js' defer='defer')

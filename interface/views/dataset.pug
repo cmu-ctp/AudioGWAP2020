@@ -2,37 +2,110 @@ doctype html
 html(lang='en')
   head
     title Audio Dataset
+    link(rel="stylesheet", type="text/css", href="/style.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css")
+    link(href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet")
   body
-    div
-      h3
-        form(method='get')
-          label(for='q') Search:
-          if query && query.length > 0
-            input(type='text' id='q' name='q' value=query)
-          else 
-            input(type='text' id='q' name='q')
-          input(type='submit' value='Search')
-    div
-      if sounds.length
-        table
-          thead
-            tr
-              th Label
-              th Audio
-          tbody
-            each sound in sounds
+    div.body-container
+      div.nav-container
+        div.nav-wrapper
+          nav.nav-content
+            div.logo Polyphonic
+            ul.nav-items
+              li
+                a(href='/') Home
+              li.active
+                a(href='/dataset') Dataset
+              li
+                a(href='/people') People
+              //- Currently not using future page, could change in the future
+              //li
+              //  a(href='/future') Future
+              li
+                a.nav-btn-container(href='#' )
+                  img.search-btn(src="/images/search.png" alt="search icon")
+            a.nav-btn-container(href='http://localhost:3001/' )
+              button.sign-up-log-in Log in / Sign Up
+      div.body-container
+        div.search-container
+          form(method='get' action='/dataset/search/')
+            if query && query.length > 0
+              input.searchbox(type='text' id='q' name='q' value=query)
+            else
+              input.searchbox(type='text' id='q' name='q' placeholder="Search Dataset")
+            button.submit-btn(type='submit' value='Search')
+              img.search-submit(src="/images/search-submit.png" alt="search icon")
+        div.ontology-container
+          form(method="post" action="/d/" target="_blank")
+            table.main-table
               tr
-                if sound.game_meta.sound_label
-                  td #{sound.game_meta.sound_label}
-                else if sound.meta && sound.meta.category
-                  td #{sound.meta.category}
-                else
-                  td UNLABELED
-                td 
-                  - var path = sound.path.substr(1)
-                  audio(controls preload='none' src=path)
-          tfoot
-            tr
-              th(colspan='2')
-      else
-        p No results
+                th.main-input
+                  input(type="checkbox" name="select" class="checkAll")
+                th Category
+                th
+                th File Count
+                th File Size
+                th Update
+              - var rowId = 0;
+                each subCats, category in ontology
+                  - rowId++;
+                  - var expanded = shownCategory.toLowerCase() === category.toLowerCase()
+                  tr.main-row
+                    td
+                      input(type="checkbox" id=category class="parent")
+                    td.category-col(data-toggle="collapse" data-target="#"+rowId) #{category}
+                    td.expand-button(data-toggle="collapse" data-target="#"+rowId 
+                                     aria-expanded=expanded ? "true" : "false")
+                      img(src="/images/arrow_drop_down.png" onmouseover="this.src='/images/black_arrow_drop_down.png'" onmouseout="this.src='/images/arrow_drop_down.png'")
+                    td #{counts[category]} files
+                    td #{fileSizes[category]}
+                    td #{lastModified[category]}
+
+                  tr
+                    td.hiddenRow(colspan="12")
+                      - var className = expanded ? "collapse in" : "collapse"
+                      div(class=className id=rowId)
+                        table.collapsible-table
+                          each subCategory in subCats
+                            tr.hidden-row
+                              td.indentation
+                              td.sub-input
+                                input(type="checkbox" class="sub-"+category id=subCategory.sub name="d[]" value=subCategory.sub onclick="uncheck(this, '" + category + "')")
+                              td.sub-category
+                                - var categoryLink = '/dataset/search/?q=' + subCategory.sub + '&strict=1'
+                                label(for=subCategory.sub)
+                                  a(href=categoryLink)
+                                    span.sub-name #{subCategory.sub}
+                              td
+                              td #{subCategory.sounds.length} files
+                              td #{subCategory.fileSizes}
+                              td #{subCategory.lastMod}
+            p To download categories, check the boxes next to each one you want to download.
+            button(style="display:none" type="button" data-toggle="modal" data-target="#basicModal" onclick="getCurl()").download Download
+            div#basicModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true")
+              div.modal-dialog.modal-sm
+                div.modal-content
+                  div.modal-header
+                    button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
+                    p.popup-header(class="modal-title" id="myModalLabel") Download
+                  div.modal-body
+                    p.curl-link Curl Link
+                    input.curl-link-box(type="text" value="" readonly)
+                  div.modal-footer
+                    button.cancel(type="button" data-dismiss="modal" aria-hidden="true") Cancel
+                    input.download(type="submit" value="Download")
+    footer
+      div
+        p.footer-text Made possible with the help of Philips & Bosch Corporation
+        p.footer-text Copyright © 2020
+        div
+          p.footer-text Privacy
+          p.footer-text Support
+          p.footer-text Contact
+
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
+    script(type='text/javascript' src='/script.js')

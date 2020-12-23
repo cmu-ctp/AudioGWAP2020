@@ -30,6 +30,14 @@ public class PopulateEvents : MonoBehaviour
     public int populatedNumber, eventNumber;
     private bool isPopulated = false;
 
+    public bool updatedEvents = false;
+
+    public void UpdateJoinedEvents() {
+       
+        getEvents.UpdateJoinedEvents();
+    
+    }
+
     public void StartPopulating()
     {
         populatedNumber = 0;
@@ -47,8 +55,10 @@ public class PopulateEvents : MonoBehaviour
         eventParent = this.gameObject;
         if(!isPopulated)
         {
+            // Debug.Log("isPopulated is false");
             InitialPopulate();
             numberOfEvents.Value = populatedNumber;
+            Debug.Log("populated number: "+populatedNumber);
         }
         else
         {
@@ -58,9 +68,9 @@ public class PopulateEvents : MonoBehaviour
 
     void InitialPopulate()
     {
-        //Debug.Log("initial populate");
+        // Debug.Log("initial populate");
         isPopulated = true;
-        //Debug.Log("isJoined : " + isJoinedEvents + " , number  : " + numberOfEvents.Value );
+        Debug.Log("isJoined : " + isJoinedEvents + " , number  : " + numberOfEvents.Value );
         for(int i = 0; i < numberOfEvents.Value; i++)
         {
             if(isJoinedEvents)
@@ -73,27 +83,33 @@ public class PopulateEvents : MonoBehaviour
 
     public void UpdateAllEventsJoinButtonInitial()
     {
+        // Debug.LogError("in UpdateAllEventsJoinButtonInitial");
         if(joinedEventIds.Value.Count > 0)
         {
             updateAllEventCards();
         }
+       getEvents.UpdateJoinedEvents();
     }
 
     void updateAllEventCards()
     {
-        Debug.Log("joined ids not count : " + (numberOfEvents.Value - joinedEventIds.Value.Count));
+        Debug.Log("joined ids not count : " + (numberOfEvents.Value - joinedEventIds.Value.Count)); 
         for(int i = 0; i < numberOfEvents.Value; i++)
         {
             if(CheckIfInJoined(eventParent.transform.GetChild(i).gameObject.GetComponent<EventID>().GetId()))
             {
+                // Debug.Log("Check in in joined is true");
                 if(eventParent.transform.GetChild(i).gameObject.activeSelf)
                 {
-                    eventParent.transform.GetChild(i)/*.GetChild(5)*/.gameObject.SetActive(false);
+                    /* eventParent.transform.GetChild(i).GetChild(5).gameObject is the join button on the event card */
+                    eventParent.transform.GetChild(i).gameObject.SetActive(false); 
                     eventParent.GetComponent<RectTransform>().sizeDelta -= new Vector2(0, eventItemData[2].Value);
                 }
             }
             else
             {
+                // Debug.Log("Check if in joined is false");
+                eventParent.transform.GetChild(i).gameObject.SetActive(true);
                 eventParent.transform.GetChild(i).GetChild(5).gameObject.SetActive(true);
             }
         }
@@ -112,9 +128,10 @@ public class PopulateEvents : MonoBehaviour
 
     bool CheckIfInJoined(string id)
     {
+        Debug.Log("in CheckIfInJoined");
         for(int i = 0; i < joinedEventIds.Value.Count; i++)
         {
-            //Debug.Log("id : " + id + " , " + "joinedid : " + joinedEventIds.Value[i]);
+            // Debug.Log("id : " + id + " , " + "joinedid : " + joinedEventIds.Value[i]);
             if(id == joinedEventIds.Value[i])
             {
                 return true;
@@ -125,29 +142,40 @@ public class PopulateEvents : MonoBehaviour
 
     public void UpdateEvents()
     {
+        Debug.Log("in UpdateEvents");
+        // updatedEvents = false;
         if(isJoinedEvents)
         {
+            // Debug.Log("update joined events");
             getEvents.UpdateJoinedEvents();
         }
         else
         {
+            Debug.Log("update all events join button");
             getEvents.UpdateEvents();
-            UpdateAllEventsJoinButtonInitial();
+                
         }
     }
 
-    void UpdatePopulate()
+    public void UpdatePopulate()
     {
         Debug.Log("update populate");
         if(eventParent.transform.childCount <= numberOfEvents.Value)
         {
+            Debug.Log("# of events displayed < number of events");
+            Debug.Log("eventParent.transform.childCount: "+eventParent.transform.childCount);
+            Debug.Log("numberOfEvents.Value:"+numberOfEvents.Value);
             if(eventParent.transform.childCount != 0)
             {
+                Debug.Log("# of events displayed != 0");
+                /* instantiate event cards for new events */
+                
                 for(int i = eventParent.transform.childCount; i < numberOfEvents.Value; i++)
                 {
-                    populatedNumber = i;
+                    populatedNumber = i; 
                     InstantiateEventCard(i);
                 }
+                /* update all event cards */
                 for(int i = 0; i < numberOfEvents.Value; i++)
                 {
                     UpdateEventCard(i);
@@ -155,12 +183,16 @@ public class PopulateEvents : MonoBehaviour
             }
             else
             {
+                /* instantiate first event card */
+                Debug.Log("# of events displayed == 0");
                 populatedNumber = 0;
                 InstantiateEventCard(0);
             }
         }
         else
         {
+            Debug.Log("no new events");
+            /* no new events */
             for(int i = 0; i < numberOfEvents.Value; i++)
             {
                 UpdateEventCard(i);
@@ -174,6 +206,7 @@ public class PopulateEvents : MonoBehaviour
 
     void InstantiateEventCard(int index)
     {
+        Debug.Log("in Instantiate Event Card: "+index);
         if(System.DateTime.Compare(System.DateTime.Parse(getEvents.GetEventsInfo(isJoinedEvents)[3][index]), System.DateTime.Now) > 0)
         {
             GameObject e = Instantiate(eventCardPrefab);
@@ -189,18 +222,24 @@ public class PopulateEvents : MonoBehaviour
             e.transform.GetChild(3).gameObject.GetComponent<Text>().text = getEvents.GetEventsInfo(isJoinedEvents)[4][populatedNumber];
             e.transform.GetChild(4).gameObject.GetComponent<Text>().text = getEvents.GetEventsInfo(isJoinedEvents)[3][populatedNumber];
 
+            Debug.Log("eventItemData[0].Value: "+eventItemData[0].Value);
+            Debug.Log("eventItemData[1].Value: "+eventItemData[1].Value);
+            Debug.Log("populatedNumber: "+populatedNumber);
             int yPos = eventItemData[0].Value + eventItemData[1].Value * populatedNumber;
             populatedNumber++;
             e.transform.localScale = new Vector3(1.3f, 1.3f, 1);
             e.transform.localPosition = new Vector3(275, yPos, 0);
-            //Debug.Log("position: " + e.transform.localPosition);
+            Debug.Log("position: " + e.transform.localPosition);
 
+            /* expands the scroll view (expanding it double the amount needed for wiggle room)*/
+            eventParent.GetComponent<RectTransform>().sizeDelta += new Vector2(0, eventItemData[2].Value);
             eventParent.GetComponent<RectTransform>().sizeDelta += new Vector2(0, eventItemData[2].Value);
         }
     }
 
     void UpdateEventCard(int i)
     {
+        Debug.Log("in UpdateEventCard");
         eventParent.transform.GetChild(i).GetComponent<EventID>().SetId(getEvents.GetEventsInfo(isJoinedEvents)[0][i]);
         eventParent.transform.GetChild(i).GetChild(2).gameObject.GetComponent<Text>().text = getEvents.GetEventsInfo(isJoinedEvents)[1][i];
         eventParent.transform.GetChild(i).GetChild(3).gameObject.GetComponent<Text>().text = getEvents.GetEventsInfo(isJoinedEvents)[4][i];
@@ -209,7 +248,7 @@ public class PopulateEvents : MonoBehaviour
 
     public void AddValueToJoinedEventsList(string eventId)
     {
-        Debug.Log("here");
+        Debug.Log("in AddValueToJoinedEventsList");
         joinedEventIds.Value.Add(eventId);
     }
 }

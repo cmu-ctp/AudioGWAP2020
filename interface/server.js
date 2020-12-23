@@ -1,48 +1,53 @@
 const express = require('express')
 const app = express()
-const MongoClient = require('mongodb').MongoClient
+const mongo = require('./lib/mongo')
 require('dotenv').config()
 
-let sound
-const user = encodeURIComponent(process.env.MONGO_USER)
-const pass = encodeURIComponent(process.env.MONGO_PASS)
-const mongoURL = `mongodb://${user}:${pass}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}?authSource=${process.env.MONGO_AUTH_SOURCE}`
+// use sass/scss
+// var sass = require('node-sass-middleware');
+//
+//  app.use(
+//      sass({
+//          src: './public',    // Input SASS files
+//          dest: './public', // Output CSS
+//          debug: true
+//      })
+//  );
 
-MongoClient.connect(mongoURL, {useUnifiedTopology: true})
-  .then(client => {
-    console.log('Connected to MongoDB!')
-    sound = client.db(process.env.MONGO_DB).collection('sound')
+app.set('view engine', 'pug')
+app.use(express.static('public'))
+app.use('/upload', express.static('../project/server/upload'))
 
-    app.set('view engine', 'pug')
+mongo.dbConnect(err => {
+  //register routes once connected to db
+  const datasetRouter = require('./routes/dataset')
+  app.use('/dataset', datasetRouter)
 
-    app.use('/upload', express.static('../project/server/upload'))
+  const downloadRouter = require('./routes/download')
+  app.use('/d', downloadRouter)
+  
+  const homeRouter = require('./routes/home')
+  app.use('/', homeRouter)
 
-    app.get('/', async (req, res) => {
-      const { q } = req.query
-      const results = await getResults(q)
-      
-      if(q) {
-        console.log('Query: ' + q)
-      }
-      res.render('dataset', {sounds: results, query: q})
-    })
-
-    app.listen(5000,() => console.log('listening on port 5000.'))
-
+  app.get('/people', async (req, res) => {
+    res.render('people')
   })
-  .catch(err => console.error(err))
 
-async function getResults (query) {
-  let cursor
-  if (query && query.length > 0) {
-    cursor = await sound.find({$or: [
-      {'game_meta.sound_label': {$regex: query, $options: 'i'}},
-      {'meta.category': {$regex: query, $options: 'i'}}
-    ]})
-  } else {
-    cursor = await sound.find()
-  }
-  return cursor.sort({
-    'game_meta.sound_label': -1, 
-    'meta.category': -1}).toArray()
-}
+  // currently unsure if we really need this, unsure what content would be in it
+  /*app.get('/future', async (req, res) => {
+    res.render('future')
+  })*/
+
+  // page not found
+  app.use(function (req, res, next) {
+    res.status(404).send('404 Error: Page not found')
+  })
+
+  // some error
+  app.use(function (err, req, res, next) {
+    console.error(err.stack)
+    res.status(500).send('An error happened on our end. Sorry!')
+  })
+
+  app.listen(5000,() => console.log('listening on port 5000.'))
+})

@@ -40,7 +40,7 @@ cp .env.example .env
 vim .env               # Edit config file
 ```
 
-__Note:__ You need to create a Twitch application and fill in with keys (Client ID) and secrets (Client Secret) from the [Twitch developer website](https://dev.twitch.tv/). The OAuth Redirect URL should be like`https://echoes.etc.cmu.edu/api/connect/twitch/callback`.
+__Note:__ You need to create a Twitch application and fill in with keys (Client ID) and secrets (Client Secret) from the [Twitch developer website](https://dev.twitch.tv/). The OAuth Redirect URL should be like`https://hcii-gwap-01.andrew.cmu.edu/api/connect/twitch/callback`.
 
 If you have set username and password for MongoDB, make sure the username and password are configured in `.env` file, and then uncomment the following lines in `config/mongo.js`:
 

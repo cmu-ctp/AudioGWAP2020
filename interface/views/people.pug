@@ -1,0 +1,116 @@
+doctype html
+//- Feel free to modify content on this page as you see fit
+html(lang='en')
+    head
+        title Audio Dataset
+        link(rel="stylesheet", type="text/css", href="/style.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css")
+        link(href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet")
+    body
+        div.nav-container
+            div.nav-wrapper
+                nav.nav-content
+                    div.logo Polyphonic
+                    ul.nav-items
+                        li
+                            a(href='/') Home
+                        li
+                            a(href='/dataset') Dataset
+                        li.active
+                            a(href='/people') People
+                        //li
+                        //    a(href='/future') Future
+                        li
+                            a.nav-btn-container(href='#' )
+                                img.search-btn(src="/images/search.png" alt="search icon")
+                    a.nav-btn-container(href='http://localhost:3001/' )
+                        button.sign-up-log-in Log in / Sign Up
+        div.body-container
+            div.core-team
+                p.core-team-title Core Team
+                div.core-team-content
+                    div.text-part
+                        p.core-team-header Who are we
+                        p.core-team-text.
+                            We are Polyphonic, a research project from Carnegie Mellon’s Human-Computer Interaction Institute.
+                            Advised by Dr. Jessica Hammer and Dr. Nikolas Martelaro, we’re a group of artists, designers, and
+                            programmers collaborating on a Game with a Purpose (GWAP) approach to collecting audio data and compiling
+                            an annotated public audio database.
+                    div.avatar-part
+                        a.avatar(href="https://www.hcii.cmu.edu/people/jessica-hammer")
+                            img(src="/images/jess.png" onmouseover="this.src='/images/jess-after.png'" onmouseout="this.src='/images/jess.png'")
+                div.core-team-content
+                    div.text-part
+                        p.core-team-header Our Goal
+                        p.core-team-text.
+                            In collaboration with our friends at Bosch and Philips, we are building a publicly available audio dataset,
+                            currently focused on home-related sounds, for machine learning purposes. Through our game and its integration
+                            with twitch, we collect sounds ranging from a dishwasher to sneezing. This will help students and researchers
+                            by providing usable data for audio-focused AI development.
+                    div.avatar-part
+                        a.avatar(href="https://hcii.cmu.edu/people/nikolas-martelaro")
+                            img(src="/images/nik.png" onmouseover="this.src='/images/nik-after.png'" onmouseout="this.src='/images/nik.png'")
+            div.contributors
+                p.contributor-title Contributors
+                div.each-contributor
+                    a(href="#")
+                        img.contributor(src="/images/ash.png" onmouseover="this.src='/images/ash-after.png'" onmouseout="this.src='/images/ash.png'")
+                        p Aishwarya Jaiswal
+                    a(href="#")
+                        img.contributor(src="/images/sanya.png" onmouseover="this.src='/images/sanya-after.png'" onmouseout="this.src='/images/sanya.png'")
+                        p Sanya Agrawal
+                    a(href="#")
+                        img.contributor(src="/images/andrew.png" onmouseover="this.src='/images/andrew-after.png'" onmouseout="this.src='/images/andrew.png'" )
+                        p Andrew Yu
+                    a(href="https://www.linkedin.com/in/fangxian-mi-0b5746177")
+                        img.contributor(src="/images/freya.png" onmouseover="this.src='/images/freya-after.png'" onmouseout="this.src='/images/freya.png'")
+                        p Fangxian Mi
+                    a(href="#")
+                        img.contributor(src="/images/minz.png" onmouseover="this.src='/images/minz-after.png'" onmouseout="this.src='/images/minz.png'")
+                        p Mingzhi Cai
+                    a(href="#")
+                        img.contributor(src="/images/gloria.png" onmouseover="this.src='/images/gloria-after.png'" onmouseout="this.src='/images/gloria.png'" )
+                        p Yifan Deng
+                    a(href="#")
+                        img.contributor(src="/images/tara.png" onmouseover="this.src='/images/tara-after.png'" onmouseout="this.src='/images/tara.png'")
+                        p Tara Lakdawala
+                div.each-contributor
+                    a(href="#")
+                        img.contributor(src="/images/zoe.png" onmouseover="this.src='/images/zoe-after.png'" onmouseout="this.src='/images/zoe.png'")
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/ash.png" onmouseover="this.src='/images/ash-after.png'" onmouseout="this.src='/images/ash.png'")
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/ash.png" onmouseover="this.src='/images/ash-after.png'" onmouseout="this.src='/images/ash.png'")
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/ash.png" onmouseover="this.src='/images/ash-after.png'" onmouseout="this.src='/images/ash.png'")
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/ash.png" onmouseover="this.src='/images/ash-after.png'" onmouseout="this.src='/images/ash.png'")
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/ash.png" onmouseover="this.src='/images/ash-after.png'" onmouseout="this.src='/images/ash.png'")
+                        p First, Last Name
+                    a(href="#")
+                        img.contributor(src="/images/ash.png" onmouseover="this.src='/images/ash-after.png'" onmouseout="this.src='/images/ash.png'")
+                        p First, Last Name
+    footer
+        div
+            p.footer-text Made possible with the help of Philips & Bosch Corporation
+            p.footer-text Copyright © 2020
+            div
+                p.footer-text Privacy
+                p.footer-text Support
+                p.footer-text Contact
+
+
+
+
+
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
+    script(type='text/javascript' src='script.js' defer='defer')

@@ -6,28 +6,30 @@ using UnityEngine.Networking;
 
 public class EventJoin : MonoBehaviour
 {
+    public GetEvents getEvents = new GetEvents();
     private string eventId;
 
     public void onClickJoinEventButton(EventID eventCard)
     {
+        Debug.LogError("Event join button clicked");
         eventId = eventCard.GetId();
         StartCoroutine(JoinEvent());
     }
 
     IEnumerator JoinEvent()
     {
-        UnityWebRequest www = UnityWebRequest.Post("https://echoes.etc.cmu.edu/api/viewer/events/" + eventId + "/join", "");
+        UnityWebRequest www = UnityWebRequest.Post("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/events/" + eventId + "/join", "");
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
         yield return www.SendWebRequest();
 
         if(www.isNetworkError || www.isHttpError) {
-            Debug.Log("Request error");
+            Debug.Log("Request error when joining event");
             Debug.Log(www.error);
         }
         else {
             Debug.Log("Joined event " + this.transform.parent.gameObject.name);
             this.transform.parent.gameObject.GetComponent<PopulateEvents>().AddValueToJoinedEventsList(eventId);
-            //GameObject.Destroy(this.transform.parent.gameObject);
+            this.transform.parent.gameObject.GetComponent<PopulateEvents>().UpdateJoinedEvents();
             this.GetComponent<EventID>().OnClickEventCard();
         }
     }

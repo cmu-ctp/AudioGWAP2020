@@ -10,6 +10,8 @@ using UnityEngine.Android;
 using UnityEngine.iOS;
 #endif
 
+/* not used */
+
 public class CrossValiManager : MonoBehaviour
 {
     public UnityWebRequest www;
@@ -18,7 +20,7 @@ public class CrossValiManager : MonoBehaviour
 
     IEnumerator DownloadAudioFromServer()
     {
-        //www = UnityWebRequest.Get("https://echoes.etc.cmu.edu/api/viewer/events/" + eventId + "/sound");
+        //www = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/events/" + eventId + "/sound");
         //yield return www.SendWebRequest();
 
 

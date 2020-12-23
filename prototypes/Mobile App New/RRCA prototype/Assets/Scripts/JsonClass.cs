@@ -153,12 +153,14 @@ public class JsonSoundMeta
 {
     public string category;
     public string label;
+    // public string validated; //new field
 }
 
 [Serializable]
 public class JsonSoundMetaWithoutLabel
 {
     public string category;
+    // public string validated; //new field
 }
 
 [Serializable]
@@ -168,10 +170,23 @@ public class JsonSoundGameMeta
 }
 
 [Serializable]
+public class JsonVotedLabel
+{
+    public string uid; /* uid of the user submitting validation */
+    public string label; /* label the user guesses */
+}
+
+[Serializable]
 public class JsonSoundDataWithLabel
 {
     public JsonSoundGameMeta game_meta;
     public JsonSoundMeta meta;
+    public string sid;
+    public bool isValidated; /* true/false. is the sound validated */
+    public int votingRound; /* round of voting */
+    public List<JsonVotedLabel> votedLabels = new List<JsonVotedLabel>();
+    public string validatedLabel; /* label after validation is complete */
+
 }
 
 [Serializable]
@@ -179,6 +194,12 @@ public class JsonSoundDataWithoutLabel
 {
     public JsonSoundGameMeta game_meta;
     public JsonSoundMetaWithoutLabel meta;
+    public bool isValidated; /* true/false */
+    public int votingRound; /* round of voting */
+    public List<JsonVotedLabel> votedLabels = new List<JsonVotedLabel>();
+    public string validatedLabel; /* label after validation is complete */
+    public string sid;
+
 }
 
 [Serializable]

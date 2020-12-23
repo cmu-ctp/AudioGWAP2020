@@ -35,6 +35,24 @@ class Session {
     };
   }
 
+
+  // checks roles. Note 0 = viewer, 1 = admin (access to admin panel), 2 = superadmin (can edit admins/superadmins)
+  static authRole(opt) {
+    opt = Object.assign({
+      roleRequired: 0
+    }, opt);
+
+    const authNormal = Session.auth(opt);
+    return async (ctx, next) => {
+      // console.log('User Role: ' + ctx.session.role + ' | Role Required: ' + opt.roleRequired);
+      if (ctx.session.role < opt.roleRequired) {
+        ctx.throw(401, 'Unauthorized');
+      }
+
+      await authNormal(ctx, next);
+    };
+  }
+
   constructor(ctx) {
     this.state = ctx.state;
     this.session = ctx.session;
@@ -46,6 +64,14 @@ class Session {
 
   setTokens(tokenInfo) {
     this.session.token = tokenInfo;
+  }
+
+  setRole(role) {
+    this.session.role = role;
+  }
+
+  getRole() {
+    return this.session.role || this.state.role;
   }
 
   getUser() {

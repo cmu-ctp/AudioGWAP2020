@@ -16,8 +16,12 @@ const config = require('../../config');
 const router = new Router();
 
 /**
- * GET /auth/twitch/web
- * Log into the streamer website.
+ * @api {GET} /auth/twitch/web Twitch Login - Web
+ * @apiName TwitchLoginWeb
+ * @apiGroup Auth
+ * @apiDescription Login to Twitch, setup session cookie used to store tokens, and redirect to streamer website
+ * 
+ * @apiError 400-BadRequest Server was unable to get access token after authentication
  */
 router.get('/auth/twitch/web', async (ctx) => {
   const tokenInfo = Object.create(null);
@@ -49,8 +53,56 @@ router.get('/auth/twitch/web', async (ctx) => {
 });
 
 /**
- * GET /auth/twitch/token
- * Log into the viewer app.
+ * @api {GET} /auth/twitch/admin Twitch Login - Admin Panel
+ * @apiName TwitchLoginAdmin
+ * @apiGroup Auth
+ * @apiDescription Login to Twitch, setup session cookie used to store tokens and user role,
+ *                 and redirect to the admin panel.
+ * 
+ * @apiError 400-BadRequest Server was unable to get access token after authentication
+ */
+router.get('/auth/twitch/admin', async (ctx) => {
+  const tokenInfo = Object.create(null);
+  tokenInfo.access_token = ctx.query.access_token || '';
+  tokenInfo.refresh_token = ctx.query.refresh_token || '';
+  if (!tokenInfo.access_token) {
+    ctx.throw(400, 'Server error on logging in. Please try again.');
+  }
+
+  const twitch = new Twitch(tokenInfo);
+  const rawUserInfo = await twitch.getUserInfo();
+  const userInfo = util.extractUserInfo(rawUserInfo);
+
+  const userModel = new User(ctx);
+  await userModel.registerOrUpdate(userInfo);
+  const userDbEntry = await userModel.findByUid(userInfo.uid);
+
+  const session = new Session(ctx);
+
+  if (userDbEntry && userDbEntry.role) {
+    session.setRole(userDbEntry.role);
+  } else {
+    session.setRole(0); //0 = viewer role, lowest role status (no access to admin features)
+  }
+  console.log(session.getRole());
+
+  session.setUser(userInfo);
+  session.setTokens(tokenInfo);
+
+  // Redirect to admin panel page, change to final url (since on subdomain)
+  ctx.redirect('/');
+})
+
+/**
+ * @api {GET} /auth/twitch/token Twitch Login - Viewer App
+ * @apiName TwitchLoginViewer
+ * @apiGroup Auth
+ * @apiDescription Login to Twitch, 
+ * 
+ * @apiSuccess {String} token   JSON Web token
+ * @apiSuccess {String} type    Bearer
+ * 
+ * @apiError 400-BadRequest Server was unable to get access token after authentication
  */
 router.get('/auth/twitch/token', async (ctx) => {
   const tokenInfo = Object.create(null);

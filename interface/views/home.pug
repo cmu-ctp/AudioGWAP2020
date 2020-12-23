@@ -1,0 +1,128 @@
+doctype html
+//- Feel free to modify the text on this page as you see fit
+html(lang='en')
+    head
+        title Audio Dataset
+        link(rel="stylesheet", type="text/css", href="/style.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css")
+        link(href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet")
+    body
+        div.body-container
+            div.nav-container
+                div.nav-wrapper
+                    nav.nav-content
+                        div.logo Polyphonic
+                        ul.nav-items
+                            li.active
+                                a(href='/') Home
+                            li
+                                a(href='/dataset') Dataset
+                            li
+                                a(href='/people') People
+                            //li
+                            //    a(href='/future') Future
+                            li
+                                a.nav-btn-container(href='#' )
+                                    img.search-btn(src="/images/search.png" alt="search icon")
+                        a.nav-btn-container(href='http://localhost:3001/' )
+                            button.sign-up-log-in Log in / Sign Up
+            div.body-container
+                div.image-one
+                    p.slogan This is a slogan for the dataset
+                    img.human(src="/images/human.png" alt="human" )
+                div.project
+                    p.project-name Polyphonic
+                    div.info
+                        p.content.
+                            Artificial Intelligence is becoming more ubiquitous thanks to advances in machine learning and big data. 
+                            However, obtaining the right data can often be the most challenging obstacle in developing an AI system,
+                            due to the amount needed and the difficulty of collecting certain certain samples.
+                        p.content.
+                            We are Polyphonic, a research project from Carnegie Mellon’s Human-Computer Interaction Institute. Our goal
+                            is to create an annotated, public, audio dataset, using a Game with a Purpose (GWAP), to solve this problem.
+                            This will help students and researchers by providing usable data for audio-focused AI development.
+                        p.content.
+                            Our current collection focus is sounds in the home, such as a dishwasher, footsteps, a security alarm or others.
+                            These sounds get collected via our game, which is integrated with the Twitch platform. We partner with streamers
+                            to host streams of our game, where viewers can submit sounds and verify labels of other sounds for the game. 
+                            This allows us to collect large amounts of annotated audio data related to sounds at home.
+                        a.our-team(href="/people")
+                            img(src="/images/ourTeam-before.png" onmouseover="this.src='/images/ourTeam-after.png'" onmouseout="this.src='/images/ourTeam-before.png'")
+                div.dataset
+                    img(src="/images/dataset-micro.png", alt="dataset-micro")
+                    div.info-rows
+                        p.dataset-title Dataset
+                        div.dataset-info
+                            p.data #{numAudios}
+                                span.label Audios
+                            p.data #{numCategories}
+                                span.label Categories
+                            // replace with real numbers from download tracking
+                            p.data 3427
+                                span.label Downloads
+                        a.explore-dataset(href="/dataset")
+                            img(src="/images/explore-dataset-before.png" onmouseover="this.src='/images/explore-dataset-after.png'" onmouseout="this.src='/images/explore-dataset-before.png'")
+                div.details
+                    p.details-text Details
+                    - var maxCount = 0;
+                        each subCats, category in ontology
+                            each subCategory in subCats
+                                if subCategory.sounds.length > maxCount
+                                    - maxCount = subCategory.sounds.length
+                    dl
+                        each subCats, category in ontology
+                            div.each-chart
+                                p.bar-title #{category}
+                                each subCategory in subCats
+                                    dd(class="bar-count bar-count-"+ subCategory.sounds.length + " max-is-"+maxCount)
+                                        span(class="text") #{subCategory.sub}
+                                        -var width = subCategory.sounds.length * 100 * 0.9 / maxCount;
+                                        div.x(style={width: width + '%'})
+                                            if (subCategory.sounds.length !== 0)
+                                                |#{subCategory.sounds.length} &nbsp
+
+                div.audio-collection
+                    p.audio-text Audio Collection
+                    div.audio-content
+                        div
+                            p.header Home
+                            p.intro.
+                                Polyphonic is a research project from Carnegie Mellon’s Human-Computer Interaction Institute. The goal of this
+                                project is to compile a dataset of audio clips that would allow our partners to advance their research into
+                                in-home technologies. Through the use of a Game With a Purpose (GWAP) we are able to incentivize the collection
+                                of sounds, as well as categorize and verify them before adding them to a collective database available to researchers.
+                        div.line
+                        div
+                            p.header Gamification
+                            p.intro.
+                                Our mobile application and streamer’s website help leverage gamification in the process of collecting quality
+                                audio data sets. The website helps streamers publish events which can be joined by viewers on our mobile app
+                                to collect associated sounds and validate them. The validated sound clips are then used as collectibles within
+                                Rolling Rhapsody, our fun-filled game played by streamers on Twitch.
+                            a(href="https://www.cmu.edu/scs/polyphonic/streamers/index.html")
+                                img.arrow(src="/images/arrow.png", alt="dataset-micro")
+                        div.line
+                        div
+                            p.header Collaboration
+                            p.intro.
+                                Our team is working with researchers from Philips and Bosch. Bosch is a leading global supplier of technology
+                                and services. Philips is a leading health technology company focused on improving people’s health and enabling
+                                better outcomes across the health continuum. We thank our friends at Bosch and Philips Health for their support
+                                on this project.
+
+    footer
+        div
+            p.footer-text Made possible with the help of Philips & Bosch Corporation
+            p.footer-text Copyright © 2020
+            div
+                p.footer-text Privacy
+                p.footer-text Support
+                p.footer-text Contact
+
+
+
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
+    script(type='text/javascript' src='script.js' defer='defer')
