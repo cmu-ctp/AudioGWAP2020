@@ -20,7 +20,13 @@ public class GetValidationSound : MonoBehaviour
     [SerializeField]
     private Text guideline;
 
-    public bool setPopUp = false;
+    public enum PopupType {
+        None,
+        NoEventSound,
+        NoCommunitySound,
+    };
+
+    public PopupType setPopUp = PopupType.None;
 
     public bool showErrorMessage = false;
 
@@ -34,7 +40,6 @@ public class GetValidationSound : MonoBehaviour
         
     }
 
-    /* not used */
     public void GetSound()
     {
         Debug.Log("Get sound");
@@ -81,7 +86,7 @@ public class GetValidationSound : MonoBehaviour
 
         Debug.Log("Got sound front event response");
         Debug.Log("response: " + responseBody);
-        StartCoroutine(GetSoundList());
+        StartCoroutine(GetSoundList(true));
 
     }
 
@@ -112,7 +117,7 @@ public class GetValidationSound : MonoBehaviour
 
     }
 
-    IEnumerator GetSoundList()
+    IEnumerator GetSoundList(bool isEvent = false)
     {
         string responseBody = PlayerPrefs.GetString("body");
         SoundObject soundObject; 
@@ -127,16 +132,16 @@ public class GetValidationSound : MonoBehaviour
 
         
         if (result.msg == "There are currently no new sounds for validation") {
-            setPopUp = true;
+            setPopUp = isEvent ? PopupType.NoEventSound : PopupType.NoCommunitySound;
             label = "Is this the sound of ... ";
         }
-        else if (result.msg != "Success") {
+        else if (!result.msg.StartsWith("Success")) {
             showErrorMessage = true;
             label = "Is this the sound of ... ";
         }
 
         else {
-            setPopUp = false;
+            setPopUp = PopupType.None;
             showErrorMessage = false;
             if (result.result != null)
             {
