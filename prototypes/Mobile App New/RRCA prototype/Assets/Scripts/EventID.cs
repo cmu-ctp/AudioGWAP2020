@@ -24,4 +24,9 @@ public class EventID : MonoBehaviour
     {
         this.transform.parent.gameObject.GetComponent<OnClickEventCard>().OnClickEventCardButton(id, eventTitle.text, streamerName.text, eventDate.text);
     }
+
+    public void OnClickValidateButton()
+    {
+        this.transform.parent.gameObject.GetComponent<OnClickEventCard>().OnClickValidateButton(id);
+    }
 }

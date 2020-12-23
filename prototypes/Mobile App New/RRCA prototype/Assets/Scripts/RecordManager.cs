@@ -364,7 +364,6 @@ public class RecordManager : MonoBehaviour
             soundData.votingRound = 0;
             soundData.sid = "null";
             soundData.validatedLabel = "unknown";
-            soundData.validatedLabel = "unknown";
             soundData.game_meta.model = gamePieces.Value[chosenGamePieceIndex.Value];
             soundData.meta.category = category;
             soundData.meta.label = soundLabel;

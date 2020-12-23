@@ -2,6 +2,10 @@ import React from 'react';
 //import logo from './logo.svg';
 import './App.css';
 
+// This component is a button where, upon clicking it, runs a fetch command
+// to its url prop using its init prop as the options. It prints the response
+// in a textbox underneath it.
+
 class TestButton extends React.Component {
   constructor(props) {
     super(props);

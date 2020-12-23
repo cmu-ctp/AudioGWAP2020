@@ -4,7 +4,7 @@
  */
 
 const Router = require('koa-router');
-const Category = require('../../models/sound_category');
+const Category = require('../../models/sound_categories');
 
 const router = new Router();
 

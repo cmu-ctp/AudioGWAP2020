@@ -31,7 +31,7 @@ const userUpdateSchema = Joi.object({
  * @apiSuccess {String} user_name     User login name.
  * @apiSuccess {String} display_name  User display name.
  * @apiSuccess {String} avatar_url    Avatar path.
- * @apiSUccess {String} model         Game piece model name. May be null if not set by user.
+ * @apiSuccess {String} model         Game piece model name. May be null if not set by user.
  *
  * @apiSuccessExample Success-Response:
  *     {
