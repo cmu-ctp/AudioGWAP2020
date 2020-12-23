@@ -47,6 +47,12 @@ public class TagManager : MonoBehaviour
     private Image NoSoundPopUp;
 
     [SerializeField]
+    private GameObject NoEventSoundScreen;
+
+    [SerializeField]
+    private Image NoEventSoundPopUp;
+
+    [SerializeField]
     private GameObject confirmReportScreen;
 
     [SerializeField]
@@ -222,6 +228,7 @@ public class TagManager : MonoBehaviour
     
     private void UpdateTime(float rawTime)
     {
+        if (rawTime < 0) return;
         int millisecond = Mathf.FloorToInt(rawTime * 1000) % 1000;
         int time = Mathf.FloorToInt(rawTime);
         audioTime.text = $"{time / 60:D2}:{time % 60:D2}:{millisecond / 15:D2}";
@@ -257,6 +264,7 @@ public class TagManager : MonoBehaviour
 
     public void SaveAudio() {
         Debug.Log("save button clicked!");
+        PauseAudio();
         StartCoroutine(UpdateAudioInServer());
     }
 
@@ -326,14 +334,20 @@ public class TagManager : MonoBehaviour
         reportYes.onClick.AddListener(OnClickReportYes);
         reportNo.onClick.AddListener(OnClickReportNo);
         Debug.Log("clip downloaded length 2 (in tm):" + getValidationSound.ClipDownLoaded.Count);
-        
-        if (getValidationSound.setPopUp) {
-            NoSoundScreen.gameObject.SetActive(true); 
+
+        if (getValidationSound.setPopUp == GetValidationSound.PopupType.NoCommunitySound) {
+            NoSoundScreen.gameObject.SetActive(true);
             NoSoundPopUp.gameObject.SetActive(true);
+        }
+        else if (getValidationSound.setPopUp == GetValidationSound.PopupType.NoEventSound) {
+            NoEventSoundPopUp.gameObject.SetActive(true);
+            NoEventSoundScreen.gameObject.SetActive(true);
         }
         else {
             NoSoundScreen.gameObject.SetActive(false);
             NoSoundPopUp.gameObject.SetActive(false);
+            NoEventSoundPopUp.gameObject.SetActive(false);
+            NoEventSoundScreen.gameObject.SetActive(false);
         }
 
         showErrorMessage = false;
@@ -343,13 +357,22 @@ public class TagManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (getValidationSound.setPopUp) {
-            NoSoundScreen.gameObject.SetActive(true); 
+        if (getValidationSound.setPopUp == GetValidationSound.PopupType.NoCommunitySound)
+        {
+            NoSoundScreen.gameObject.SetActive(true);
             NoSoundPopUp.gameObject.SetActive(true);
         }
-        else {
+        else if (getValidationSound.setPopUp == GetValidationSound.PopupType.NoEventSound)
+        {
+            NoEventSoundPopUp.gameObject.SetActive(true);
+            NoEventSoundScreen.gameObject.SetActive(true);
+        }
+        else
+        {
             NoSoundScreen.gameObject.SetActive(false);
             NoSoundPopUp.gameObject.SetActive(false);
+            NoEventSoundPopUp.gameObject.SetActive(false);
+            NoEventSoundScreen.gameObject.SetActive(false);
         }
 
         if (getValidationSound.showErrorMessage) {

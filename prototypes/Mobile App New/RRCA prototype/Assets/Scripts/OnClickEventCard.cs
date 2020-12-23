@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class OnClickEventCard : MonoBehaviour
 {
+    public GetValidationSound crossAudioList = new GetValidationSound();
+
     [SerializeField]
     private Text eventTitleLoading, streamerNameLoading, eventDateLoading;
 
@@ -13,6 +15,9 @@ public class OnClickEventCard : MonoBehaviour
 
     [SerializeField]
     private GameObject joinedEventsPage;
+
+    [SerializeField]
+    private GameObject guessGuessPage;
 
     [SerializeField]
     private StringVariable eventId;
@@ -26,5 +31,13 @@ public class OnClickEventCard : MonoBehaviour
         joinedEventsPage.SetActive(false);
         eventDetailsLoadingPage.SetActive(true);
         eventDetailsLoadingPage.GetComponent<EventDetails>().StartGettingDetails(id, eventTitle, streamerName, eventDate);
+    }
+
+    public void OnClickValidateButton(string id)
+    {
+        joinedEventsPage.SetActive(false);
+        guessGuessPage.SetActive(true);
+        // get unvalidated sound from current event
+        crossAudioList.GetSoundFromEvent(id);
     }
 }
