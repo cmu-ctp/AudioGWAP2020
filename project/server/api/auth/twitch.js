@@ -27,6 +27,9 @@ router.get('/auth/twitch/web', async (ctx) => {
   const tokenInfo = Object.create(null);
   tokenInfo.access_token = ctx.query.access_token || '';
   tokenInfo.refresh_token = ctx.query.refresh_token || '';
+  console.log('Tokens');
+  console.log(tokenInfo.refresh_token);
+  console.log(tokenInfo.access_token);
   if (!tokenInfo.access_token) {
     ctx.throw(400, 'Server error on logging in. Please try again.');
   }
@@ -91,7 +94,7 @@ router.get('/auth/twitch/admin', async (ctx) => {
 
   // Redirect to admin panel page, change to final url (since on subdomain)
   ctx.redirect('/');
-})
+});
 
 /**
  * @api {GET} /auth/twitch/token Twitch Login - Viewer App
