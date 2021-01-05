@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641252, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1062,6 +1061,8 @@ MonoBehaviour:
   soundItemsFilenames: {fileID: 11400000, guid: 3f2884c0eecb5214fbc16adfec58341d,
     type: 2}
   audioLengthFile: {fileID: 11400000, guid: 8aef318e29b75654bb8d1334d5deadf0, type: 2}
+  audioValidationFile: {fileID: 0}
+  audioEventIdFile: {fileID: 0}
   recordingStates: {fileID: 11400000, guid: f0f043b53b8da2846ae979940a1894dc, type: 2}
   joinedEvents: {fileID: 11400000, guid: 95e8ad4f741dd604db18e96e983225bc, type: 2}
   soundLabelNumbers: {fileID: 11400000, guid: e769dd53f3c13dd4eb01dacc9ad265c3, type: 2}
@@ -7626,7 +7627,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8597,6 +8598,7 @@ MonoBehaviour:
   joinedEventsPage: {fileID: 1195130484}
   guessGuessPage: {fileID: 1073820719}
   eventId: {fileID: 11400000, guid: f5e34a3a395f092409b4045129ac5b87, type: 2}
+  eventName: {fileID: 0}
 --- !u!1 &621633944
 GameObject:
   m_ObjectHideFlags: 0
@@ -19269,6 +19271,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1280421444}
   m_CullTransparentMesh: 0
+--- !u!1 &1285377741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1285377742}
+  - component: {fileID: 1285377744}
+  - component: {fileID: 1285377743}
+  m_Layer: 5
+  m_Name: Sound Gallery description
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1285377742
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285377741}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2039411904}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1.0200157, y: 226}
+  m_SizeDelta: {x: 430, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1285377743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285377741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1.1
+  m_Text: Play and review sounds uploaded for different events. Check validation
+    status of each sound.
+--- !u!222 &1285377744
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285377741}
+  m_CullTransparentMesh: 0
 --- !u!1 &1299170880
 GameObject:
   m_ObjectHideFlags: 0
@@ -23136,6 +23217,7 @@ MonoBehaviour:
   joinedEventsPage: {fileID: 1110100766}
   guessGuessPage: {fileID: 0}
   eventId: {fileID: 11400000, guid: f5e34a3a395f092409b4045129ac5b87, type: 2}
+  eventName: {fileID: 11400000, guid: 2055629f9e3914bce8461b1441e50bef, type: 2}
 --- !u!1 &1567245615
 GameObject:
   m_ObjectHideFlags: 0
@@ -28747,7 +28829,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -49, y: 296}
+  m_AnchoredPosition: {x: -72.6, y: 296.9}
   m_SizeDelta: {x: 375.3, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1953450299
@@ -28919,6 +29001,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioFilesNames: {fileID: 11400000, guid: 3f2884c0eecb5214fbc16adfec58341d, type: 2}
   audioFilesLength: {fileID: 11400000, guid: 8aef318e29b75654bb8d1334d5deadf0, type: 2}
+  audioFilesValidations: {fileID: 11400000, guid: ee6863e10e762471094535c2484625b0,
+    type: 2}
+  audioFilesEventIds: {fileID: 11400000, guid: ee7323aa9e9d7425aac791aa56b6c888, type: 2}
   updatedIndex: {fileID: 11400000, guid: 15621c66bb725e2439de5f5fcbcf2a87, type: 2}
   soundItemData:
   - {fileID: 11400000, guid: 6212794dfc1a9fc4391be8dfe9cd3816, type: 2}
@@ -29474,7 +29559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2039411904
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29490,6 +29575,7 @@ RectTransform:
   - {fileID: 1798882529}
   - {fileID: 1343524869}
   - {fileID: 1953450297}
+  - {fileID: 1285377742}
   m_Father: {fileID: 64313432}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
