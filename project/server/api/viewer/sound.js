@@ -1,10 +1,9 @@
-/* eslint-disable require-atomic-updates */
+
 /**
  * collect.js
  * Viewer audio collection routes.
  */
 
- 
 const path = require('path');
 const fse = require('fs-extra');
 const Router = require('koa-router');
@@ -15,7 +14,6 @@ const config = require('../../config');
 
 const Event = require('../../models/event');
 const Sound = require('../../models/sound');
-//const Cache = require('../../models/cachedData');
 
 const router = new Router();
 
@@ -37,7 +35,8 @@ const soundSchema = Joi.object({
   isValidated: Joi.boolean(),
   votingRound: Joi.number(),
   votedLabels: Joi.array().items(votedLabel).allow(null),
-  validatedLabel: Joi.string().allow(null)
+  validatedLabel: Joi.string().allow(null),
+
 });
 
 function getUploadDir() {
@@ -54,6 +53,7 @@ function getTime() {
 
 /**
  * GET /viewer/consent/revoke
+ * Deletes all the sound uploaded by the user
  */
 router.get('/consent/revoke', async (ctx) => {  
   const uid = ctx.user.uid;
@@ -61,22 +61,19 @@ router.get('/consent/revoke', async (ctx) => {
   const soundModel = new Sound(ctx);
   const totalSounds = await soundModel.deleteUserSound(uid);
   ctx.body = {
-    'msg': 'Success',
+    'msg': totalSounds + ' were deleted from the server',
   };
 });
 
 /**
  * GET viewer/sound/retrieve
+ * Given a user, retrieves an unvalidated sound from the DB for an event with minimum validated sound
  */
 
-router.get('/sound/retrieve', async (ctx) => { 
-  console.log("Request made to fetch sound");
-  //const cache = new Cache(ctx);
-  //const soundObj = await cache.getUnvalidatedSound(ctx);  
+router.get('/sound/retrieve', async (ctx) => {  
   const soundModel = new Sound(ctx);
   const soundObj = await soundModel.getUnvalidatedSound(ctx);
 
-  console.log("Sound object being sent for labelling:"+JSON.stringify(soundObj));
   if(soundObj === null){
     ctx.body = {
       'msg': 'There are currently no new sounds for validation',
@@ -86,25 +83,54 @@ router.get('/sound/retrieve', async (ctx) => {
   }
   
   ctx.body = {
-    'msg': 'Success',
+    'msg': 'Successfully found unvalidated sound',
     'result': soundObj
   };
 
 });
 
+/**
+ * GET viewer/sound/retrieve/event/:id
+ * Given a user, retrieves an unvalidated sound from the DB for a given event
+ */
+router.get('/sound/retrieve/event/:id', async (ctx) => {
+  const eventId = ctx.params.id;
+  const uid = ctx.user.uid;
+  const soundModel = new Sound(ctx);
+
+  const soundObj = await soundModel.getUnvalidatedSoundForEvent(eventId, uid);
+
+  if(soundObj === null){
+    ctx.body = {
+      'msg': 'There are currently no new sounds for validation',
+      'result': null
+    }; 
+    return;
+  }
+  
+  ctx.body = {
+    'msg': 'Successfully found unvalidated sound',
+    'result': soundObj
+  };
+  return ;
+
+});
+
+/**
+ * POST /label/submit
+ * Append the label submitted by user to an existing unvalidated sound clip in DB.
+ */
+
 router.post('/label/submit', async (ctx) => {
   try{
-    console.log("Request made to submit label");
-    // const cache = new Cache(ctx);
-    // await cache.updateCache(ctx);
     const soundModel = new Sound(ctx);
     await soundModel.updateLabel(ctx);
-    console.log("Label successfully submitted.")
+    console.log('Label successfully submitted.');
     ctx.body = {
       'msg': 'Label sucessfully added',
-    }
+    };
   } catch (err) {
-    console.log("Label was not submitted");
+    console.log('Label was not submitted');
     console.log(err);
     ctx.throw(400, err);
   }
@@ -163,127 +189,11 @@ router.get('/events/:id/sound', async (ctx) => {
 });
 
 /**
- * POST /viewer/event/fake/sound
- */
-router.post('/events/fake/sound', async (ctx) => {
-  // TODO: Fake method to show how upload works; replace with real logic
-  const eventId = 'fake';
-
-  const uid = ctx.user.uid;
-
-  // create a temporary folder to store files
-  const uploadDir = `${eventId}/${uid}`;
-  const realEventDir = path.join(getUploadDir(), eventId);
-  const realDir = path.join(getUploadDir(), uploadDir);
-
-  // make the temporary directory
-  try {
-    if (!await fse.exists(realEventDir)) {
-      await fse.mkdir(realEventDir);
-    }
-    if (!await fse.exists(realDir)) {
-      await fse.mkdir(realDir);
-    }
-  } catch (e) {
-    console.log(e);
-    ctx.throw(500, 'Failed to create upload dir');
-  }
-
-  const files = ctx.request.files || {};
-  const file = files.file;
-
-  if (!file) {
-    ctx.throw(400, 'No file for upload');
-  }
-
-  if (!ctx.request.body.sound) {
-    ctx.throw(400, 'Sound info required');
-  }
-
-  let soundInfo;
-  try {
-    soundInfo = JSON.parse(ctx.request.body.sound);
-    soundInfo = Object.assign({
-      meta: {
-        category: ''
-      }
-    }, soundInfo);
-  } catch (e) {
-    console.log(e);
-    ctx.throw(400, 'Invalid sound info format');
-  }
-
-  // Validate sound data
-  try {
-    soundInfo = await soundSchema.validateAsync(soundInfo);
-  } catch (err) {
-    ctx.throw(400, err);
-  }
-  
-  // Remove empty label
-  if (!soundInfo.meta.label) {
-    delete soundInfo.meta.label;
-  }
-
-  if (!['audio/wav', 'audio/wave', 'audio/x-wav'].includes(file.type) ||
-      !file.name.endsWith('.wav')) {
-    ctx.throw(400, 'Unsupported audio format');
-  }
-
-  if (file.size > 4 * 1024 * 1024) {  // 4MB
-    ctx.throw(400, 'File size exceeds limit');
-  }
-
-  const soundModel = new Sound(ctx);
-  const soundId = soundModel.createObjectId();
-  let soundLabel = soundInfo.meta.label || soundInfo.meta.category || '';
-  // Sanitize the label to avoid security issues
-  soundLabel = soundLabel.replace(/[^a-zA-z0-9]/g, '').substring(0, 15); 
-
-  const filename = getTime() + '_' + soundLabel + '_' + soundId + '.wav';
-  const filePath = path.join(realDir, filename);
-  const fileUrl = getUploadUrlPrefix() + uploadDir + `/${filename}`;
-
-  try {
-    const reader = fse.createReadStream(file.path);
-    const writer = fse.createWriteStream(filePath);
-    const promise = new Promise((resolve, reject) => {
-      reader.on('error', error => reject(error));
-      writer.on('error', error => reject(error));
-      reader.on('end', response => resolve(response));
-    });
-    reader.pipe(writer);
-    await promise;
-  } catch (e) {
-    console.log(e);
-    ctx.throw(500, 'Failed to upload file');
-  }
-
-  const soundData = Object.create(soundInfo);
-
-  // TODO: Verify soundData
-  soundData.uid = uid;
-  soundData.event_id = eventId;
-  soundData.path = fileUrl;
-  soundData._id = soundId;
-
-  const soundItem = await soundModel.create(soundData);
-
-  ctx.body = {
-    'msg': 'success',
-    'result': {
-      'id': soundItem.id,
-      'path': fileUrl
-    }
-  };
-});
-
-/**
  * POST /viewer/event/:id/sound
  */
 router.post('/events/:id/sound', async (ctx) => {  
 
-  console.log("Initially recorded sound object: "+ctx.request.body.sound);
+  console.log('Initially recorded sound object: '+ctx.request.body.sound);
   const eventId = ctx.params.id;
   const eventModel = new Event(ctx);
   eventModel.hideUnpublishedEvents();
@@ -328,7 +238,7 @@ router.post('/events/:id/sound', async (ctx) => {
     ctx.throw(400, 'Sound info required');
   }
 
-  console.log("Successfully found sound info and created directory to upload sound");
+  console.log('Successfully found sound info and created directory to upload sound');
   let soundInfo;
   try {
     soundInfo = JSON.parse(ctx.request.body.sound);
@@ -353,8 +263,7 @@ router.post('/events/:id/sound', async (ctx) => {
   } catch (err) {
     ctx.throw(400, err);
   }
-
-  console.log("Successfully validated uploaded sound");
+  console.log('Successfully validated uploaded sound');
 
   if (!['audio/wav', 'audio/wave', 'audio/x-wav'].includes(file.type) ||
       !file.name.endsWith('.wav')) {
@@ -402,10 +311,10 @@ router.post('/events/:id/sound', async (ctx) => {
   soundData.votedLabels = null;
   soundData.isValidated = false;
   soundData.validatedLabel = null;
+  soundData.uploadTime = new Date();
 
-  console.log("Sound being saved:"+ JSON.stringify(soundData));
   const soundItem = await soundModel.create(soundData);
-  console.log("Successfully saved uploaded sound");
+  console.log('Sound object '+JSON.stringify(soundData)+' was successfully saved uploaded sound');
 
   // Update corresponding event
   await eventModel.updateUnvalidatedSounds(soundData.event_id, 1);

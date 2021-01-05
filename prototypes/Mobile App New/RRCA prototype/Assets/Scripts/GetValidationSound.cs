@@ -20,7 +20,13 @@ public class GetValidationSound : MonoBehaviour
     [SerializeField]
     private Text guideline;
 
-    public bool setPopUp = false;
+    public enum PopupType {
+        None,
+        NoEventSound,
+        NoCommunitySound,
+    };
+
+    public PopupType setPopUp = PopupType.None;
 
     public bool showErrorMessage = false;
 
@@ -34,12 +40,18 @@ public class GetValidationSound : MonoBehaviour
         
     }
 
-    /* not used */
     public void GetSound()
     {
         Debug.Log("Get sound");
         showErrorMessage = false;
         StartCoroutine(RequestSoundList());
+    }
+
+    public void GetSoundFromEvent(string id)
+    {
+        Debug.Log("Get sound from event " + id);
+        showErrorMessage = false;
+        StartCoroutine(RequestSoundListFromEventId(id));
     }
 
     // Update is called once per frame
@@ -49,6 +61,33 @@ public class GetValidationSound : MonoBehaviour
             guideline.text = label;
         }
         
+    }
+
+    public IEnumerator RequestSoundListFromEventId(string id)
+    {
+        Debug.Log("in Request Sound List from event: " + id);
+        string responseBody;
+        using (UnityWebRequest req = UnityWebRequest.Get("https://hcii-gwap-01.andrew.cmu.edu/api/viewer/sound/retrieve/event/" + id))
+        {
+            // Debug.Log("making api call");
+            req.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
+
+            yield return req.SendWebRequest();
+
+
+            if (req.isNetworkError || req.isHttpError)
+            {
+                Debug.Log(req.error + " : " + req.downloadHandler.text);
+            }
+
+            responseBody = DownloadHandlerBuffer.GetContent(req);
+            PlayerPrefs.SetString("body", responseBody);
+        }
+
+        Debug.Log("Got sound front event response");
+        Debug.Log("response: " + responseBody);
+        StartCoroutine(GetSoundList(true));
+
     }
 
     public IEnumerator RequestSoundList()
@@ -78,7 +117,7 @@ public class GetValidationSound : MonoBehaviour
 
     }
 
-    IEnumerator GetSoundList()
+    IEnumerator GetSoundList(bool isEvent = false)
     {
         string responseBody = PlayerPrefs.GetString("body");
         SoundObject soundObject; 
@@ -93,16 +132,16 @@ public class GetValidationSound : MonoBehaviour
 
         
         if (result.msg == "There are currently no new sounds for validation") {
-            setPopUp = true;
+            setPopUp = isEvent ? PopupType.NoEventSound : PopupType.NoCommunitySound;
             label = "Is this the sound of ... ";
         }
-        else if (result.msg != "Success") {
+        else if (!result.msg.StartsWith("Success")) {
             showErrorMessage = true;
             label = "Is this the sound of ... ";
         }
 
         else {
-            setPopUp = false;
+            setPopUp = PopupType.None;
             showErrorMessage = false;
             if (result.result != null)
             {

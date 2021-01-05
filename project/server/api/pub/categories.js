@@ -21,8 +21,8 @@ router.get('/categories', async (ctx) => {
   ctx.body = {
     'msg': 'Success',
     'categories': categoryInfo
-  }
-})
+  };
+});
 
 /**
  * GET /pub/categories/:parent
@@ -35,14 +35,14 @@ router.get('/categories/:parent', async (ctx) => {
   const categoryInfo = await CategoryModel.findByParent(parent);
 
   if (categoryInfo.length === 0) {
-    ctx.throw(404, 'Parent category not found')
+    ctx.throw(404, 'Parent category not found');
   }
 
   ctx.body = {
     'msg': 'Success',
     'parent': parent,
     'sub_categories': categoryInfo
-  }
-})
+  };
+});
 
 module.exports = router;
